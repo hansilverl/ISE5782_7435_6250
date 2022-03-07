@@ -9,7 +9,9 @@ public class Point {
         _xyz = new Double3(x, y, z);
     }
 
-    public Point(Double3 xyz){_xyz = xyz;}
+    public Point(Double3 xyz) {
+        _xyz = xyz;
+    }
 
     public Vector subtract(Point p1) {
         Double3 res = new Double3(
@@ -25,7 +27,7 @@ public class Point {
         double y = _xyz._d2 + vec._xyz._d2;
         double z = _xyz._d3 + vec._xyz._d3;
 
-        return new Point(x,y,z);
+        return new Point(x, y, z);
     }
 
     @Override
@@ -58,5 +60,13 @@ public class Point {
         return "Point{" +
                 "xyz=" + _xyz +
                 '}';
+    }
+
+    public double distanceSquared(Point newP) {
+        Double3 temp = _xyz.subtract(newP._xyz);
+        double xx = temp._d1 * temp._d1;
+        double yy = temp._d2 * temp._d2;
+        double zz = temp._d3 * temp._d3;
+        return (xx + yy + zz);
     }
 }
