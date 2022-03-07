@@ -38,8 +38,8 @@ public class Point {
         return Objects.equals(_xyz, point._xyz);
     }
 
-    public double distanceSquared(Point newP){
-        Double3 temp = _xyz.subtract(newP._xyz);
+    public double distanceSquared(Point point){
+        Double3 temp = _xyz.subtract(point._xyz);
         double xx = temp._d1* temp._d1;
         double yy = temp._d2* temp._d2;
         double zz = temp._d3* temp._d3;
@@ -62,11 +62,5 @@ public class Point {
                 '}';
     }
 
-    public double distanceSquared(Point newP) {
-        Double3 temp = _xyz.subtract(newP._xyz);
-        double xx = temp._d1 * temp._d1;
-        double yy = temp._d2 * temp._d2;
-        double zz = temp._d3 * temp._d3;
-        return (xx + yy + zz);
-    }
+
 }
