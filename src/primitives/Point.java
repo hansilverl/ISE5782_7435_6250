@@ -36,6 +36,18 @@ public class Point {
         return Objects.equals(_xyz, point._xyz);
     }
 
+    public double distanceSquared(Point newP){
+        Double3 temp = _xyz.subtract(newP._xyz);
+        double xx = temp._d1* temp._d1;
+        double yy = temp._d2* temp._d2;
+        double zz = temp._d3* temp._d3;
+        return (xx+yy+zz);
+    }
+
+    public double distance(Point newP){
+        return Math.sqrt(distanceSquared(newP));
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(_xyz);
