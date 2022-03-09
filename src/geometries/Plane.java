@@ -7,9 +7,15 @@ import primitives.Vector;
  * Plane (defined by a point and the orthogonal vector).
  */
 public class Plane implements Geometry {
-    private Vector normal;
-    private Point q0;
+   final private Vector normal;
+   final private Point q0;
 
+    /**
+     * constructor gets 3 parameters
+     * @param p1
+     * @param p2
+     * @param p3
+     */
     public Plane(Point p1, Point p2, Point p3) {
         Vector u=p2.subtract(p1);
         Vector v=p3.subtract(p1);
@@ -26,11 +32,19 @@ public class Plane implements Geometry {
         q0=pnt;
     }
 
-    //Returns normal
+    /**
+     * getter for normal vector
+     */
+
     public Vector getNormal() {
         return normal;
     }
 
+    /**
+     * implemeneting {@link Geometry#getNormal(Point)}
+     * @param point reference point
+     * @return normal
+     */
     @Override
     public Vector getNormal(Point point) {
         return getNormal(); //Return non-parametric result.
