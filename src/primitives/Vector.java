@@ -10,6 +10,10 @@ public class Vector extends Point {
         }
     }
 
+    public Vector(Double3 xyz) {
+        super(xyz);
+    }
+
     public double lengthSquared() {
         return _xyz._d1 * _xyz._d1 + _xyz._d2 * _xyz._d2 + _xyz._d3 * _xyz._d3;
     }
@@ -19,17 +23,15 @@ public class Vector extends Point {
     }
 
     public double dotProduct(Vector vec) {
-        double u1 = _xyz._d1;
-        double u2 = _xyz._d2;
-        double u3 = _xyz._d3;
+        Double3 xyz = _xyz.product(vec._xyz);
 
-        double v1 = vec._xyz._d1;
-        double v2 = vec._xyz._d2;
-        double v3 = vec._xyz._d3;
-
-        return (u1 * v1 + u2 * v2 + u3 * v3);
+        return (xyz._d1 + xyz._d2 + xyz._d3);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
 
     public Vector crossProduct(Vector vec) {
         double u1 = _xyz._d1;
@@ -48,21 +50,30 @@ public class Vector extends Point {
 
     public Vector add(Vector vec)
     {
-        Double3 coordinate =new Double3(
-                _xyz._d1 +vec._xyz._d1,
-                _xyz._d2 +vec._xyz._d2,
-                _xyz._d3 +vec._xyz._d3);
+        Double3 coordinate = _xyz.add(vec._xyz);
         if (Double3.ZERO.equals(coordinate))
             throw new IllegalArgumentException("Zero vector invalid");
-        return new Vector(coordinate._d1,coordinate._d2,coordinate._d3);
+        return new Vector(coordinate);
     }
 
+    @Override
+    public String toString() {
+        return "Vector{" +
+                "_xyz=" + _xyz +
+                '}';
+    }
+
+    /**
+     * Multiplying a vector by scalar
+     * @param scaleFactor
+     * @return
+     */
     public Vector scale(double scaleFactor)
     {
         if (isZero(scaleFactor ))
             throw new IllegalArgumentException("Zero vector invalid!");
 
-        return (new Vector(_xyz._d1 *scaleFactor, _xyz._d2 *scaleFactor, _xyz._d3 *scaleFactor));
+        return new Vector(_xyz.scale(scaleFactor));
     }
 
     public Vector normalize() {
