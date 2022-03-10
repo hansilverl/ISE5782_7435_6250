@@ -2,11 +2,21 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
+import static primitives.Util.isZero;
+
 import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test for primitives.Vector
+ *
+ * @Authors Hila Buznach & Hannah Silverberg
+ */
 class VectorTest {
 
+    /**
+     * Test method for {@link primitives.Vector#crossProduct(primitives.Vector)}
+     */
     @Test
     void testConstructorZero() {
         assertThrows(IllegalArgumentException.class, () -> {

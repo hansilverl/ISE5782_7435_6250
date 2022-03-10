@@ -8,25 +8,38 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Test class for {@link Point}
  *
+ * @Authors Hila Buznach & Hannah Silverberg
  */
 class PointTest {
 
     Point p1 = new Point(1, 2, 3);
 
+    /**
+     * test method for {@link primitives.Vector#subtract(Point)} (primitives.Point...)}.
+     */
     @Test
     void testSubtract() {
-        assertEquals(new Vector (1,1,1),new Point(2,3,4).subtract(p1)
-                ,"ERROR: Point - Point does not work correctly");
+        //Test that the subtraction method works properly
+        assertEquals(new Vector(1, 1, 1), new Point(2, 3, 4).subtract(p1)
+                , "ERROR: Point - Point subtraction does not work correctly");
+
+        //Test that if subtraction results in 0, an exception will be thrown
+        assertThrows(IllegalArgumentException.class, () -> {
+            p1.subtract(p1);
+        }, "ERROR: zero point should have thrown an exception");
     }
 
+    /**
+     * test method for {@link primitives.Vector#add(Vector)} (Point)} (primitives.Point...)}.
+     */
     @Test
     void testAdd() {
-        fail("not yet implemented hahahaha");
+        //Test that the addition method works properly
+        assertEquals(new Point(1, 1, 1), p1.add(new Vector(0, -1, -2))
+                , "ERROR: Point - Point addition does not work correctly");
+
     }
 
-    @Test
-    void testDistanceSquared() {
-    }
 
     /**
      * Testing the {@link Point#distance(Point)}
@@ -39,6 +52,6 @@ class PointTest {
                 0.5,
                 distance,
                 0.0001,
-                "LOSER");
+                "Distance method doesn't work correctly");
     }
 }

@@ -3,6 +3,7 @@ package primitives;
 import static primitives.Util.isZero;
 
 public class Vector extends Point {
+
     public Vector(double x, double y, double z) {
         super(x, y, z);
         if (isZero(x)&&isZero(y)&&isZero(z)) {
@@ -15,7 +16,8 @@ public class Vector extends Point {
     }
 
     public double lengthSquared() {
-        return _xyz._d1 * _xyz._d1 + _xyz._d2 * _xyz._d2 + _xyz._d3 * _xyz._d3;
+        Double3 xyz=_xyz.product(_xyz);
+        return xyz._d1+xyz._d2+ xyz._d3;
     }
 
     public double length() {
@@ -34,18 +36,13 @@ public class Vector extends Point {
     }
 
     public Vector crossProduct(Vector vec) {
-        double u1 = _xyz._d1;
-        double u2 = _xyz._d2;
-        double u3 = _xyz._d3;
-
-        double v1 = vec._xyz._d1;
-        double v2 = vec._xyz._d2;
-        double v3 = vec._xyz._d3;
+        Double3 u=_xyz;
+        Double3 v=vec._xyz;
 
         return new Vector(
-                u2 * v3 - u3 * v2,
-                u3 * v1 - u1 * v3,
-                u1 * v2 - u2 * v1);
+                u._d2 * v._d3 - u._d3 * v._d2,
+                u._d3 * v._d1 - u._d1 * v._d3,
+                u._d1 * v._d2 - u._d2 * v._d1);
     }
 
     public Vector add(Vector vec)
