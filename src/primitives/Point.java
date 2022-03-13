@@ -2,6 +2,9 @@ package primitives;
 
 import java.util.Objects;
 
+/**
+ *  Class to represent a Point
+ */
 public class Point {
     Double3 _xyz;
 
