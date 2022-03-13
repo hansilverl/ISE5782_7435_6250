@@ -2,10 +2,14 @@ package primitives;
 
 import java.util.Objects;
 
+/**
+ * Class to represent a ray
+ */
 public class Ray {
     final Point _p0;
     final Vector _dir;
 
+    //Constructing a ray
     public Ray(Point p0, Vector dir){
         _p0 = p0;
         _dir = dir.normalize();
