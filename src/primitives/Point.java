@@ -28,6 +28,12 @@ public class Point {
         _xyz = xyz;
     }
 
+    /**
+     * Method for subtracting a point from a point
+     *
+     * @param p1
+     * @return
+     */
     public Vector subtract(Point p1) {
         Double3 res = _xyz.subtract(p1._xyz);
         if (Double3.ZERO.equals(res)) {

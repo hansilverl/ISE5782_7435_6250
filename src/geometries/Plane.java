@@ -29,6 +29,8 @@ public class Plane implements Geometry {
 
     /**
      * The second constructor, receives a point and a vector.
+     * @param point
+     * @param vec
      */
     public Plane(Point point, Vector vec) {
         _normal = vec.normalize();
@@ -37,6 +39,7 @@ public class Plane implements Geometry {
 
     /**
      * getter for normal vector
+     * @return
      */
 
     public Vector getNormal() {
@@ -44,7 +47,7 @@ public class Plane implements Geometry {
     }
 
     /**
-     * implemeneting {@link Geometry#getNormal(Point)}
+     * implementing {@link Geometry#getNormal(Point)}
      *
      * @param point reference point
      * @return normal
