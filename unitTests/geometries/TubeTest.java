@@ -52,6 +52,9 @@ class TubeTest {
 *  1. Tests for tube
 *  2. Update PR01 with new shapes - sphere, cylinder
 *  3. Tests for those new shapes
-*  4. Add commons
-*  5. Add javadoc to ray and maybe more 🤔
+*  4. Add comments
+*  5. Add javadoc to ray and maybe more 🤔 (Hila's smiley looks ugly😔😔)
+*  Use:
+*  6. implementing {@link Geometry#getNormal(Point)}
+*  7. implementing {@link Geometry#findIntersections(Ray)}
 *  */
