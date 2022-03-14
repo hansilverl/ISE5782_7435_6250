@@ -65,6 +65,12 @@ public class Plane implements Geometry {
         return getNormal(); //Return non-parametric result.
     }
 
+    /**
+     * finding the intersection of rays
+     * implementing {@link Geometry#findIntersections(Ray)}
+     * @param ray in plane
+     * @return
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
         Point p0 = ray.getP0();

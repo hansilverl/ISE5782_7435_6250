@@ -18,6 +18,11 @@ public interface Geometry extends intersectable  {
      */
     Vector getNormal(Point point);
 
+
+    /**
+     * @param ray
+     * @return
+     */
     List<Point> findIntersections(Ray ray);
 }
 

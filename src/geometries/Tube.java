@@ -49,6 +49,7 @@ public class Tube implements Geometry {
     }
 
     /**
+     * implementing {@link Geometry#findIntersections(Ray)}
      * @param ray in Tube
      * @return
      */
