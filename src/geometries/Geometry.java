@@ -4,22 +4,26 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Representing complex shapes
+ * Composite class to gather other {@link Geometry} based objects
  */
-public interface Geometry extends intersectable  {
+public interface Geometry extends Intersectable {
+
     /**
      * Getter for normal vector
-     * implementing {@link Geometry#getNormal(Point)}
+     *
      * @param point
      * @return
      */
     Vector getNormal(Point point);
 
 
-    /**implementing {@link Geometry#findIntersections(Ray)}
+    /**
      * @param ray
      * @return
      */
