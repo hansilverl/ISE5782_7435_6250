@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * Plane (defined by a point and the orthogonal vector).
@@ -11,7 +14,7 @@ public class Plane implements Geometry {
     final private Point _q0;    //q0 point for plane
 
     /**
-     * constructor gets 3 parameters
+     * constructor gets 3 parameters:
      *
      * @param p1
      * @param p2
@@ -55,5 +58,11 @@ public class Plane implements Geometry {
     @Override
     public Vector getNormal(Point point) {
         return getNormal(); //Return non-parametric result.
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray)
+    {
+
     }
 }

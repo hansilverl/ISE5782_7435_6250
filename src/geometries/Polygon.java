@@ -86,6 +86,7 @@ public class Polygon implements Geometry {
 
 
 	/**
+	 * Getter for normal vector
 	 * implementing {@link Geometry#getNormal(Point)}
 	 * @param point
 	 * @return
