@@ -21,13 +21,14 @@ public class Cylinder implements Geometry {
         return null;
     }
 
+
     /**
-     * implementing {@link Geometry#findIntersections(Ray)}
+     * implementing {@link Intersectable#findIntersection(Ray)}
      * @param ray
      * @return
      */
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<Point> findIntersection(Ray ray) {
         return null;
     }
 }

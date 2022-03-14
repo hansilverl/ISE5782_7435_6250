@@ -13,6 +13,7 @@ import static primitives.Util.isZero;
  * Plane (defined by a point and the orthogonal vector).
  */
 public class Plane implements Geometry {
+    
     final private Vector _normal;   //Normalized vector
     final private Point _q0;    //q0 point for plane
 
@@ -67,10 +68,11 @@ public class Plane implements Geometry {
 
     /**
      * finding the intersection of rays
-     * implementing {@link Geometry#findIntersections(Ray)}
+     * implementing {@link Intersectable#findIntersection(Ray)} )}
      * @param ray in plane
      * @return
      */
+
     @Override
     public List<Point> findIntersections(Ray ray) {
         Point p0 = ray.getP0();
@@ -98,4 +100,6 @@ public class Plane implements Geometry {
         }
         return null;
     }
+
+
 }

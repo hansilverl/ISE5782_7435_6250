@@ -31,18 +31,8 @@ public class Geometries implements Geometry {
 
 
     /**
-     * @param ray
-     * @return
-     */
-    @Override
-    public List<Point> findIntersections(Ray ray) {
-        return null;
-    }
-
-
-    /**
      * finding intersection between rays
-     * implementing {@link Geometry#findIntersections(Ray)}
+     * implementing {@link Intersectable#findIntersection(Ray)}
      *
      * @param ray of triangle
      * @return
@@ -75,4 +65,5 @@ public class Geometries implements Geometry {
     public Vector getNormal(Point point) {
         return null;
     }
+
 }

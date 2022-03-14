@@ -27,13 +27,13 @@ public class Triangle implements Geometry {
 
     /**
      * finding intersection between rays
-     * implementing {@link Geometry#findIntersections(Ray)}
+     * implementing {@link geometries.Intersectable#findIntersection(Ray)} Ray)}
      *
      * @param ray of triangle
      * @return
-     */
+*/
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<Point> findIntersection(Ray ray) {
         return null;
     }
 }

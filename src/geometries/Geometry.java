@@ -27,7 +27,6 @@ public interface Geometry extends Intersectable {
      * @param ray
      * @return
      */
-    List<Point> findIntersections(Ray ray);
 }
 
 

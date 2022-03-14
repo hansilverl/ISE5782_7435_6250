@@ -57,4 +57,10 @@ public class Tube implements Geometry {
     public List<Point> findIntersections(Ray ray) {
         return null;
     }
+
+
+    @Override
+    public List<Point> findIntersection(Ray ray) {
+        return null;
+    }
 }

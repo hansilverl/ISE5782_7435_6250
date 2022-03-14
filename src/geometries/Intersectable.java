@@ -10,6 +10,7 @@ import java.util.List;
  * that interface with a specific Ray {@link primitives.Ray}
  */
 public interface Intersectable {
+
     List<Point> findIntersection(Ray ray);
     /**
      * find all intersection points {@link Point}
