@@ -19,7 +19,7 @@ public interface Geometry extends intersectable  {
     Vector getNormal(Point point);
 
 
-    /**
+    /**implementing {@link Geometry#findIntersections(Ray)}
      * @param ray
      * @return
      */
