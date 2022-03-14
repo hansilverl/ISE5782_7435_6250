@@ -52,7 +52,7 @@ public class Point {
         Double3 xyz = _xyz.add(vec._xyz);
         return new Point(xyz);
     }
-
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
