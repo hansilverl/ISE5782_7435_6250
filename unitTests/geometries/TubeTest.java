@@ -31,6 +31,22 @@ class TubeTest {
     void testGetNormal() {
 
     }
+
+    @Test
+    void testTestGetAxisRay() {
+    }
+
+    @Test
+    void testTestGetRadius() {
+    }
+
+    @Test
+    void testTestGetNormal() {
+    }
+
+    @Test
+    void testFindIntersections() {
+    }
 }
 /*TODO:
 *  1. Tests for tube

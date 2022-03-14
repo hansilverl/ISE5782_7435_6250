@@ -2,7 +2,7 @@ package geometries;
 
 /**
  * common interface for all graphic 3D objects
- * that interfact with a specific Ray {@link primitives.Ray}
+ * that interface with a specific Ray {@link primitives.Ray}
  */
 public interface intersectable {
     /**

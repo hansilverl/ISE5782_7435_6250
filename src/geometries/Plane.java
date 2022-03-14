@@ -6,6 +6,9 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 /**
  * Plane (defined by a point and the orthogonal vector).
  */
@@ -16,9 +19,9 @@ public class Plane implements Geometry {
     /**
      * constructor gets 3 parameters:
      *
-     * @param p1
-     * @param p2
-     * @param p3
+     * @param p1 point in plane
+     * @param p2 point in plane
+     * @param p3 point in plane
      */
     public Plane(Point p1, Point p2, Point p3) {
         Vector u = p2.subtract(p1);
@@ -32,8 +35,9 @@ public class Plane implements Geometry {
 
     /**
      * The second constructor, receives a point and a vector.
-     * @param point
-     * @param vec
+     *
+     * @param point point in plane
+     * @param vec vector in plane
      */
     public Plane(Point point, Vector vec) {
         _normal = vec.normalize();
@@ -42,7 +46,8 @@ public class Plane implements Geometry {
 
     /**
      * getter for normal vector
-     * @return
+     *
+     * @return normal
      */
 
     public Vector getNormal() {
@@ -61,8 +66,30 @@ public class Plane implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray)
-    {
+    public List<Point> findIntersections(Ray ray) {
+        Point p0 = ray.getP0();
+        Vector v = ray.getDir();
+        Vector n = _normal;
 
+        double nv = n.dotProduct(v);
+
+        //if the ray is parallel to the point, there will be no intersection point
+        if (isZero(nv)) {
+            return null;
+        }
+
+        Vector Q_P0 = _q0.subtract(p0);
+        double t = alignZero(n.dotProduct(Q_P0) / nv);
+
+        //meaning t===0 Origin of the ray lies on the plane
+        if (isZero(t)) {
+            return null;
+        }
+        // if t < 0 - the direction is in the opposite
+        if (t > 0) {
+            Point point = p0.add(v.scale(t));
+            return List.of(point);
+        }
+        return null;
     }
 }
