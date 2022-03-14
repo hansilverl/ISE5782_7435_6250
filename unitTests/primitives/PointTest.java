@@ -20,7 +20,7 @@ class PointTest {
     @Test
     void testSubtract() {
         //Test that the subtraction method works properly
-        assertEquals(new Vector(1, 1, 1), new Point(0, 1, 2).subtract(p1)
+        assertEquals(new Vector(1, 1, 1), p1.subtract(new Point(0, 1, 2))
                 , "ERROR: Point - Point subtraction does not work correctly");
 
         //Test that if subtraction results in 0, an exception will be thrown
