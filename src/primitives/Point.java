@@ -3,15 +3,27 @@ package primitives;
 import java.util.Objects;
 
 /**
- *  Class to represent a Point
+ * Class to represent a Point
  */
 public class Point {
-    Double3 _xyz;
+    Double3 _xyz;   //Representing a point
 
+    /**
+     * Point constructor by coordinate values.
+     *
+     * @param x value for x in axis
+     * @param y value for y in axis
+     * @param z value for z in axis
+     */
     public Point(double x, double y, double z) {
         _xyz = new Double3(x, y, z);
     }
 
+    /**
+     * Point constructor by coordinate
+     *
+     * @param xyz value for axis
+     */
     public Point(Double3 xyz) {
         _xyz = xyz;
     }
@@ -24,6 +36,12 @@ public class Point {
         return new Vector(res);
     }
 
+    /**
+     * Adding a vector to point
+     *
+     * @param vec vector in plane
+     * @return
+     */
     public Point add(Vector vec) {
         Double3 xyz = _xyz.add(vec._xyz);
         return new Point(xyz);
@@ -37,15 +55,28 @@ public class Point {
         return Objects.equals(_xyz, point._xyz);
     }
 
-    public double distanceSquared(Point point){
+    /**
+     * The squared distance of a given point
+     *
+     * @param point in axis
+     * @return
+     */
+    public double distanceSquared(Point point) {
         Double3 temp = _xyz.subtract(point._xyz);
-        double xx = temp._d1* temp._d1;
-        double yy = temp._d2* temp._d2;
-        double zz = temp._d3* temp._d3;
-        return (xx+yy+zz);
+        double xx = temp._d1 * temp._d1;
+        double yy = temp._d2 * temp._d2;
+        double zz = temp._d3 * temp._d3;
+        return (xx + yy + zz);
+
     }
 
-    public double distance(Point newP){
+    /**
+     * Calculating the distance (length) of a point
+     *
+     * @param newP new point in axis
+     * @return
+     */
+    public double distance(Point newP) {
         return Math.sqrt(distanceSquared(newP));
     }
 

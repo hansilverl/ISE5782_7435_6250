@@ -7,8 +7,8 @@ import primitives.Vector;
  * Plane (defined by a point and the orthogonal vector).
  */
 public class Plane implements Geometry {
-    final private Vector _normal;
-    final private Point _q0;
+    final private Vector _normal;   //Normalized vector
+    final private Point _q0;    //q0 point for plane
 
     /**
      * constructor gets 3 parameters
