@@ -74,7 +74,7 @@ public class Double3 {
      * @return result of add
      */
     Double3 subtract(Double3 rhs) {
-        return new Double3(_d1 - rhs._d1, _d2 - rhs._d2, _d3 - rhs._d3);
+        return new Double3(rhs._d1 - _d1, rhs._d2 - _d2, rhs._d3 - _d3);
     }
 
     /**
