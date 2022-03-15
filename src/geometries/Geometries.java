@@ -16,18 +16,18 @@ public class Geometries implements Geometry {
 
     /**
      * constructor of Geometry
+     *
      * @param intersectables array of {@link Intersectable} objects
      */
     public Geometries(Intersectable... intersectables) {
-        _intersectables =new LinkedList<>();
-        Collections.addAll(_intersectables,intersectables);
+        _intersectables = new LinkedList<>();
+        Collections.addAll(_intersectables, intersectables);
     }
 
 
-    public Geometries(){
-        _intersectables =new LinkedList<>();
+    public Geometries() {
+        _intersectables = new LinkedList<>();
     }
-
 
 
     /**
@@ -41,18 +41,17 @@ public class Geometries implements Geometry {
 
     @Override
     public List<Point> findIntersection(Ray ray) {
-        List<Point> result =null;
-        for (Intersectable item:_intersectables)
-        {
-            List<Point> itemPointList=item.findIntersection(ray);
-            if (itemPointList !=null)
-            {
-                result=new LinkedList<>();
+        List<Point> result = null;
+        for (Intersectable item : _intersectables) {
+            List<Point> itemPointList = item.findIntersection(ray);
+            if (itemPointList != null) {
+                result = new LinkedList<>();
             }
 
         }
         return null;
     }
+
     /**
      * Getter for normal vector
      * Returns the normal of a point

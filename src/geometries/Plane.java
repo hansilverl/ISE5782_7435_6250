@@ -73,8 +73,7 @@ public class Plane implements Geometry {
      * @return
      */
 
-    @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<Point> findIntersection(Ray ray) {
         Point p0 = ray.getP0();
         Vector v = ray.getDir();
         Vector n = _normal;
@@ -100,6 +99,4 @@ public class Plane implements Geometry {
         }
         return null;
     }
-
-
 }

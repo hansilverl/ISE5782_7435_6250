@@ -100,13 +100,17 @@ public class Polygon implements Geometry {
 
     /**
      * finding intersection between rays
-     * implementing {@link Geometry#findIntersections(Ray)}
+     * implementing {@link  Intersectable#findIntersection(Ray)} }
      *
      * @param ray
      * @return
      */
-    @Override
     public List<Point> findIntersections(Ray ray) {
+        return null;
+    }
+
+    @Override
+    public List<Point> findIntersection(Ray ray) {
         return null;
     }
 }

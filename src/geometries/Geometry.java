@@ -8,10 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Representing complex shapes
- * Composite class to gather other {@link Geometry} based objects
- */
+
 public interface Geometry extends Intersectable {
 
     /**
@@ -22,11 +19,6 @@ public interface Geometry extends Intersectable {
      */
     Vector getNormal(Point point);
 
-
-    /**
-     * @param ray
-     * @return
-     */
 }
 
 

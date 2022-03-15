@@ -49,16 +49,10 @@ public class Tube implements Geometry {
     }
 
     /**
-     * implementing {@link Geometry#findIntersections(Ray)}
+     * implementing {@link Intersectable#findIntersection(Ray)} }
      * @param ray in Tube
      * @return
      */
-    @Override
-    public List<Point> findIntersections(Ray ray) {
-        return null;
-    }
-
-
     @Override
     public List<Point> findIntersection(Ray ray) {
         return null;

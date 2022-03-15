@@ -10,7 +10,7 @@ import java.util.List;
  * Class to represent a sphere
  */
 public class Sphere implements Geometry{
-    /**
+    /**``
      * implementing {@link Geometry#getNormal(Point)}
      * Getter for normal vector
      * @param point
@@ -22,12 +22,13 @@ public class Sphere implements Geometry{
     }
 
     /**
-     * implementing {@link Geometry#findIntersections(Ray)}
+     * implementing {@link Intersectable#findIntersection(Ray)} }
      * @param ray
      * @return
      */
+
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<Point> findIntersection(Ray ray) {
         return null;
     }
 }
