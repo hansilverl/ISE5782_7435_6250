@@ -45,6 +45,14 @@ public class Plane implements Geometry {
         _q0 = point;
     }
 
+    public Vector get_normal() {
+        return _normal;
+    }
+
+    public Point get_q0() {
+        return _q0;
+    }
+
     /**
      * getter for normal vector
      *
@@ -64,6 +72,14 @@ public class Plane implements Geometry {
     @Override
     public Vector getNormal(Point point) {
         return getNormal(); //Return non-parametric result.
+    }
+
+    @Override
+    public String toString() {
+        return "Plane{" +
+                "_normal=" + _normal +
+                ", _q0=" + _q0 +
+                '}';
     }
 
     /**

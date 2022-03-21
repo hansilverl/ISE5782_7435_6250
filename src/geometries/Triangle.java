@@ -11,7 +11,6 @@ import java.util.List;
  * Class to represent a triangle
  */
 public class Triangle extends Polygon implements Geometry {
-
     /**
      * @param p1 point of a triangle
      * @param p2 point of a triangle
@@ -34,6 +33,13 @@ public class Triangle extends Polygon implements Geometry {
         return super.getNormal(point);
     }
 
+    @Override
+    public String toString() {
+        return "Triangle{" +
+                "vertices=" + vertices +
+                ", plane=" + plane +
+                '}';
+    }
 
     /**
      * finding intersection between rays
