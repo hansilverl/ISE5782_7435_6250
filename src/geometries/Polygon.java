@@ -21,6 +21,9 @@ public class Polygon implements Geometry {
      * Associated plane in which the polygon lays
      */
     protected Plane plane;
+    /** TODO:
+     *   why we have here the size?
+     */
     private int size;
 
     /**
@@ -85,6 +88,17 @@ public class Polygon implements Geometry {
         size = vertices.length;
     }
 
+    public List<Point> getVertices() {
+        return vertices;
+    }
+
+    public Plane getPlane() {
+        return plane;
+    }
+
+    public int getSize() {
+        return size;
+    }
 
     /**
      * Getter for normal vector
@@ -107,6 +121,15 @@ public class Polygon implements Geometry {
      */
     public List<Point> findIntersections(Ray ray) {
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Polygon{" +
+                "vertices=" + vertices +
+                ", plane=" + plane +
+                ", size=" + size +
+                '}';
     }
 
     @Override

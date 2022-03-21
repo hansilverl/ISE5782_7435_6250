@@ -48,6 +48,14 @@ public class Tube implements Geometry {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "Tube{" +
+                "_axisRay=" + _axisRay +
+                ", _radius=" + _radius +
+                '}';
+    }
+
     /**
      * implementing {@link Intersectable#findIntersection(Ray)} }
      * @param ray in Tube

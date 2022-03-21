@@ -53,6 +53,7 @@ class TubeTest {
     }
 }
 /*TODO:
+*  0. Why the plane have two function of get normal.
 *  1. Tests for tube
 *  2. Update PR01 with new shapes - sphere, cylinder
 *  3. Tests for those new shapes - also for old ones: alt+enter+add missing tests
