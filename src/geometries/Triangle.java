@@ -3,12 +3,12 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-import geometries.Polygon;
 
 import java.util.List;
 
 /**
- * Class to represent a triangle
+ * @author Hila Buznach & Hannah Silverberg
+ * Representing Triangle (defined by 3 points ).
  */
 public class Triangle extends Polygon implements Geometry {
     /**
@@ -19,14 +19,14 @@ public class Triangle extends Polygon implements Geometry {
     public Triangle(Point p1, Point p2, Point p3) {
         super(p1, p2, p3);
     }
-
+    //TODO: Do we need to check if p1.length + p2.length >=p3.length ect. ?
     /**
      * Getter for normal vector
      * Returns the normal of a point
      * implementing {@link Geometry#getNormal(Point)}
      *
-     * @param point
-     * @return
+     * @param point in an axis
+     * @return normalized vector
      */
     @Override
     public Vector getNormal(Point point) {
@@ -42,11 +42,11 @@ public class Triangle extends Polygon implements Geometry {
     }
 
     /**
-     * finding intersection between rays
+     * finding intersection
      * implementing {@link geometries.Intersectable#findIntersection(Ray)} Ray)}
      *
      * @param ray of triangle
-     * @return
+     * @return intersection points
      */
     @Override
     public List<Point> findIntersection(Ray ray) {

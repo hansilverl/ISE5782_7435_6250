@@ -121,9 +121,7 @@ class VectorTest {
     void testScale() {
 
         //Testing if zero scaling works
-        assertThrows(IllegalArgumentException.class, () -> {
-                    vec.scale(0);
-                },
+        assertThrows(IllegalArgumentException.class, () -> vec.scale(0),
                 "ERROR: zero scaling should have thrown an exception");
         //Testing if general case works.
         assertEquals(new Vector(2, 4, 6), vec.scale(2)
@@ -140,9 +138,7 @@ class VectorTest {
         Vector vec1 = vec.normalize();
         assertTrue(isZero(vec1.length() - 1)
                 , "ERROR: Vector - Vector scaling does not work correctly");
-        assertThrows(IllegalArgumentException.class, () -> {
-                    vec.crossProduct(vec1);
-                }
+        assertThrows(IllegalArgumentException.class, () -> vec.crossProduct(vec1)
                 , "ERROR: The normalized vector is not parallel to the original one");
     }
 

@@ -10,6 +10,7 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
+ * @author Hila Buznach & Hannah Silverberg
  * Plane (defined by a point and the orthogonal vector).
  */
 public class Plane implements Geometry {
@@ -25,6 +26,8 @@ public class Plane implements Geometry {
      * @param p3 point in plane
      */
     public Plane(Point p1, Point p2, Point p3) {
+        if (p1.equals(p2) || p2.equals(p3) || p3.equals(p1))
+            throw new IllegalArgumentException("All three vectors must be unique");
         Vector u = p2.subtract(p1);
         Vector v = p3.subtract(p1);
 
@@ -53,7 +56,7 @@ public class Plane implements Geometry {
     /**
      * getter for normal vector
      *
-     * @return normal
+     * @return normal of plane
      */
     public Vector getNormal() {
         return _normal;
@@ -63,7 +66,7 @@ public class Plane implements Geometry {
      * implementing {@link Geometry#getNormal(Point)}
      *
      * @param point reference point
-     * @return normal
+     * @return normal to plane
      */
     @Override
     public Vector getNormal(Point point) {
@@ -83,7 +86,7 @@ public class Plane implements Geometry {
      * implementing {@link Intersectable#findIntersection(Ray)} )}
      *
      * @param ray in plane
-     * @return
+     * @return list of intersection points
      */
 
     public List<Point> findIntersection(Ray ray) {
