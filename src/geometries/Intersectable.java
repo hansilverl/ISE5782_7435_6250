@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface Intersectable {
 
-    List<Point> findIntersection(Ray ray);
+    public List<Point> findIntersection(Ray ray);
     /**
      * find all intersection points {@link Point}
      * that intersect the Shape from a specific Ray {@link Ray}
