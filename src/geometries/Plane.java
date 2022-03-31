@@ -45,9 +45,6 @@ public class Plane implements Geometry {
         _q0 = point;
     }
 
-    public Vector get_normal() {
-        return _normal;
-    }
 
     public Point get_q0() {
         return _q0;
