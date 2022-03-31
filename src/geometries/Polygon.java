@@ -21,7 +21,8 @@ public class Polygon implements Geometry {
      * Associated plane in which the polygon lays
      */
     protected Plane plane;
-    /** TODO:
+    /**
+     * TODO:
      *   why we have here the size?
      */
     private int size;
