@@ -4,21 +4,33 @@ import java.util.Objects;
 
 /**
  * Class to represent a ray
+ * @author Hila Buznach & Hannah Silverberg
  */
 public class Ray {
-    final Point _p0;
-    final Vector _dir;
 
-    //Constructing a ray
+    final Point _p0;   //point value of ray
+    final Vector _dir;  //Vector value of ray
+
+    /**
+     * Constructing a ray
+     * @param p0 start point of ray
+     * @param dir vector to represent direction of ray
+     */
     public Ray(Point p0, Vector dir){
         _p0 = p0;
         _dir = dir.normalize();
     }
 
+    /**
+     * @return _p0 starting point of ray
+     */
     public Point getP0() {
         return _p0;
     }
 
+    /**
+     * @return _dir - direction of ray
+     */
     public Vector getDir() {
         return _dir;
     }

@@ -71,7 +71,7 @@ public class Double3 {
      * numbers is subtracted
      *
      * @param rhs right handle side operand for addition
-     * @return result of add
+     * @return result of subtraction
      */
     Double3 subtract(Double3 rhs) {
         return new Double3(_d1 - rhs._d1, _d2 - rhs._d2, _d3 - rhs._d3);
