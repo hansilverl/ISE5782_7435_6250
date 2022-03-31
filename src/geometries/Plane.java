@@ -61,10 +61,6 @@ public class Plane implements Geometry {
     public Vector getNormal() {
         return _normal;
     }
-    /**
-     * TODO:
-     *  why we have here two function of get normal
-     */
 
     /**
      * implementing {@link Geometry#getNormal(Point)}
