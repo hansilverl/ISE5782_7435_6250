@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static primitives.Util.isZero;
 
-import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -29,6 +28,9 @@ class VectorTest {
                 "ERROR: zero vector should have thrown an exception");
     }
 
+
+    //Length tests
+
     /**
      * Test method for {@link primitives.Vector#crossProduct(primitives.Vector)}
      */
@@ -48,13 +50,14 @@ class VectorTest {
     }
 
     /**
-     * Test method for {@link primitives.Vector#crossProduct(primitives.Vector)}
+     * Test method for {@link primitives.Vector#dotProduct(Vector)} }
      * Testing scalar multiplication
      */
     @Test
     void testDotProduct() {
         assertEquals(6, vec.dotProduct(new Vector(1, 1, 1))
                 , "ERROR: Vector - Dot product calculation does not work correctly");
+        assertTrue(isZero(vec.dotProduct(new Vector(0, 3, -2))), "ERROR: Dot product for orthogonal vector is not zero!");
     }
 
     /**
@@ -89,9 +92,7 @@ class VectorTest {
     @Test
     void testAdd() {
 
-        assertThrows(IllegalArgumentException.class, () -> {
-                    vec.add(new Vector(-1, -2, -3));
-                },
+        assertThrows(IllegalArgumentException.class, () -> vec.add(new Vector(-1, -2, -3)),
                 "ERROR: zero vector should have thrown an exception");
         //Test that the addition method works properly
         assertEquals(new Vector(1, 1, 1), vec.add(new Vector(0, -1, -2))
@@ -99,18 +100,18 @@ class VectorTest {
 
     }
 
-
     /**
      * Test method for {@link primitives.Vector#subtract(Vector)}
      */
     @Test
     void testSubtract() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            vec.subtract(vec);
-        }," ");
-        assertEquals(new Vector(1, 3, 5), vec.subtract(new Vector(0, -1, -2))
-                , "ERROR: Vector - Vector addition does not work correctly");
 
+        //Testing subtract operand
+        assertEquals(new Vector(1, 3, 5), vec.subtract(new Vector(0, -1, -2))
+                , "ERROR: Vector - Vector subtraction does not work correctly");
+
+        //Test that if subtraction results in 0, an exception will be thrown
+        assertThrows(IllegalArgumentException.class, () -> vec.subtract(vec), "ERROR: zero point should have thrown an exception");
     }
 
     /**
@@ -135,8 +136,14 @@ class VectorTest {
      */
     @Test
     void testNormalize() {
-        assertEquals(new Vector(1/Math.sqrt(14),Math.sqrt(2)/Math.sqrt(7),3/Math.sqrt(14)),vec.normalize()
+        //Test that the normalization works correctly
+        Vector vec1 = vec.normalize();
+        assertTrue(isZero(vec1.length() - 1)
                 , "ERROR: Vector - Vector scaling does not work correctly");
+        assertThrows(IllegalArgumentException.class, () -> {
+                    vec.crossProduct(vec1);
+                }
+                , "ERROR: The normalized vector is not parallel to the original one");
     }
 
 

@@ -4,6 +4,7 @@ import java.util.Objects;
 
 /**
  * Class to represent a Point
+ * @author Hila Buznach & Hannah Silverberg
  */
 public class Point {
     Double3 _xyz;   //Representing a point
@@ -31,8 +32,8 @@ public class Point {
     /**
      * Method for subtracting a point from a point
      *
-     * @param p1
-     * @return
+     * @param p1 point in a plane
+     * @return result of subtraction
      */
     public Vector subtract(Point p1) {
         Double3 res = _xyz.subtract(p1._xyz);
@@ -44,9 +45,8 @@ public class Point {
 
     /**
      * Adding a vector to point
-     *
      * @param vec vector in plane
-     * @return
+     * @return result of vector to point addition
      */
     public Point add(Vector vec) {
         Double3 xyz = _xyz.add(vec._xyz);
@@ -65,7 +65,7 @@ public class Point {
      * The squared distance of a given point
      *
      * @param point in axis
-     * @return
+     * @return distance squared
      */
     public double distanceSquared(Point point) {
         Double3 temp = _xyz.subtract(point._xyz);
@@ -80,7 +80,7 @@ public class Point {
      * Calculating the distance (length) of a point
      *
      * @param newP new point in axis
-     * @return
+     * @return distance
      */
     public double distance(Point newP) {
         return Math.sqrt(distanceSquared(newP));
