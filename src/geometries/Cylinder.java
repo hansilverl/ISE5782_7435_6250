@@ -8,13 +8,18 @@ import java.util.List;
 
 /**
  * Class to represent a cylinder
+ *
+ *  Test class for {@link Cylinder}
+ *
+ *  @author Hila Buznach & Hannah Silverberg
+ *
  */
 public class Cylinder implements Geometry {
     private final double _height;
 
     public Cylinder(double height) {
         _height = height;
-    }
+    }   //Constructor
 
     public double get_height() {
         return _height;

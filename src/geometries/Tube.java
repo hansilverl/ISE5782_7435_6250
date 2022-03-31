@@ -7,16 +7,17 @@ import primitives.Vector;
 import java.util.List;
 
 /**
+ * @author Hila Buznach & Hannah Silverberg
  * Class to represent a tube🧪
  */
 public class Tube implements Geometry {
-    private final Ray _axisRay;
-    private final double _radius;
+    private final Ray _axisRay;     //Ray axis
+    private final double _radius;   //Radius of Tube
 
     /**
      * Constructing a tube
-     * @param axisRay
-     * @param radius
+     * @param axisRay axis direction
+     * @param radius of tube
      */
     public Tube(Ray axisRay, double radius) {
         _axisRay = axisRay;
@@ -40,12 +41,16 @@ public class Tube implements Geometry {
     /**
      * implementing {@link Geometry#getNormal(Point)}
      * Getter for normal vector
-     * @param point
-     * @return
+     * @param point to normalize
+     * @return normalized vector
      */
     @Override
     public Vector getNormal(Point point) {
-        return null;
+        Vector v = _axisRay.getDir();
+        Point p0 = _axisRay.getP0();
+        double t = v.dotProduct(point.subtract(p0));
+        Point o = p0.add(v.scale(t));
+        return point.subtract(o).normalize();
     }
 
     @Override
