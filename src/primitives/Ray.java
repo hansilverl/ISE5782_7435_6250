@@ -1,9 +1,11 @@
 package primitives;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
  * Class to represent a ray
+ *
  * @author Hila Buznach & Hannah Silverberg
  */
 public class Ray {
@@ -13,10 +15,11 @@ public class Ray {
 
     /**
      * Constructing a ray
-     * @param p0 start point of ray
+     *
+     * @param p0  start point of ray
      * @param dir vector to represent direction of ray
      */
-    public Ray(Point p0, Vector dir){
+    public Ray(Point p0, Vector dir) {
         _p0 = p0;
         _dir = dir.normalize();
     }
@@ -33,6 +36,26 @@ public class Ray {
      */
     public Vector getDir() {
         return _dir;
+    }
+
+    /**
+     * Find the closest point when given a list of points
+     *
+     * @param pointList - list of points
+     * @return closest point
+     */
+    public Point findClosestPoint(List<Point> pointList) {
+        Point result = null;
+        double minDist = Double.MAX_VALUE;
+        double ptDist;
+        for (var pt : pointList) {
+            ptDist = pt.distanceSquared(_p0);
+            if (ptDist < minDist) {
+                minDist = ptDist;
+                result = pt;
+            }
+        }
+        return result;
     }
 
     @Override
