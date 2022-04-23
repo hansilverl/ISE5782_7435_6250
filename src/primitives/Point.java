@@ -4,6 +4,7 @@ import java.util.Objects;
 
 /**
  * Class to represent a Point
+ *
  * @author Hila Buznach & Hannah Silverberg
  */
 public class Point {
@@ -45,6 +46,7 @@ public class Point {
 
     /**
      * Adding a vector to point
+     *
      * @param vec vector in plane
      * @return result of vector to point addition
      */
@@ -52,7 +54,7 @@ public class Point {
         Double3 xyz = _xyz.add(vec._xyz);
         return new Point(xyz);
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,6 +87,23 @@ public class Point {
     public double distance(Point newP) {
         return Math.sqrt(distanceSquared(newP));
     }
+
+    public Double3 getXyz() {
+        return _xyz;
+    }
+
+    public double getX() {
+        return _xyz._d1;
+    }
+
+    public double getY() {
+        return _xyz._d2;
+    }
+
+    public double getZ() {
+        return _xyz._d3;
+    }
+
 
     @Override
     public int hashCode() {

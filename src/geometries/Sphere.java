@@ -66,6 +66,7 @@ public class Sphere implements Geometry{
 
     @Override
     public List<Point> findIntersection(Ray ray) {
+       //TODO: Need help
         return null;
     }
 }
