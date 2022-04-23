@@ -5,6 +5,7 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -29,6 +30,7 @@ public class Cylinder extends Tube {
         return _height;
     }
 
+
     /**
      * implementing {@link Geometry#getNormal(Point)}
      * getter for normal vector
@@ -36,6 +38,8 @@ public class Cylinder extends Tube {
      * @param point
      * @return
      */
+
+
     @Override
     public Vector getNormal(Point point) {
         Point p0 = getAxisRay().getP0();
@@ -68,6 +72,7 @@ public class Cylinder extends Tube {
      */
     @Override
     public List<Point> findIntersection(Ray ray) {
+        //TODO: How??
         return null;
     }
 }

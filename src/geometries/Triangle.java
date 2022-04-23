@@ -5,6 +5,9 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static primitives.Util.isZero;
 
 /**
  * @author Hila Buznach & Hannah Silverberg
@@ -20,6 +23,7 @@ public class Triangle extends Polygon implements Geometry {
         super(p1, p2, p3);
     }
     //TODO: Do we need to check if p1.length + p2.length >=p3.length ect. ?
+
     /**
      * Getter for normal vector
      * Returns the normal of a point
@@ -50,6 +54,6 @@ public class Triangle extends Polygon implements Geometry {
      */
     @Override
     public List<Point> findIntersection(Ray ray) {
-        return null;
+        return super.findIntersection(ray);
     }
 }

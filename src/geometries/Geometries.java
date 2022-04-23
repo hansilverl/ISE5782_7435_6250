@@ -35,7 +35,7 @@ public class Geometries implements Geometry {
      * implementing {@link Intersectable#findIntersection(Ray)}
      *
      * @param ray of triangle
-     * @return
+     * @return intersection point
      */
 
 
