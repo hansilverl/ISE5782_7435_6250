@@ -9,6 +9,7 @@ import java.util.Objects;
  */
 public class Point {
     Double3 _xyz;   //Representing a point
+    public static final Point ZERO =new Point(Double3.ZERO) ;
 
     /**
      * Point constructor by coordinate values.
@@ -71,9 +72,9 @@ public class Point {
      */
     public double distanceSquared(Point point) {
         Double3 temp = _xyz.subtract(point._xyz);
-        double xx = temp._d1 * temp._d1;
-        double yy = temp._d2 * temp._d2;
-        double zz = temp._d3 * temp._d3;
+        double xx = temp.d1 * temp.d1;
+        double yy = temp.d2 * temp.d2;
+        double zz = temp.d3 * temp.d3;
         return (xx + yy + zz);
 
     }
@@ -93,15 +94,15 @@ public class Point {
     }
 
     public double getX() {
-        return _xyz._d1;
+        return _xyz.d1;
     }
 
     public double getY() {
-        return _xyz._d2;
+        return _xyz.d2;
     }
 
     public double getZ() {
-        return _xyz._d3;
+        return _xyz.d3;
     }
 
 
@@ -116,6 +117,5 @@ public class Point {
                 "xyz=" + _xyz +
                 '}';
     }
-
 
 }

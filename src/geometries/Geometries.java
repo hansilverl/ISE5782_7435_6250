@@ -24,9 +24,15 @@ public class Geometries implements Geometry {
         Collections.addAll(_intersectables, intersectables);
     }
 
-
     public Geometries() {
         _intersectables = new LinkedList<>();
+    }
+
+    /**
+     * @param geometries list to add
+     */
+    public void add(Intersectable... geometries) {
+        Collections.addAll(_intersectables, geometries);
     }
 
 
