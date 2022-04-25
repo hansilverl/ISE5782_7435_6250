@@ -64,6 +64,7 @@ public class Camera {
 
     //TODO: dodododododod
     public Object setImageWriter(ImageWriter base_render_test) {
+        return this;
     }
 
     public Ray constructRay(int Nx, int Ny, int j, int i) {
