@@ -37,7 +37,7 @@ public class Vector extends Point {
      */
     public double lengthSquared() {
         Double3 xyz = _xyz.product(_xyz);
-        return xyz._d1 + xyz._d2 + xyz._d3;
+        return xyz.d1 + xyz.d2 + xyz.d3;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Vector extends Point {
 
         Double3 xyz = _xyz.product(vec._xyz);
 
-        return (xyz._d1 + xyz._d2 + xyz._d3);
+        return (xyz.d1 + xyz.d2 + xyz.d3);
     }
 
     @Override
@@ -74,9 +74,9 @@ public class Vector extends Point {
         Double3 u = _xyz;
         Double3 v = vec._xyz;
             return new Vector(
-                    u._d2 * v._d3 - u._d3 * v._d2,
-                    u._d3 * v._d1 - u._d1 * v._d3,
-                    u._d1 * v._d2 - u._d2 * v._d1);
+                    u.d2 * v.d3 - u.d3 * v.d2,
+                    u.d3 * v.d1 - u.d1 * v.d3,
+                    u.d1 * v.d2 - u.d2 * v.d1);
     }
 
     /**
