@@ -6,17 +6,21 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+
 /**
  * Class to represent a sphere
+ *
  * @author Hila Buznach & Hannah Silverberg
  */
-public class Sphere implements Geometry{
+public class Sphere implements Geometry {
     private final Point _center;    //Center of the sphere
     private final double _radius;   //Radius of a sphere
 
 
     /**
      * Sphere constructor
+     *
      * @param center value for Sphere center
      * @param radius value for Sphere radius
      */
@@ -39,9 +43,11 @@ public class Sphere implements Geometry{
         return _radius;
     }
 
-    /**``
+    /**
+     * ``
      * implementing {@link Geometry#getNormal(Point)}
      * Getter for normal vector
+     *
      * @param point on sphere
      * @return normalized vector by point
      */
@@ -60,13 +66,52 @@ public class Sphere implements Geometry{
 
     /**
      * implementing {@link Intersectable#findIntersection(Ray)} }
-     * @param ray
-     * @return
+     *
+     * @param ray given to find intersection
+     * @return intersection
      */
 
     @Override
     public List<Point> findIntersection(Ray ray) {
-       //TODO: Need help
+        Point P0 = ray.getP0();
+        Vector v = ray.getDir();
+
+        if (P0.equals(_center)) {
+            return List.of(_center.add(v.scale(_radius)));
+        }
+
+        Vector U = _center.subtract(P0);
+
+        double tm = alignZero(v.dotProduct(U));
+        double d = alignZero(Math.sqrt(U.lengthSquared() - tm * tm));
+
+        // no intersections : the ray direction is above the sphere
+        if (d >= _radius) {
+            return null;
+        }
+
+        double th = alignZero(Math.sqrt(_radius * _radius - d * d));
+        double t1 = alignZero(tm - th);
+        double t2 = alignZero(tm + th);
+
+        if (t1 > 0 && t2 > 0) {
+            // Point P1 = P0.add(v.scale(t1));
+            // Point P2 = P0.add(v.scale(t2));
+            Point P1 = ray.getPoint(t1);
+            Point P2 = ray.getPoint(t2);
+            return List.of(P1, P2);
+        }
+        if (t1 > 0) {
+            //Point P1 = P0.add(v.scale(t1));
+            Point P1 = ray.getPoint(t1);
+            return List.of(P1);
+        }
+        if (t2 > 0) {
+            //Point P2 = P0.add(v.scale(t2));
+            Point P2 = ray.getPoint(t2);
+            return List.of(P2);
+        }
         return null;
     }
 }
+

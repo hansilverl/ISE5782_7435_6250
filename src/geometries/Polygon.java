@@ -86,10 +86,16 @@ public class Polygon implements Geometry {
         size = vertices.length;
     }
 
+    /**
+     * @return
+     */
     public List<Point> getVertices() {
         return vertices;
     }
 
+    /**
+     * @return
+     */
     public Plane getPlane() {
         return plane;
     }

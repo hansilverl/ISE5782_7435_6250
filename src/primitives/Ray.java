@@ -3,6 +3,8 @@ package primitives;
 import java.util.List;
 import java.util.Objects;
 
+import static primitives.Util.isZero;
+
 /**
  * Class to represent a ray
  *
@@ -56,6 +58,18 @@ public class Ray {
             }
         }
         return result;
+    }
+
+
+    /**
+     * @param delta multiplier
+     * @return scaled vector
+     */
+    public Point getPoint(double delta) {
+        if (isZero(delta)) {
+            return _p0;
+        }
+        return _p0.add(_dir.scale(delta));
     }
 
     @Override
