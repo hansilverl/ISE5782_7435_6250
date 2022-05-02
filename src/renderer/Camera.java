@@ -21,16 +21,16 @@ public class Camera {
     private double width;
     private double distance;
 
-    public Camera(Point p0, Vector vUp, Vector vTo) {
-        this.p0 = p0;
-        this.vUp = vUp;
-        this.vTo = vTo;
+    public Camera(Point my_p0, Vector my_vUp, Vector my_vTo) {
+        p0 = my_p0;
+        vUp = my_vUp;
+        vTo = my_vTo;
         double ans = vUp.dotProduct(vTo);
         try {
             if (ans == 0) {
                 vRight = vUp.crossProduct(vTo).normalize();
-                this.vUp.normalize();
-                this.vTo.normalize();
+                vUp.normalize();
+                vTo.normalize();
             }
             //if the vectors aren't vertical, throw exception.
             else vRight = new Vector(0, 0, 0);
@@ -51,12 +51,23 @@ public class Camera {
         return distance;
     }
 
-    public Camera setVPSize(double width, double height) {
-        this.width = width;
-        this.height = height;
+    /**
+     * set view plane size
+     * @param wd -width
+     * @param ht -height
+     * @return object
+     */
+    public Camera setVPSize(double wd, double ht) {
+        width = wd;
+        height = ht;
         return this;
     }
 
+    /**
+     * setting veiw plane distance
+     * @param dist distance to set
+     * @return object
+     */
     public Camera setVPDistance(double dist) {
         distance = dist;
         return this;
@@ -67,6 +78,13 @@ public class Camera {
         return this;
     }
 
+    /**
+     * @param Nx x value of n
+     * @param Ny y value of n
+     * @param j column
+     * @param i row
+     * @return constructed ray
+     */
     public Ray constructRay(int Nx, int Ny, int j, int i) {
         Point pCenter = p0.add(vTo.scale(distance));
         double Ry = height / Ny;
