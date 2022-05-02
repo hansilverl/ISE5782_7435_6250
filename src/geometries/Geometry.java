@@ -1,15 +1,13 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point;
-import primitives.Ray;
 import primitives.Vector;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
+public abstract interface Geometry extends Intersectable {
 
-public interface Geometry extends Intersectable {
+    Color emission =new Color(java.awt.Color.black);
 
     /**
      * Getter for normal vector
@@ -17,7 +15,7 @@ public interface Geometry extends Intersectable {
      * @param point
      * @return
      */
-    Vector getNormal(Point point);
+    public abstract Vector getNormal(Point point);
 }
 
 
