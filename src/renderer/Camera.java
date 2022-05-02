@@ -1,5 +1,6 @@
 package renderer;
 
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -20,7 +21,15 @@ public class Camera {
     private double height;
     private double width;
     private double distance;
+    private ImageWriter imageWriter;
+    private RayTracer rayTracer;
 
+    /**
+     * constructor
+     * @param my_p0 value of p0
+     * @param my_vUp value of vUp
+     * @param my_vTo value of vTo
+     */
     public Camera(Point my_p0, Vector my_vUp, Vector my_vTo) {
         p0 = my_p0;
         vUp = my_vUp;
@@ -74,7 +83,8 @@ public class Camera {
     }
 
     //TODO: dodododododod
-    public Object setImageWriter(ImageWriter base_render_test) {
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
         return this;
     }
 
@@ -109,4 +119,45 @@ public class Camera {
 
     }
 
+    public Camera setRayTracer(RayTracerBasic rayTracer) {
+        this.rayTracer = rayTracer;
+        return  this;
+    }
+
+    public Camera renderImage() {
+        //loop to do
+        int nx = imageWriter.getNx();
+        int ny = imageWriter.getNy();
+        for (int i = 0; i < ny; i++) {
+            for (int j = 0; j < nx; j++) {
+                castRay(nx,ny,i,j);
+            }
+        }
+        return  this;
+    }
+
+    private void castRay(int nx, int ny, int i, int j) {
+        Ray ray = constructRay(nx,ny,j,i);
+        Color color = rayTracer.traceRay(ray);
+        imageWriter.writePixel(j,i,color);
+    }
+
+    public Camera printGrid(int interval, Color color) {
+        int nx = imageWriter.getNx();
+        int ny = imageWriter.getNy();
+        for (int i = 0; i < ny; i++) {
+            for (int j = 0; j < nx; j++) {
+               if ( i % interval == 0 || j % interval ==0){
+                   imageWriter.writePixel(j,i,color);
+               }
+            }
+        }
+
+        return this;
+
+    }
+
+    public void writeToImage() {
+        imageWriter.writeToImage();
+    }
 }
