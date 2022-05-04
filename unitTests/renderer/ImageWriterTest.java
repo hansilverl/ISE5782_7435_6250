@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import primitives.Color;
 
 import static org.junit.jupiter.api.Assertions.*;
-//TODO: JavaDoc!!!
+
 class ImageWriterTest {
 
     @Test
