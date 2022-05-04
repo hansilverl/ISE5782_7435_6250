@@ -94,25 +94,39 @@ public class Plane implements Geometry {
         Vector v = ray.getDir();
         Vector n = _normal;
 
-        double nv = n.dotProduct(v);
+        if(_q0.equals(p0)){
+            return  null;
+        }
+
+        Vector Q_P0 = _q0.subtract(p0);
+        double t = alignZero(n.dotProduct(Q_P0));
+
+        //meaning t===0 Origin of the ray lies on the plane
+        if (isZero(t)) {
+            return null;
+        }
+
+        double nv = alignZero(n.dotProduct(v));
 
         //if the ray is parallel to the point, there will be no intersection point
         if (isZero(nv)) {
             return null;
         }
 
-        Vector Q_P0 = _q0.subtract(p0);
-        double t = alignZero(n.dotProduct(Q_P0) / nv);
+        double m = alignZero(t/nv);
 
-        //meaning t===0 Origin of the ray lies on the plane
-        if (isZero(t)) {
+        if(m<=0){
             return null;
         }
-        // if t < 0 - the direction is in the opposite
-        if (t > 0) {
-            Point point = p0.add(v.scale(t));
-            return List.of(point);
-        }
-        return null;
+
+        Point point = ray.getPoint(m);
+
+        return List.of(point);
+//        // if t < 0 - the direction is in the opposite
+//        if (t > 0) {
+//            Point point = p0.add(v.scale(t));
+//            return List.of(point);
+//        }
+//        return null;
     }
 }
