@@ -53,9 +53,9 @@ public class Geometries implements Geometry {
             if (itemPointList != null) {
                 result = new LinkedList<>();
             }
-
+            result.addAll(itemPointList);
         }
-        return null;
+        return result;
     }
 
     /**

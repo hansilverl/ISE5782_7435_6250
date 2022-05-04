@@ -26,7 +26,8 @@ public class Camera {
 
     /**
      * constructor
-     * @param my_p0 value of p0
+     *
+     * @param my_p0  value of p0
      * @param my_vUp value of vUp
      * @param my_vTo value of vTo
      */
@@ -62,6 +63,7 @@ public class Camera {
 
     /**
      * set view plane size
+     *
      * @param wd -width
      * @param ht -height
      * @return object
@@ -74,6 +76,7 @@ public class Camera {
 
     /**
      * setting veiw plane distance
+     *
      * @param dist distance to set
      * @return object
      */
@@ -91,8 +94,8 @@ public class Camera {
     /**
      * @param Nx x value of n
      * @param Ny y value of n
-     * @param j column
-     * @param i row
+     * @param j  column
+     * @param i  row
      * @return constructed ray
      */
     public Ray constructRay(int Nx, int Ny, int j, int i) {
@@ -121,7 +124,7 @@ public class Camera {
 
     public Camera setRayTracer(RayTracerBasic rayTracer) {
         this.rayTracer = rayTracer;
-        return  this;
+        return this;
     }
 
     public Camera renderImage() {
@@ -130,16 +133,16 @@ public class Camera {
         int ny = imageWriter.getNy();
         for (int i = 0; i < ny; i++) {
             for (int j = 0; j < nx; j++) {
-                castRay(nx,ny,i,j);
+                castRay(nx, ny, i, j);
             }
         }
-        return  this;
+        return this;
     }
 
     private void castRay(int nx, int ny, int i, int j) {
-        Ray ray = constructRay(nx,ny,j,i);
+        Ray ray = constructRay(nx, ny, j, i);
         Color color = rayTracer.traceRay(ray);
-        imageWriter.writePixel(j,i,color);
+        imageWriter.writePixel(j, i, color);
     }
 
     public Camera printGrid(int interval, Color color) {
@@ -147,9 +150,9 @@ public class Camera {
         int ny = imageWriter.getNy();
         for (int i = 0; i < ny; i++) {
             for (int j = 0; j < nx; j++) {
-               if ( i % interval == 0 || j % interval ==0){
-                   imageWriter.writePixel(j,i,color);
-               }
+                if (i % interval == 0 || j % interval == 0) {
+                    imageWriter.writePixel(j, i, color);
+                }
             }
         }
 
