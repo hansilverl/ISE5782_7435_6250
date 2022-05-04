@@ -22,7 +22,7 @@ public class CameraIntegrationTest {
     /**
      * Test helper function to count the intersections and compare with expected value
      *
-     * @author Chagit Orenstein, Avital Elchadad
+     * @author Hannah Silverberg & Hila Buznach
      * @param cam      camera for the test
      * @param geo      3D body to test the integration of the camera with
      * @param expected amount of intersections
