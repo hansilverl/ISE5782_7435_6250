@@ -48,14 +48,18 @@ public class Geometries implements Geometry {
     @Override
     public List<Point> findIntersection(Ray ray) {
         List<Point> result = null;
-        for (Intersectable item : _intersectables) {
-            List<Point> itemPointList = item.findIntersection(ray);
-            if (itemPointList != null) {
-                result = new LinkedList<>();
-            }
 
+        //gets list of intersections of all elements with the ray
+        for (Intersectable item : _intersectables) {
+            List<Point> itemPoints = item.findIntersection(ray);
+            if (itemPoints != null){
+                if(result == null){
+                    result = new LinkedList<>();
+                }
+                result.addAll(itemPoints);
+            }
         }
-        return null;
+        return result;
     }
 
     /**
