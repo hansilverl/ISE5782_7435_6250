@@ -78,10 +78,6 @@ class SphereTest {
 
         // **** Group: Ray's line goes through the center
         // TC13: Ray starts before the sphere (2 points)
-        /*TODO:
-         * the problem is in the point that we write (p1, p2).
-         * when i copy Yona's test - test 13 worked (but test 14 for example didn't work because that we put there the points p1 and p2.
-         */
         p1 = new Point(1, 1, 0);
         p2 = new Point(1, -1, 0);
         result = sphere.findIntersection(new Ray(new Point(1, -2, 0),
