@@ -73,6 +73,13 @@ public class Sphere implements Geometry {
 
     @Override
     public List<Point> findIntersection(Ray ray) {
+        /*find intersections formula:
+            u = O - p0
+            tm = v * u
+            d = sqrt(u^2 - tm^2)   if d >= r there are no intersections
+            th = sqrt(r^2 -d^2)
+            t1,t2 = tm +/- th, pI = p0 + ti   we only take ti > 0
+         */
         Point P0 = ray.getP0();
         Vector v = ray.getDir();
 
