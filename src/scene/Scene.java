@@ -11,7 +11,6 @@ import primitives.Color;
  */
 public class Scene {
 
-    //TODO: JAVADOC!
     public String name;
     public Color background;
     public AmbientLight ambientLight;
@@ -52,21 +51,21 @@ public class Scene {
 
     /**
      * setting background
-     * @param background to define background field
+     * @param myBackground to define background field
      * @return scene
      */
-    public Scene setBackground(Color background) {
-        this.background = background;
+    public Scene setBackground(Color myBackground) {
+        background = myBackground;
         return this;
     }
 
     /**
      * setting geometries
-     * @param geometries to define geometries field
+     * @param myGeometries to define geometries field
      * @return scene
      */
-    public Scene setGeometries(Geometries geometries) {
-        this.geometries = geometries;
+    public Scene setGeometries(Geometries myGeometries) {
+        geometries = myGeometries;
         return this;
     }
 
@@ -78,8 +77,8 @@ public class Scene {
         private Geometries geometries = new Geometries();
 
         /**
-         *
-         * @param name
+         * class to build the scene
+         * @param name of scene
          */
         public SceneBuilder(String name) {
             this.name = name;
@@ -87,21 +86,41 @@ public class Scene {
 
         //chaining methods
 
+        /**
+         * setting background
+         * @param background to define background field
+         * @return scene
+         */
         public SceneBuilder setBackground(Color background) {
             this.background = background;
             return this;
         }
 
+        /**
+         * setting ambient light
+         * @param ambientLight to define ambient light field
+         * @return scene
+         */
         public SceneBuilder setAmbientLight(AmbientLight ambientLight) {
             this.ambientLight = ambientLight;
             return this;
         }
 
+        /**
+         *
+         * setting geometries
+         * @param geometries to define geometries field
+         * @return scene
+         */
         public SceneBuilder setGeometries(Geometries geometries) {
             this.geometries = geometries;
             return this;
         }
 
+        /**
+         * build the scene
+         * @return scene
+         */
         // build
         public Scene build() {
             Scene scene = new Scene(this);
