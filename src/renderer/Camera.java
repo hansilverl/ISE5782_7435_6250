@@ -28,7 +28,8 @@ public class Camera {
 
     /**
      * Constructor
-     * @param my_p0 value of p0
+     *
+     * @param my_p0  value of p0
      * @param my_vUp value of vUp
      * @param my_vTo value of vTo
      */
@@ -64,6 +65,7 @@ public class Camera {
 
     /**
      * Set view plane size
+     *
      * @param wd -width
      * @param ht -height
      * @return object
@@ -76,6 +78,7 @@ public class Camera {
 
     /**
      * Setting view plane distance
+     *
      * @param dist distance to set
      * @return object
      */
@@ -86,6 +89,7 @@ public class Camera {
 
     /**
      * Setting image writer field
+     *
      * @param myImageWriter to set
      * @return the object
      */
@@ -97,16 +101,18 @@ public class Camera {
     /**
      * @param Nx x value of n
      * @param Ny y value of n
-     * @param j column
-     * @param i row
+     * @param j  column
+     * @param i  row
      * @return constructed ray
      */
     public Ray constructRay(int Nx, int Ny, int j, int i) {
         Point pCenter = p0.add(vTo.scale(distance));
         double Ry = height / Ny;
         double Rx = width / Nx;
-        double Yi = -1 * (i - alignZero((double) (Ny - 1) / 2)) * Ry;
-        double Xj = (j - alignZero((double) (Nx - 1) / 2)) * Rx;
+
+        double Yi = alignZero(-(i - (Ny - 1) / 2.0) * Ry);
+        double Xj = alignZero((j - (Nx - 1) / 2.0) * Rx);
+
         Point intersectionPoint = pCenter;
         if (!isZero(Xj)) {
             intersectionPoint = intersectionPoint.add(vRight.scale(Xj));
@@ -127,6 +133,7 @@ public class Camera {
 
     /**
      * Setting ray tracer field
+     *
      * @param myRayTracer to set
      * @return the object - camera
      */
@@ -137,12 +144,13 @@ public class Camera {
 
     /**
      * Rendering the image
+     *
      * @return the object - camera
      */
     public Camera renderImage() {
         try {
             if (p0 == null) {
-                throw new MissingResourceException("missing resource" ,"p0","");
+                throw new MissingResourceException("missing resource", "p0", "");
             }
             if (vRight == null) {
                 throw new MissingResourceException("missing resource", "vRight", "");
@@ -168,14 +176,12 @@ public class Camera {
             if (rayTracer == null) {
                 throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
             }
-
             //rendering the image
             int nX = imageWriter.getNx();
             int nY = imageWriter.getNy();
             for (int i = 0; i < nX; i++) {
                 for (int j = 0; j < nY; j++) {
-                    Ray ray = constructRay(nX, nY, i, j);
-                    Color pixelColor = castRay(nX,nY,i,j);
+                    Color pixelColor = castRay(nX, nY, i, j);
                     imageWriter.writePixel(i, j, pixelColor);
                 }
             }
@@ -187,37 +193,39 @@ public class Camera {
 
     /**
      * Casting ray
+     *
      * @param nx row number
      * @param ny column number
-     * @param i current row
-     * @param j current number
+     * @param i  current row
+     * @param j  current number
      */
     private Color castRay(int nx, int ny, int i, int j) {
-        Ray ray = constructRay(nx,ny,j,i);
+        Ray ray = constructRay(nx, ny, j, i);
         Color color = rayTracer.traceRay(ray);
-        imageWriter.writePixel(j,i,color);
+        imageWriter.writePixel(j, i, color);
         return color;
     }
 
     /**
      * Printing grid
+     *
      * @param interval between line
-     * @param color to print
+     * @param color    to print
      */
     public void printGrid(int interval, Color color) {
-        if(imageWriter == null)
+        if (imageWriter == null)
             throw new MissingResourceException("missing resource", "imageWriter", "");
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
-        for (int i = 0; i < nX; i+=interval) {
+        for (int i = 0; i < nX; i += interval) {
             for (int j = 0; j < nY; j++) {
-                imageWriter.writePixel(i,j,color);
+                imageWriter.writePixel(i, j, color);
             }
         }
 
         for (int i = 0; i < nX; i++) {
-            for (int j = 0; j < nY; j+=interval) {
-                imageWriter.writePixel(i,j,color);
+            for (int j = 0; j < nY; j += interval) {
+                imageWriter.writePixel(i, j, color);
             }
         }
     }
@@ -226,7 +234,7 @@ public class Camera {
      * Writing to image
      */
     public void writeToImage() {
-        if(imageWriter == null)
+        if (imageWriter == null)
             throw new MissingResourceException("missing resource", "imageWriter", "");
         else
             imageWriter.writeToImage();

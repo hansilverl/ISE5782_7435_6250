@@ -52,8 +52,8 @@ public class Geometries implements Geometry {
         //gets list of intersections of all elements with the ray
         for (Intersectable item : _intersectables) {
             List<Point> itemPoints = item.findIntersection(ray);
-            if (itemPoints != null){
-                if(result == null){
+            if (itemPoints != null) {
+                if (result == null) {
                     result = new LinkedList<>();
                 }
                 result.addAll(itemPoints);

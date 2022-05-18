@@ -47,17 +47,19 @@ public class Ray {
      * @return closest point
      */
     public Point findClosestPoint(List<Point> pointList) {
-        Point result = null;
-        double minDist = Double.MAX_VALUE;
-        double ptDist;
-        for (var pt : pointList) {
-            ptDist = pt.distanceSquared(_p0);
-            if (ptDist < minDist) {
-                minDist = ptDist;
-                result = pt;
+        if (pointList == null)
+            return null;
+
+        Point myPoint = pointList.get(0);
+
+        for (Point point : pointList
+        ) {
+            if (_p0.distance(myPoint) > _p0.distance(point)) {
+                myPoint = point;
             }
         }
-        return result;
+
+        return myPoint;
     }
 
 

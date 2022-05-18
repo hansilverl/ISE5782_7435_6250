@@ -99,7 +99,7 @@ public class Plane implements Geometry {
         }
 
         Vector Q_P0 = _q0.subtract(p0);
-        double t = alignZero(n.dotProduct(Q_P0));
+        double t = alignZero(n.dotProduct(Q_P0))/n.dotProduct(v);
 
         //meaning t===0 Origin of the ray lies on the plane
         if (isZero(t)) {
@@ -122,11 +122,5 @@ public class Plane implements Geometry {
         Point point = ray.getPoint(m);
 
         return List.of(point);
-//        // if t < 0 - the direction is in the opposite
-//        if (t > 0) {
-//            Point point = p0.add(v.scale(t));
-//            return List.of(point);
-//        }
-//        return null;
     }
 }
