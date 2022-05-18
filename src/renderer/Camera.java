@@ -33,7 +33,7 @@ public class Camera {
      * @param my_vUp value of vUp
      * @param my_vTo value of vTo
      */
-    public Camera(Point my_p0, Vector my_vUp, Vector my_vTo) {
+    public Camera(Point my_p0, Vector my_vTo, Vector my_vUp) {
         p0 = my_p0;
         vUp = my_vUp;
         vTo = my_vTo;
@@ -176,11 +176,14 @@ public class Camera {
             if (rayTracer == null) {
                 throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
             }
+            int forhelp=0;
             //rendering the image
             int nX = imageWriter.getNx();
             int nY = imageWriter.getNy();
             for (int i = 0; i < nX; i++) {
                 for (int j = 0; j < nY; j++) {
+                    if(i==303&&j==303)
+                        forhelp = 1;
                     Color pixelColor = castRay(nX, nY, i, j);
                     imageWriter.writePixel(i, j, pixelColor);
                 }

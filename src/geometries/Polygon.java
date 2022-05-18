@@ -137,7 +137,7 @@ public class Polygon implements Geometry {
 
         Vector v2 = vertices.get(0).subtract(p0);
 
-        double sign = v.dotProduct(v1.crossProduct(v2));
+        double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
 
         if (isZero(sign))
             return null;
