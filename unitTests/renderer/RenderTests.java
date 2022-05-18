@@ -42,7 +42,7 @@ public class RenderTests {
                 .setRayTracer(new RayTracerBasic(scene));
 
         camera.renderImage();
-        camera.printGrid(100, new Color(YELLOW));
+        camera.printGrid(100,new Color(yellow));
         camera.writeToImage();
     }
 
