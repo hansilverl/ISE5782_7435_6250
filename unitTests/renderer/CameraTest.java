@@ -16,38 +16,36 @@ class CameraTest {
      */
     @Test
     void testConstructRay() {
-        Camera camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, -1, 0)).setVPDistance(10);
-        String badRay = "Bad ray implementation";
+        Camera camera = new Camera(Point.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)).setVPDistance(10);
 
         // ============ Equivalence Partitions Tests ==============
-        // EP01: 4X4 Inside (1,1)
-        assertEquals(new Ray(ZERO_POINT, new Vector(1, -10, -1)),
-                camera.setVPSize(8, 8).constructRay(4, 4, 1, 1), badRay);
+        // TC01: 3X3 Corner (0,0)
+        assertEquals(new Ray(Point.ZERO, new Vector(-2, -2, 10)),
+                camera.setVPSize(6, 6).constructRay(3, 3, 0, 0));
+
+        // TC02: 4X4 Corner (0,0)
+        assertEquals(new Ray(Point.ZERO, new Vector(-3, -3, 10)),
+                camera.setVPSize(8, 8).constructRay(4, 4, 0, 0));
+
+        // TC03: 4X4 Side (0,1)
+        assertEquals(new Ray(Point.ZERO, new Vector(-1, -3, 10)),
+                camera.setVPSize(8, 8).constructRay(4, 4, 1, 0));
+
+        // TC04: 4X4 Inside (1,1)
+        assertEquals(new Ray(Point.ZERO, new Vector(-1, -1, 10)),
+                camera.setVPSize(8, 8).constructRay(4, 4, 1, 1));
 
         // =============== Boundary Values Tests ==================
-        // BV01: 3X3 Center (1,1)
-        assertEquals(new Ray(ZERO_POINT, new Vector(0, -10, 0)),
-                camera.setVPSize(6, 6).constructRay(3, 3, 1, 1), badRay);
+        // TC11: 3X3 Center (1,1)
+        assertEquals(new Ray(Point.ZERO, new Vector(0, 0, 10)),
+               camera.setVPSize(6, 6).constructRay(3, 3, 1, 1));
 
-        // BV02: 3X3 Center of Upper Side (0,1)
-        assertEquals(new Ray(ZERO_POINT, new Vector(0, -10, -2)),
-                camera.setVPSize(6, 6).constructRay(3, 3, 1, 0), badRay);
+        // TC12: 3X3 Center of Upper Side (0,1)
+        assertEquals(new Ray(Point.ZERO, new Vector(0, -2, 10)),
+               camera.setVPSize(6, 6).constructRay(3, 3, 1, 0));
 
-        // BV03: 3X3 Center of Left Side (1,0)
-        assertEquals(new Ray(ZERO_POINT, new Vector(2, -10, 0)),
-                camera.setVPSize(6, 6).constructRay(3, 3, 0, 1), badRay);
-
-        // BV04: 3X3 Corner (0,0)
-        assertEquals(new Ray(ZERO_POINT, new Vector(2, -10, -2)),
-                camera.setVPSize(6, 6).constructRay(3, 3, 0, 0), badRay);
-
-        // BV05: 4X4 Corner (0,0)
-        assertEquals(new Ray(ZERO_POINT, new Vector(3, -10, -3)),
-                camera.setVPSize(8, 8).constructRay(4, 4, 0, 0), badRay);
-
-        // BV06: 4X4 Side (0,1)
-        assertEquals(new Ray(ZERO_POINT, new Vector(1, -10, -3)),
-                camera.setVPSize(8, 8).constructRay(4, 4, 1, 0), badRay);
-
+        // TC13: 3X3 Center of Left Side (1,0)
+        assertEquals(new Ray(Point.ZERO, new Vector(-2, 0, 10)),
+                camera.setVPSize(6, 6).constructRay(3, 3, 0, 1));
     }
 }

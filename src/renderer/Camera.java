@@ -35,14 +35,12 @@ public class Camera {
      */
     public Camera(Point my_p0, Vector my_vTo, Vector my_vUp) {
         p0 = my_p0;
-        vUp = my_vUp;
-        vTo = my_vTo;
+        vUp = my_vUp.normalize();
+        vTo = my_vTo.normalize();
         double ans = vUp.dotProduct(vTo);
         try {
             if (ans == 0) {
-                vRight = vUp.crossProduct(vTo).normalize();
-                vUp.normalize();
-                vTo.normalize();
+                vRight = vTo.crossProduct(vUp).normalize();
             }
             //if the vectors aren't vertical, throw exception.
             else vRight = new Vector(0, 0, 0);

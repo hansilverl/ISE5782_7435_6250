@@ -47,7 +47,7 @@ public class Ray {
      * @return closest point
      */
     public Point findClosestPoint(List<Point> pointList) {
-        if (pointList == null)
+        if (pointList == null || pointList.isEmpty())
             return null;
 
         Point myPoint = pointList.get(0);
