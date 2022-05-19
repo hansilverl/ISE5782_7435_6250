@@ -38,15 +38,10 @@ public class Camera {
         vUp = my_vUp.normalize();
         vTo = my_vTo.normalize();
         double ans = vUp.dotProduct(vTo);
-        try {
-            if (ans == 0) {
-                vRight = vTo.crossProduct(vUp).normalize();
-            }
-            //if the vectors aren't vertical, throw exception.
-            else vRight = new Vector(0, 0, 0);
-        } catch (IllegalArgumentException NotVertical) {
+        if (ans == 0){
+            throw new IllegalArgumentException("The vectors are not vertical");
         }
-
+        vRight = vTo.crossProduct(vUp).normalize();
     }
 
     public double getHeight() {
