@@ -3,6 +3,7 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import scene.Scene;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Composite class to gather other {@link Geometry} based objects
  */
-public class Geometries implements Geometry {
+public class Geometries extends Geometry {
     List<Intersectable> _intersectables;
 
     /**
@@ -60,6 +61,19 @@ public class Geometries implements Geometry {
             }
         }
         return result;
+    }
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        if (_intersectables.isEmpty()) // In case the collection is empty
+            return null;
+        List<GeoPoint> intersections = null;
+        for (Intersectable intersectable : _intersectables) {
+            List<GeoPoint> geometryIntersections = intersectable.findGeoIntersections(ray);
+            if (!geometryIntersections.isEmpty())
+                intersections.addAll(geometryIntersections);
+        }
+        return intersections;
     }
 
     /**

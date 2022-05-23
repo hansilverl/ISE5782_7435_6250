@@ -13,7 +13,7 @@ import static primitives.Util.isZero;
  * @author Hila Buznach & Hannah Silverberg
  * Plane (defined by a point and the orthogonal vector).
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 
     final private Vector _normal;   //Normalized vector
     final private Point _q0;    //q0 point for plane
@@ -91,6 +91,42 @@ public class Plane implements Geometry {
 
     public List<Point> findIntersection(Ray ray) {
         Point p0 = ray.getP0();
+        Vector v = ray.getDir();
+        Vector n = _normal;
+
+        if(_q0.equals(p0)){
+            return  null;
+        }
+
+        Vector Q_P0 = _q0.subtract(p0);
+        double t = alignZero(n.dotProduct(Q_P0));
+
+        //meaning t===0 Origin of the ray lies on the plane
+        if (isZero(t)) {
+            return null;
+        }
+
+        double nv = alignZero(n.dotProduct(v));
+
+        //if the ray is parallel to the point, there will be no intersection point
+        if (isZero(nv)) {
+            return null;
+        }
+
+        double m = alignZero(t/nv);
+
+        if(m<=0){
+            return null;
+        }
+
+        Point point = ray.getPoint(m);
+
+        return List.of(point);
+    }
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        GeoPoint(ray.getP0(),);
         Vector v = ray.getDir();
         Vector n = _normal;
 

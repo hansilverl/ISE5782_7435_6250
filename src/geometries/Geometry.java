@@ -5,14 +5,30 @@ import primitives.Point;
 import primitives.Vector;
 
 
-public abstract interface Geometry extends Intersectable {
+/**
+ * Geometry class to represent shapes
+ * @author Hila & Hannah
+ */
+public abstract class Geometry extends Intersectable {
 
- /*   //TODO: Constructor!
-    Color emission =new Color(java.awt.Color.black);
-     static void setEmission(Color col)
-    {
-        emission=col;
-    }*/
+    protected static Color emission =new Color(java.awt.Color.black);
+
+    /**
+     * @return {@link Geometry#emission}
+     */
+    public static Color getEmission() {
+        return emission;
+    }
+
+    /**
+     * @param emission to set {@link Geometry#emission}
+     * @return @return {@link Geometry}
+     */
+    public Geometry setEmission(Color emission) {
+        Geometry.emission = emission;
+        return this;
+    }
+
     /**
      * Getter for normal vector
      *

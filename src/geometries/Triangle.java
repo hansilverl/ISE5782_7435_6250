@@ -15,7 +15,7 @@ import static primitives.Util.isZero;
  * @author Hila Buznach & Hannah Silverberg
  * Representing Triangle (defined by 3 points ).
  */
-public class Triangle extends Polygon implements Geometry {
+public class Triangle extends Polygon  {
     /**
      * @param p1 point of a triangle
      * @param p2 point of a triangle
