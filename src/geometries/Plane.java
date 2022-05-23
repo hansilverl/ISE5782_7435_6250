@@ -154,7 +154,7 @@ public class Plane extends Geometry {
         if(m<=0){
             return null;
         }
-
+        //TODO: here it need to be GeoPoint in the new find intersection
         Point point = ray.getPoint(m);
 
         return List.of(point);
