@@ -13,7 +13,7 @@ import static primitives.Util.alignZero;
  *
  * @author Hila Buznach & Hannah Silverberg
  */
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
     private final Point _center;    //Center of the sphere
     private final double _radius;   //Radius of a sphere
 
@@ -118,6 +118,11 @@ public class Sphere implements Geometry {
             Point P2 = ray.getPoint(t2);
             return List.of(P2);
         }
+        return null;
+    }
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         return null;
     }
 }

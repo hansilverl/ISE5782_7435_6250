@@ -13,7 +13,7 @@ import static primitives.Util.isZero;
  * @author Hila Buznach & Hannah Silverberg
  * Class to represent a tube🧪
  */
-public class Tube implements Geometry {
+public class Tube extends Geometry {
     private final Ray _axisRay;     //Ray axis
     private final double _radius;   //Radius of Tube
 
