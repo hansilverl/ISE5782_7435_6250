@@ -179,10 +179,10 @@ public class Camera {
             int nY = imageWriter.getNy();
             for (int i = 0; i < nX; i++) {
                 for (int j = 0; j < nY; j++) {
-                    if(i==303&&j==303)
+                    if(i==303&&j==550)
                         forhelp = 1;
-                    Color pixelColor = castRay(nX, nY, i, j);
-                    imageWriter.writePixel(i, j, pixelColor);
+                    Color pixelColor = castRay(nX, nY, j, i);
+                    imageWriter.writePixel(j, i, pixelColor);
                 }
             }
             return this;
@@ -199,7 +199,7 @@ public class Camera {
      * @param i  current row
      * @param j  current number
      */
-    private Color castRay(int nx, int ny, int i, int j) {
+    private Color castRay(int nx, int ny, int j, int i) {
         Ray ray = constructRay(nx, ny, j, i);
         Color color = rayTracer.traceRay(ray);
         imageWriter.writePixel(j, i, color);
