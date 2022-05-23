@@ -173,14 +173,12 @@ public class Camera {
             if (rayTracer == null) {
                 throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
             }
-            int forhelp=0;
+            int forhelp = 0;
             //rendering the image
             int nX = imageWriter.getNx();
             int nY = imageWriter.getNy();
             for (int i = 0; i < nX; i++) {
                 for (int j = 0; j < nY; j++) {
-                    if(i==303&&j==550)
-                        forhelp = 1;
                     Color pixelColor = castRay(nX, nY, j, i);
                     imageWriter.writePixel(j, i, pixelColor);
                 }
