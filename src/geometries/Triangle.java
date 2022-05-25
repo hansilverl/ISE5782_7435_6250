@@ -58,4 +58,8 @@ public class Triangle extends Polygon  {
     public List<Point> findIntersection(Ray ray) {
        return super.findIntersection(ray);
     }
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        return super.findGeoIntersections(ray);
+    }
 }

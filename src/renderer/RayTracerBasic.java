@@ -1,6 +1,6 @@
 package renderer;
 
-import geometries.Intersectable;
+import geometries.Intersectable.GeoPoint;
 import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Hannah Silverberg & Hila buznach
  */
-public class RayTracerBasic  extends  RayTracerBase{
+public class RayTracerBasic extends RayTracerBase {
 
     public RayTracerBasic(Scene scene) {
         super(scene);
@@ -22,25 +22,27 @@ public class RayTracerBasic  extends  RayTracerBase{
 
     /**
      * tracing ray
+     *
      * @param ray to trace
      * @return pixel color
      */
     @Override
     public Color traceRay(Ray ray) {
-        List<Point> intersections = scene.geometries.findIntersection(ray);
-        if (intersections == null)
+        List<GeoPoint> geoIntersections = scene.geometries.findGeoIntersections(ray);
+        if (geoIntersections == null)
             return scene.background;
-        Point closestPoint = ray.findClosestPoint(intersections);
-        return calcColor(closestPoint,ray);
+        GeoPoint closestGeo = ray.findClosestGeoPoint(geoIntersections);
+        return calcColor(closestGeo, ray);
     }
 
     /**
      * calculating color
+     *
      * @param closestPoint to VP
-     * @param ray traced to calculate
+     * @param ray  traced to calculate
      * @return intensity color
      */
-    private Color calcColor(Point closestPoint, Ray ray) {
-        return scene.ambientLight.getIntensity();
+    private Color calcColor(GeoPoint closestPoint, Ray ray) {
+        return scene.ambientLight.getIntensity().add(closestPoint.geometry.getEmission());
     }
 }

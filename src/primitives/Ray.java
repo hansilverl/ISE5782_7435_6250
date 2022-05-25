@@ -3,6 +3,8 @@ package primitives;
 import java.util.List;
 import java.util.Objects;
 
+import geometries.Intersectable.GeoPoint;
+
 import static primitives.Util.isZero;
 
 /**
@@ -52,14 +54,34 @@ public class Ray {
 
         Point myPoint = pointList.get(0);
 
-        for (Point point : pointList
-        ) {
+        for (Point point : pointList) {
             if (_p0.distance(myPoint) > _p0.distance(point)) {
                 myPoint = point;
             }
         }
 
         return myPoint;
+    }
+
+    /**
+     * Find the closest geo point when given a list of points
+     *
+     * @param geoList - list of geo points
+     * @return closest geo point
+     */
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoList) {
+        if (geoList == null || geoList.isEmpty())
+            return null;
+
+        GeoPoint myGeo = geoList.get(0);
+
+        for (GeoPoint geo : geoList) {
+            if (_p0.distance(myGeo.point) > _p0.distance(geo.point)) {
+                myGeo = geo;
+            }
+        }
+
+        return myGeo;
     }
 
 

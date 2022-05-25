@@ -21,11 +21,11 @@ public abstract class Geometry extends Intersectable {
     }
 
     /**
-     * @param emission to set {@link Geometry#emission}
+     * @param myEmission to set {@link Geometry#emission}
      * @return @return {@link Geometry}
      */
-    public Geometry setEmission(Color emission) {
-        Geometry.emission = emission;
+    public Geometry setEmission(Color myEmission) {
+        emission = myEmission;
         return this;
     }
 

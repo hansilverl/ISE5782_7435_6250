@@ -63,17 +63,25 @@ public class Geometries extends Geometry {
         return result;
     }
 
+    /**
+     * @param ray Ray pointing towards the intersection point
+     * @return list of geo intersections
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        if (_intersectables.isEmpty()) // In case the collection is empty
-            return null;
-        List<GeoPoint> intersections = null;
-        for (Intersectable intersectable : _intersectables) {
-            List<GeoPoint> geometryIntersections = intersectable.findGeoIntersections(ray);
-            if (!geometryIntersections.isEmpty())
-                intersections.addAll(geometryIntersections);
+        List<GeoPoint> result = null;
+
+        //gets list of intersections of all elements with the ray
+        for (Intersectable item : _intersectables) {
+            List<GeoPoint> itemPoints = item.findGeoIntersections(ray);
+            if (itemPoints != null) {
+                if (result == null) {
+                    result = new LinkedList<>();
+                }
+                result.addAll(itemPoints);
+            }
         }
-        return intersections;
+        return result;
     }
 
     /**

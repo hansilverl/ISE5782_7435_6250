@@ -67,10 +67,20 @@ public class Tube extends Geometry {
     /**
      * implementing {@link Intersectable#findIntersection(Ray)} }
      * @param ray in Tube
-     * @return
+     * @return (nothing because this is a bonus)
      */
     @Override
     public List<Point> findIntersection(Ray ray) {
+        return null;
+    }
+
+    /**
+     * implementing {@link Intersectable#findGeoIntersectionsHelper(Ray)} }
+     * @param ray in Tube
+     * @return (nothing because this is a bonus)
+     */
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         return null;
     }
 

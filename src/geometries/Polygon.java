@@ -108,8 +108,8 @@ public class Polygon extends Geometry {
      * Getter for normal vector
      * implementing {@link Geometry#getNormal(Point)}
      *
-     * @param point
-     * @return
+     * @param point as required
+     * @return normal
      */
     @Override
     public Vector getNormal(Point point) {
@@ -121,7 +121,7 @@ public class Polygon extends Geometry {
      * implementing {@link  Intersectable#findIntersection(Ray)} }
      *
      * @param ray
-     * @return
+     * @return list of intersections
      */
     @Override
     public List<Point> findIntersection(Ray ray) {
@@ -159,9 +159,47 @@ public class Polygon extends Geometry {
         return intersections;
     }
 
+    /**
+     * finding intersection between rays
+     * implementing {@link  Intersectable#findGeoIntersectionsHelper(Ray)} )} }
+     *
+     * @param ray to intersect with
+     * @return list of intersections
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        return null;
+        List<GeoPoint> intersections = plane.findGeoIntersections(ray);
+
+        if (intersections == null)
+            return null;
+
+        Point p0 = ray.getP0();
+        Vector v = ray.getDir();
+
+        Vector v1 = vertices.get(1).subtract(p0);
+
+        Vector v2 = vertices.get(0).subtract(p0);
+
+        double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+
+        if (isZero(sign))
+            return null;
+
+        boolean positive = sign > 0;
+
+        for (int i = vertices.size() - 1; i > 0; --i) {
+            v1 = v2;
+            v2 = vertices.get(i).subtract(p0);
+            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+
+            if (isZero(sign))
+                return null;
+
+            if (positive != (sign > 0))
+                return null;
+        }
+
+        return intersections;
     }
 
     @Override

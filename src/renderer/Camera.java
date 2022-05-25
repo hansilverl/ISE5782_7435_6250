@@ -173,7 +173,6 @@ public class Camera {
             if (rayTracer == null) {
                 throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
             }
-            int forhelp = 0;
             //rendering the image
             int nX = imageWriter.getNx();
             int nY = imageWriter.getNy();
