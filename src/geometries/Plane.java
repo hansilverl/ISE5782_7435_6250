@@ -94,8 +94,8 @@ public class Plane extends Geometry {
         Vector v = ray.getDir();
         Vector n = _normal;
 
-        if(_q0.equals(p0)){
-            return  null;
+        if (_q0.equals(p0)) {
+            return null;
         }
 
         Vector Q_P0 = _q0.subtract(p0);
@@ -113,9 +113,9 @@ public class Plane extends Geometry {
             return null;
         }
 
-        double m = alignZero(t/nv);
+        double m = alignZero(t / nv);
 
-        if(m<=0){
+        if (m <= 0) {
             return null;
         }
 
@@ -124,14 +124,18 @@ public class Plane extends Geometry {
         return List.of(point);
     }
 
+    /**
+     * @param ray Ray pointing towards the intersection point
+     * @return Intersection list
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        GeoPoint(ray.getP0(),);
+        Point p0 = ray.getP0();
         Vector v = ray.getDir();
         Vector n = _normal;
 
-        if(_q0.equals(p0)){
-            return  null;
+        if (_q0.equals(p0)) {
+            return null;
         }
 
         Vector Q_P0 = _q0.subtract(p0);
@@ -149,14 +153,14 @@ public class Plane extends Geometry {
             return null;
         }
 
-        double m = alignZero(t/nv);
+        double m = alignZero(t / nv);
 
-        if(m<=0){
+        if (m <= 0) {
             return null;
         }
-        //TODO: here it need to be GeoPoint in the new find intersection
-        Point point = ray.getPoint(m);
 
-        return List.of(point);
+        GeoPoint geoPoint = new GeoPoint(this, ray.getPoint(m));
+
+        return List.of(geoPoint);
     }
 }
