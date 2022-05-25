@@ -11,12 +11,12 @@ import primitives.Vector;
  */
 public abstract class Geometry extends Intersectable {
 
-    protected static Color emission =new Color(java.awt.Color.black);
+    protected Color emission =new Color(java.awt.Color.black);
 
     /**
      * @return {@link Geometry#emission}
      */
-    public static Color getEmission() {
+    public Color getEmission() {
         return emission;
     }
 
