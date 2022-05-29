@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Composite class to gather other {@link Geometry} based objects
  */
-public class Geometries extends Geometry {
+public class Geometries extends Intersectable {
     private List<Intersectable> _intersectables;
 
     /**
@@ -82,19 +82,6 @@ public class Geometries extends Geometry {
             }
         }
         return result;
-    }
-
-    /**
-     * Getter for normal vector
-     * Returns the normal of a point
-     * implementing {@link Geometry#getNormal(Point)}
-     *
-     * @param point
-     * @return
-     */
-    @Override
-    public Vector getNormal(Point point) {
-        return null;
     }
 
 }

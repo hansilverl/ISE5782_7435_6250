@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import primitives.*;
@@ -198,8 +199,9 @@ public class Polygon extends Geometry {
             if (positive != (sign > 0))
                 return null;
         }
-
-        return intersections;
+        LinkedList<GeoPoint> result = new LinkedList<GeoPoint>();
+        result.add(new GeoPoint(this, intersections.get(0).point));
+        return result;
     }
 
     @Override
