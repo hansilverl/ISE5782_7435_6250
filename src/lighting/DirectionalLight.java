@@ -4,16 +4,21 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+/**
+ * How much light comes from the source of light to the illuminated object.
+ * @author Hanna Silverberg & Hila Buznach
+ */
 public class DirectionalLight extends Light implements LightSource{
-    private Vector direction;
+    private Vector direction; // The direction of the light
 
     /**
      * constructor
-     *
      * @param color determines the color of the intensity
+     * @param myDirection determines the direction of the light
      */
-    protected DirectionalLight(Color color) {
+    protected DirectionalLight(Color color, Vector myDirection) {
         super(color);
+        direction = myDirection;
     }
 
     /**
@@ -24,7 +29,7 @@ public class DirectionalLight extends Light implements LightSource{
      */
     @Override
     public Color getIntensity(Point p) {
-        return null;
+        return getIntensity();
     }
 
     /**
