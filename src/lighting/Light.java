@@ -9,10 +9,18 @@ import primitives.Color;
 public abstract class Light {
     private Color intensity;
 
+    /**
+     * constructor
+     * @param color determines the color of the intensity
+     */
     protected Light(Color color) {
         intensity = color;
     }
 
+    /**
+     * get function
+     * @return the intensity
+     */
     public Color getIntensity() {
         return intensity;
     }
