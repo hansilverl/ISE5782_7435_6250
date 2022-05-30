@@ -18,12 +18,12 @@ public abstract class Intersectable {
      *
      * @param ray Ray pointing towards the intersection point
      */
-    public List<Point> findIntersection(Ray ray)
-    {
-        List<GeoPoint> geoList = findGeoIntersections(ray);
+    public List<Point> findIntersection(Ray ray) {
+        var geoList = findGeoIntersections(ray);
         return geoList == null ? null
                 : geoList.stream().map(gp -> gp.point).toList();
     }
+
 
     /**
      * Helper Class - class GeoPoint
@@ -37,7 +37,7 @@ public abstract class Intersectable {
          * @param myGeometry for {@link GeoPoint#geometry}
          * @param myPoint for {@link GeoPoint#point}
          */
-        GeoPoint (Geometry myGeometry, Point myPoint) {
+        public GeoPoint(Geometry myGeometry, Point myPoint) {
             geometry = myGeometry;
             point = myPoint;
         }

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import geometries.Intersectable.GeoPoint;
 
 import java.util.List;
 
@@ -22,10 +23,10 @@ class TriangleTest {
     }
 
     /**
-     * test method for {@link geometries.Triangle#findIntersection(Ray)}
+     * test method for {@link geometries.Triangle#findGeoIntersections(Ray)}
      */
     @Test
-    void testFindIntersection() {
+    void testFindGeoIntersection() {
         Triangle triangle = new Triangle(
                 new Point(1, 0, 0),
                 new Point(0, 1, 0),
@@ -34,14 +35,14 @@ class TriangleTest {
 
         // ============ Equivalence Partitions Tests ==============
         // TC01: Ray intersects inside the triangle (1 points)
-        List<Point> result = triangle.findIntersection(new Ray(new Point(-1, -1, -2), new Vector(1, 1, 2)));
+        List<GeoPoint> result = triangle.findGeoIntersections(new Ray(new Point(-1, -1, -2), new Vector(1, 1, 2)));
         assertEquals(1, result.size(), "Wrong number of points");
-        assertEquals(new Point(0.25, 0.25, 0.5), result.get(0), "Ray intersects inside the triangle");
+        assertEquals(new GeoPoint(triangle,new Point(0.25, 0.25, 0.5)), result.get(0), "Ray intersects inside the triangle");
 
         // TC02: Ray intersects outside the triangle against an edge (0 points)
-        assertNull(triangle.findIntersection(new Ray(new Point(-1, -2, -2), new Vector(1, 1, 2))), "Ray intersects outside the triangle against an edge");
+        assertNull(triangle.findGeoIntersections(new Ray(new Point(-1, -2, -2), new Vector(1, 1, 2))), "Ray intersects outside the triangle against an edge");
         // TC03: Ray intersects outside the triangle against a vertex (0 points)
-        assertNull(triangle.findIntersection(new Ray(new Point(-2, -2, -2), new Vector(1, 1, 2))), "Ray intersects outside the triangle against a vertex");
+        assertNull(triangle.findGeoIntersections(new Ray(new Point(-2, -2, -2), new Vector(1, 1, 2))), "Ray intersects outside the triangle against a vertex");
     }
 
 }

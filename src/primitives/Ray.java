@@ -45,23 +45,14 @@ public class Ray {
     /**
      * Find the closest point when given a list of points
      *
-     * @param pointList - list of points
+     * @param points - list of points
      * @return closest point
      */
-    public Point findClosestPoint(List<Point> pointList) {
-        if (pointList == null || pointList.isEmpty())
-            return null;
-
-        Point myPoint = pointList.get(0);
-
-        for (Point point : pointList) {
-            if (_p0.distance(myPoint) > _p0.distance(point)) {
-                myPoint = point;
-            }
-        }
-
-        return myPoint;
+    public Point findClosestPoint(List<Point> points) {
+        return points == null || points.isEmpty() ? null
+                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
     }
+
 
     /**
      * Find the closest geo point when given a list of points

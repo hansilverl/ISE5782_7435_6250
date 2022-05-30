@@ -35,8 +35,8 @@ public class Cylinder extends Tube {
      * implementing {@link Geometry#getNormal(Point)}
      * getter for normal vector
      *
-     * @param point
-     * @return
+     * @param point on plane
+     * @return normal
      */
 
 
@@ -65,10 +65,10 @@ public class Cylinder extends Tube {
     }
 
     /**
-     * implementing {@link Intersectable#findIntersection(Ray)}
+     * implementing {@link Intersectable#findGeoIntersections(Ray)}
      *
-     * @param ray
-     * @return
+     * @param ray to intersect
+     * @return list of intersections
      */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {

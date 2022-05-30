@@ -6,9 +6,6 @@ import primitives.Vector;
 
 import java.util.List;
 
-import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
-
 /**
  * @author Hila Buznach & Hannah Silverberg
  * Class to represent a tube🧪
@@ -62,16 +59,6 @@ public class Tube extends Geometry {
                 "_axisRay=" + _axisRay +
                 ", _radius=" + _radius +
                 '}';
-    }
-
-    /**
-     * implementing {@link Intersectable#findIntersection(Ray)} }
-     * @param ray in Tube
-     * @return (nothing because this is a bonus)
-     */
-    @Override
-    public List<Point> findIntersection(Ray ray) {
-        return null;
     }
 
     /**

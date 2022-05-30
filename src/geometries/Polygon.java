@@ -88,14 +88,14 @@ public class Polygon extends Geometry {
     }
 
     /**
-     * @return
+     * @return vertices
      */
     public List<Point> getVertices() {
         return vertices;
     }
 
     /**
-     * @return
+     * @return plane
      */
     public Plane getPlane() {
         return plane;
@@ -117,48 +117,6 @@ public class Polygon extends Geometry {
         return plane.getNormal();
     }
 
-    /**
-     * finding intersection between rays
-     * implementing {@link  Intersectable#findIntersection(Ray)} }
-     *
-     * @param ray
-     * @return list of intersections
-     */
-    @Override
-    public List<Point> findIntersection(Ray ray) {
-        List<Point> intersections = plane.findIntersection(ray);
-
-        if (intersections == null)
-            return null;
-
-        Point p0 = ray.getP0();
-        Vector v = ray.getDir();
-
-        Vector v1 = vertices.get(1).subtract(p0);
-
-        Vector v2 = vertices.get(0).subtract(p0);
-
-        double sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-
-        if (isZero(sign))
-            return null;
-
-        boolean positive = sign > 0;
-
-        for (int i = vertices.size() - 1; i > 0; --i) {
-            v1 = v2;
-            v2 = vertices.get(i).subtract(p0);
-            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
-
-            if (isZero(sign))
-                return null;
-
-            if (positive != (sign > 0))
-                return null;
-        }
-
-        return intersections;
-    }
 
     /**
      * finding intersection between rays
@@ -199,7 +157,7 @@ public class Polygon extends Geometry {
             if (positive != (sign > 0))
                 return null;
         }
-        LinkedList<GeoPoint> result = new LinkedList<GeoPoint>();
+        LinkedList<GeoPoint> result = new LinkedList<>();
         result.add(new GeoPoint(this, intersections.get(0).point));
         return result;
     }

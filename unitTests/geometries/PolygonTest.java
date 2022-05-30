@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import geometries.Intersectable.GeoPoint;
 
 import java.util.List;
 
@@ -78,10 +79,10 @@ public class PolygonTest {
     }
 
     /**
-     * test method for {@link geometries.Polygon#findIntersection(Ray)}
+     * test method for {@link geometries.Polygon#findGeoIntersections(Ray)}
      */
     @Test
-    void testFindIntersection() {
+    void testfindGeoIntersections() {
         Polygon polygon = new Polygon(
                 new Point(1, 0, 0),
                 new Point(0, 1, 0),
@@ -91,13 +92,13 @@ public class PolygonTest {
 
         // ============ Equivalence Partitions Tests ==============
         // TC01: Ray's intersection point is on the inside of the polygon
-        List<Point> result = polygon.findIntersection(new Ray(new Point(-1, -1, -2), new Vector(1, 1, 2)));
+        List<GeoPoint> result = polygon.findGeoIntersections(new Ray(new Point(-1, -1, -2), new Vector(1, 1, 2)));
         assertEquals(1, result.size(), "Wrong amount of points");
-        assertEquals(new Point(0.25, 0.25, 0.5), result.get(0), "ERROR: Ray intersects the inside of the polygon");
+        assertEquals(new GeoPoint(polygon,new Point(0.25, 0.25, 0.5)), result.get(0), "ERROR: Ray intersects the inside of the polygon");
 
         // TC02: Ray has one intersection point with the polygon on it's edge
-        assertNull(polygon.findIntersection(new Ray(new Point(-1, -2.5, -1), new Vector(1, 1, 2))), "ERROR: Ray intersects polygon's edge");
+        assertNull(polygon.findGeoIntersections(new Ray(new Point(-1, -2.5, -1), new Vector(1, 1, 2))), "ERROR: Ray intersects polygon's edge");
         // TC03: Ray intersects the polygon at a vertex
-        assertNull(polygon.findIntersection(new Ray(new Point(-2, -1, 0), new Vector(1, 1, 2))), "ERROR: Ray intersects Polygon's vertex");
+        assertNull(polygon.findGeoIntersections(new Ray(new Point(-2, -1, 0), new Vector(1, 1, 2))), "ERROR: Ray intersects Polygon's vertex");
     }
 }

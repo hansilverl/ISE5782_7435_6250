@@ -82,49 +82,6 @@ public class Plane extends Geometry {
     }
 
     /**
-     * finding the intersection of rays
-     * implementing {@link Intersectable#findIntersection(Ray)} )}
-     *
-     * @param ray in plane
-     * @return list of intersection points
-     */
-
-    public List<Point> findIntersection(Ray ray) {
-        Point p0 = ray.getP0();
-        Vector v = ray.getDir();
-        Vector n = _normal;
-
-        if (_q0.equals(p0)) {
-            return null;
-        }
-
-        Vector Q_P0 = _q0.subtract(p0);
-        double t = alignZero(n.dotProduct(Q_P0));
-
-        //meaning t===0 Origin of the ray lies on the plane
-        if (isZero(t)) {
-            return null;
-        }
-
-        double nv = alignZero(n.dotProduct(v));
-
-        //if the ray is parallel to the point, there will be no intersection point
-        if (isZero(nv)) {
-            return null;
-        }
-
-        double m = alignZero(t / nv);
-
-        if (m <= 0) {
-            return null;
-        }
-
-        Point point = ray.getPoint(m);
-
-        return List.of(point);
-    }
-
-    /**
      * @param ray Ray pointing towards the intersection point
      * @return Intersection list
      */

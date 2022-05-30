@@ -49,15 +49,11 @@ public class Triangle extends Polygon  {
 
     /**
      * finding intersection
-     * implementing {@link geometries.Intersectable#findIntersection(Ray)} Ray)}
+     * implementing {@link geometries.Intersectable#findGeoIntersections(Ray)} Ray)}
      *
      * @param ray of triangle
      * @return intersection points
      */
-    @Override
-    public List<Point> findIntersection(Ray ray) {
-       return super.findIntersection(ray);
-    }
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         return super.findGeoIntersections(ray);

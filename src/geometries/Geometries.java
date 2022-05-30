@@ -38,32 +38,6 @@ public class Geometries extends Intersectable {
 
 
     /**
-     * finding intersection between rays
-     * implementing {@link Intersectable#findIntersection(Ray)}
-     *
-     * @param ray of triangle
-     * @return intersection point
-     */
-
-
-    @Override
-    public List<Point> findIntersection(Ray ray) {
-        List<Point> result = null;
-
-        //gets list of intersections of all elements with the ray
-        for (Intersectable item : _intersectables) {
-            List<Point> itemPoints = item.findIntersection(ray);
-            if (itemPoints != null) {
-                if (result == null) {
-                    result = new LinkedList<>();
-                }
-                result.addAll(itemPoints);
-            }
-        }
-        return result;
-    }
-
-    /**
      * @param ray Ray pointing towards the intersection point
      * @return list of geo intersections
      */
