@@ -181,8 +181,6 @@ public class Camera {
                 for (int j = 0; j < nY; j++) {
                     Color pixelColor = castRay(nX, nY, j, i);
                     imageWriter.writePixel(j, i, pixelColor);
-                    if(j==330&&i==400)
-                        delme++;
                 }
             }
             return this;
