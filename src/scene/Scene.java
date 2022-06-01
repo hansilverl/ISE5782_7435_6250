@@ -19,7 +19,7 @@ public class Scene {
     public Color background;
     public AmbientLight ambientLight;
     public Geometries geometries;
-    public List<LightSource> lights;
+    public List<LightSource> lights = new LinkedList<>();
 
     /**
      * constructing a scene
@@ -30,7 +30,6 @@ public class Scene {
         background = new Color(java.awt.Color.black);
         ambientLight = new AmbientLight();
         geometries = new Geometries();
-        lights = new LinkedList<>();
     }
 
     /**

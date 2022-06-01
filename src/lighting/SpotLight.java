@@ -17,9 +17,6 @@ public class SpotLight extends PointLight{
      * constructor
      * @param color determines the color of the intensity
      * @param myPosition determines the position of the point
-     * @param myKC determines the kc
-     * @param myKL determines the kl
-     * @param myKQ determines the kq
      * @param myDirection determines the direction of the light
      */
     protected SpotLight(Color color, Point myPosition, Vector myDirection) {
