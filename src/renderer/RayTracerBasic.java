@@ -19,10 +19,27 @@ import static primitives.Util.alignZero;
  */
 public class RayTracerBasic extends RayTracerBase {
 
+    private static final double DELTA = 0.1;
     public RayTracerBasic(Scene scene) {
         super(scene);
     }
 
+    /**
+     * representing shadows
+     * @param gp geo point
+     * @param l vector
+     * @param n vector
+     * @return false if there are intersection
+     */
+    public boolean unshaded(GeoPoint gp, Vector l, Vector n){
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Vector epsVector = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
+        Point point = gp.point.add(epsVector);
+        Ray lightRay = new Ray(point, lightDirection);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+        return intersections == null;
+
+    }
     /**
      * tracing ray
      *
