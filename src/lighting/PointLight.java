@@ -6,6 +6,7 @@ import primitives.Vector;
 
 /**
  * Models omni-directional point source (such as a bulb)
+ *
  * @author Hanna Silverberg & Hila Buznach
  */
 public class PointLight extends Light implements LightSource {
@@ -16,13 +17,11 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * constructor
-     * @param color determines the color of the intensity
+     *
+     * @param color      determines the color of the intensity
      * @param myPosition determines the position of the point
-     * @param myKC determines the kc
-     * @param myKL determines the kl
-     * @param myKQ determines the kq
      */
-    protected PointLight(Color color, Point myPosition, double myKC, double myKL, double myKQ) {
+    protected PointLight(Color color, Point myPosition) {
         super(color);
         position = myPosition;
         kC =myKC;
@@ -38,7 +37,7 @@ public class PointLight extends Light implements LightSource {
      */
     @Override
     public Color getIntensity(Point p) {
-        double d =position.distance(p);
+        double d = position.distance(p);
         Color iL = getIntensity().scale((1 / (kC + kL * d + kQ * d * d)));
         return iL;
     }
@@ -49,11 +48,13 @@ public class PointLight extends Light implements LightSource {
      */
     @Override
     public Vector getL(Point p) {
-        return null;
+        return p.subtract(position).normalize();
+
     }
 
     /**
      * get function
+     *
      * @param point certain pont in scene
      * @return
      */
@@ -64,6 +65,7 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * set function
+     *
      * @param myPosition determines the position of the point
      * @return object
      */
@@ -74,6 +76,7 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * set function
+     *
      * @param myKC determines the kc
      * @return object
      */
@@ -84,20 +87,22 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * set function
+     *
      * @param myKL determines the kl
      * @return object
      */
-    public PointLight setkL(double myKL) {
+    public PointLight setKl(double myKL) {
         kL = myKL;
         return this;
     }
 
     /**
      * set function
+     *
      * @param myKQ determines the kq
      * @return object
      */
-    public PointLight setkQ(double myKQ) {
+    public PointLight setKq(double myKQ) {
         kQ = myKQ;
         return this;
     }

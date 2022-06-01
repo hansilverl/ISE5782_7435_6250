@@ -4,6 +4,8 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+import static primitives.Util.alignZero;
+
 /**
  * Models point light source with direction (such as a luxo lamp)
  * @author Hannah Silverberg & Hila Buznach
@@ -20,8 +22,16 @@ public class SpotLight extends PointLight{
      * @param myKQ determines the kq
      * @param myDirection determines the direction of the light
      */
-    protected SpotLight(Color color, Point myPosition, double myKC, double myKL, double myKQ, Vector myDirection) {
-        super(color, myPosition, myKC, myKL, myKQ);
-        direction = myDirection;
+    protected SpotLight(Color color, Point myPosition, Vector myDirection) {
+        super(color, myPosition);
+        direction = myDirection.normalize();
+    }
+
+    @Override
+    public Color getIntensity(Point p) {
+        Vector l=super.getL(p);
+        if (alignZero(direction.dotProduct(l))<=0)
+            return Color.BLACK;
+        return super.getIntensity(p).scale(direction.dotProduct(l));
     }
 }

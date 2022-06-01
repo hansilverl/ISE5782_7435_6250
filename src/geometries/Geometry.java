@@ -3,8 +3,7 @@ package geometries;
 import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
-
-
+import primitives.Material;
 /**
  * Geometry class to represent shapes
  * @author Hila & Hannah
@@ -12,6 +11,24 @@ import primitives.Vector;
 public abstract class Geometry extends Intersectable {
 
     protected Color emission =new Color(java.awt.Color.black);
+    private Material material = new Material();
+
+    /**
+     * Setter for material field
+     * @param material of {@link Geometry}
+     * @return object (as in builder pattern)
+     */
+    public Geometry setMaterial(Material material) {
+        this.material = material;
+        return this;
+    }
+
+    /**
+     * @return {@link Geometry#material}
+     */
+    public Material getMaterial() {
+        return material;
+    }
 
     /**
      * @return {@link Geometry#emission}
@@ -32,8 +49,8 @@ public abstract class Geometry extends Intersectable {
     /**
      * Getter for normal vector
      *
-     * @param point
-     * @return
+     * @param point to normalize
+     * @return normal;
      */
     public abstract Vector getNormal(Point point);
 }

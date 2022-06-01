@@ -18,7 +18,7 @@ public class DirectionalLight extends Light implements LightSource{
      */
     protected DirectionalLight(Color color, Vector myDirection) {
         super(color);
-        direction = myDirection;
+        direction = myDirection.normalize();
     }
 
     /**
@@ -38,11 +38,15 @@ public class DirectionalLight extends Light implements LightSource{
      */
     @Override
     public Vector getL(Point p) {
-        return null;
+        return direction;
     }
 
+    /**
+     * @param point certain pont in scene
+     * @return distance
+     */
     @Override
     public double getDistance(Point point) {
-        return 0;
+        return Double.POSITIVE_INFINITY;
     }
 }
