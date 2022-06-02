@@ -23,6 +23,7 @@ public class RayTracerBasic extends RayTracerBase {
 
     private static final double MIN_CALC_COLOR_K = 0.001;
 
+
     public RayTracerBasic(Scene scene) {
         super(scene);
     }
@@ -100,6 +101,7 @@ public class RayTracerBasic extends RayTracerBase {
         }
         return color;
     }
+
 
     private Color calcSpecular(Double3 ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
         var r = l.add(n.scale(l.dotProduct(n) * -2));

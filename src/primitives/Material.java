@@ -11,9 +11,9 @@ public class Material {
     Double3 kS = new Double3(0);  //percentage of energy that goes to direct reflection
     int nShininess = 0; //the object’s shininess, Max light that is in the return direction by the value of n
 
-    Double3 kT=new Double3(0.0);     //Transparency coefficient
+    Double3 kT = new Double3(0.0);     //Transparency coefficient
 
-    Double3 kR=new Double3(0.0); //Reflection, Perfect mirror has a 𝒌𝑹 = 𝟏 and matt surface has a 𝒌𝑹 = 𝟎
+    Double3 kR = new Double3(0.0); //Reflection, Perfect mirror has a 𝒌𝑹 = 𝟏 and matt surface has a 𝒌𝑹 = 𝟎
 
     /**
      * setter function that get double variable
@@ -72,6 +72,7 @@ public class Material {
 
     /**
      * using builder pattern for setter
+     *
      * @param kT to initialize
      * @return object
      */
@@ -82,6 +83,7 @@ public class Material {
 
     /**
      * using builder pattern for setter
+     *
      * @param kR to initialize
      * @return object
      */
@@ -105,9 +107,23 @@ public class Material {
     }
 
     /**
-     * @@return {@link Material#nShininess}
+     * @return {@link Material#nShininess}
      */
     public int getShininess() {
         return nShininess;
+    }
+
+    /**
+     * @return {@link Material#kT}
+     */
+    public Double3 getKt() {
+        return kT;
+    }
+
+    /**
+     * @return {@link Material#kR}
+     */
+    public Double3 getKr() {
+        return kR;
     }
 }
