@@ -38,15 +38,8 @@ public class RayTracerBasic extends RayTracerBase {
         Vector epsVector = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
         Point point = gp.point.add(epsVector);
         Ray lightRay = new Ray(point, lightDirection);
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
-        if (intersections == null) return true;
-        double lightDist=lightSource.getDistance(point);    //Instead of calculating every round.
-        for (GeoPoint pnt:intersections)
-        {
-            if (point.distance(pnt.point)<lightDist)
-                return false;
-        }
-        return true;
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay,lightSource.getDistance(point));
+        return intersections == null;
     }
 
     /**

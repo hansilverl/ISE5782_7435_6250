@@ -70,7 +70,7 @@ public class Sphere extends Geometry {
      * @return list og geo intersections
      */
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
        /* u = O - p0
         tm = v * u
         d = sqrt(u^2 - tm^2)   if d >= r there are no intersections

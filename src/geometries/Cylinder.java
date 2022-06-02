@@ -1,14 +1,9 @@
 package geometries;
 
-import primitives.Double3;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
@@ -64,14 +59,4 @@ public class Cylinder extends Tube {
                 '}';
     }
 
-    /**
-     * implementing {@link Intersectable#findGeoIntersections(Ray)}
-     *
-     * @param ray to intersect
-     * @return list of intersections
-     */
-    @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
-        return null;
-    }
 }

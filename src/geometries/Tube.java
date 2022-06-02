@@ -62,12 +62,12 @@ public class Tube extends Geometry {
     }
 
     /**
-     * implementing {@link Intersectable#findGeoIntersectionsHelper(Ray)} }
+     * implementing {@link Intersectable#findGeoIntersectionsHelper(Ray,double)} }
      * @param ray in Tube
      * @return (nothing because this is a bonus)
      */
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance){
         return null;
     }
 

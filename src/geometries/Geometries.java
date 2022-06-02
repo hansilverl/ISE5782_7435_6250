@@ -42,12 +42,12 @@ public class Geometries extends Intersectable {
      * @return list of geo intersections
      */
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
         List<GeoPoint> result = null;
 
         //gets list of intersections of all elements with the ray
         for (Intersectable item : _intersectables) {
-            List<GeoPoint> itemPoints = item.findGeoIntersections(ray);
+            List<GeoPoint> itemPoints = item.findGeoIntersectionsHelper(ray,maxDistance);
             if (itemPoints != null) {
                 if (result == null) {
                     result = new LinkedList<>();

@@ -120,14 +120,15 @@ public class Polygon extends Geometry {
 
     /**
      * finding intersection between rays
-     * implementing {@link  Intersectable#findGeoIntersectionsHelper(Ray)} )} }
+     * implementing {@link  Intersectable#findGeoIntersectionsHelper(Ray, double)} )} }
      *
-     * @param ray to intersect with
-     * @return list of intersections
+     * @param ray        to check intersections
+     * @param maxDistance from light source to object
+     * @return
      */
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        List<GeoPoint> intersections = plane.findGeoIntersections(ray);
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        List<GeoPoint> intersections = plane.findGeoIntersectionsHelper(ray,maxDistance);
 
         if (intersections == null)
             return null;

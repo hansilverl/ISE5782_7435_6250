@@ -72,8 +72,17 @@ public abstract class Intersectable {
      *
      * @param ray Ray pointing towards the intersection point
      */
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
-        return findGeoIntersectionsHelper(ray);
+    public final List<GeoPoint> findGeoIntersections(Ray ray) {
+        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
+    }
+
+    /**
+     * @param ray         to check intersections
+     * @param maxDistance from light source to object
+     * @return intersections
+     */
+    public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+        return findGeoIntersectionsHelper(ray, maxDistance);
     }
 
     /**
@@ -81,7 +90,10 @@ public abstract class Intersectable {
      * that intersect the Shape from a specific Ray {@link Ray}
      * Non-Virtual Interface (NVI)
      *
-     * @param ray Ray pointing towards the intersection point
+     * @param ray         to check intersections
+     * @param maxDistance from light source to object
+     * @return intersections
      */
-    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
+
 }
