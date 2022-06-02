@@ -19,6 +19,14 @@ public class AmbientLight extends Light {
     }
 
     /**
+     * @param Ia basic illumination
+     * @param Ka attenuation factor
+     */
+    public AmbientLight(Color Ia , double Ka){
+        super(Ia.scale(Ka));
+    }
+
+    /**
      * default constructor send to the father constructor Black
      */
     public AmbientLight(){
