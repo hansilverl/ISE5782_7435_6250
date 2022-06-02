@@ -17,8 +17,11 @@ import static primitives.Util.alignZero;
  */
 public class RayTracerBasic extends RayTracerBase {
 
-
     private static final double DELTA = 0.1;    //The factor for adjustments for the shading rays (you can reduce its value according to the orders of the shape size)
+
+    private static final int MAX_CALC_COLOR_LEVEL = 10; //
+
+    private static final double MIN_CALC_COLOR_K = 0.001;
 
     public RayTracerBasic(Scene scene) {
         super(scene);
@@ -27,18 +30,18 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * Representing shadows
      *
-     * @param gp geo point
-     * @param l  vector
-     * @param n  vector
+     * @param gp          geo point
+     * @param l           vector
+     * @param n           vector
      * @param lightSource in use
      * @return false if there are intersection
      */
-    public boolean unshaded(GeoPoint gp, Vector l, Vector n,LightSource lightSource) {
+    public boolean unshaded(GeoPoint gp, Vector l, Vector n, LightSource lightSource) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Vector epsVector = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
         Point point = gp.point.add(epsVector);
         Ray lightRay = new Ray(point, lightDirection);
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay,lightSource.getDistance(point));
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, lightSource.getDistance(point));
         return intersections == null;
     }
 
@@ -88,7 +91,7 @@ public class RayTracerBasic extends RayTracerBase {
             Vector l = lightSource.getL(intersection.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // checks if nl == nv
-                if (unshaded(intersection, l,n,lightSource)) {
+                if (unshaded(intersection, l, n, lightSource)) {
                     Color lightIntensity = lightSource.getIntensity(intersection.point);
                     color = color.add(calcDiffusive(kd, l, n, lightIntensity),
                             calcSpecular(ks, l, n, v, nShininess, lightIntensity));
