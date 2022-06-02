@@ -116,6 +116,9 @@ public class Plane extends Geometry {
             return null;
         }
 
+        if(alignZero(m - maxDistance) > 0){
+            return null;
+        }
         GeoPoint geoPoint = new GeoPoint(this, ray.getPoint(m));
 
         return List.of(geoPoint);

@@ -80,9 +80,13 @@ public class Sphere extends Geometry {
         Point P0 = ray.getP0();
         Vector v = ray.getDir();
 
-        if (P0.equals(_center)) {
-            GeoPoint ret=new GeoPoint(this,_center.add(v.scale(_radius)));
-            return List.of(ret);
+
+        if (P0.equals(_center) ) {
+            Point pnt=_center.add(v.scale(_radius));
+            if (pnt.distance(P0)<=maxDistance) {
+                GeoPoint ret = new GeoPoint(this, pnt);
+                return List.of(ret);
+            }
         }
 
         Vector U = _center.subtract(P0);
@@ -100,19 +104,39 @@ public class Sphere extends Geometry {
         double t2 = alignZero(tm + th);
 
         if (t1 > 0 && t2 > 0) {
-
-            GeoPoint P1 = new GeoPoint(this,ray.getPoint(t1));
-            GeoPoint P2 = new GeoPoint(this,ray.getPoint(t2));
-            return List.of(P1, P2);
+            Point pn1=ray.getPoint(t1);
+            double distance1 = pn1.distance(P0);
+            Point pn2=ray.getPoint(t2);
+            double distance2 = pn2.distance(P0);
+            if(distance1<=maxDistance && distance2<=maxDistance){
+                GeoPoint P1 = new GeoPoint(this,pn1);
+                GeoPoint P2 = new GeoPoint(this,pn2);
+                return List.of(P1, P2);
+            }
+            if(distance1<=maxDistance){
+                GeoPoint P1 = new GeoPoint(this,pn1);
+                return List.of(P1);
+            }
+            if(distance2<=maxDistance){
+                GeoPoint P2 = new GeoPoint(this,pn2);
+                return List.of(P2);
+            }
         }
         if (t1 > 0) {
-            GeoPoint P1 = new GeoPoint(this,ray.getPoint(t1));
-            return List.of(P1);
+            Point pn1=ray.getPoint(t1);
+            double distance1 = pn1.distance(P0);
+            if(distance1<=maxDistance){
+                GeoPoint P1 = new GeoPoint(this,pn1);
+                return List.of(P1);
+            }
         }
         if (t2 > 0) {
-
-            GeoPoint P2 = new GeoPoint(this, ray.getPoint(t2));
-            return List.of(P2);
+            Point pn2=ray.getPoint(t2);
+            double distance2 = pn2.distance(P0);
+            if(distance2<=maxDistance){
+                GeoPoint P2 = new GeoPoint(this,pn2);
+                return List.of(P2);
+            }
         }
         return null;
     }
