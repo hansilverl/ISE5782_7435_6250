@@ -7,8 +7,6 @@ import scene.Scene;
 
 import java.util.List;
 
-import static java.lang.Math.max;
-import static java.lang.Math.pow;
 import static primitives.Util.alignZero;
 
 /**
@@ -19,27 +17,38 @@ import static primitives.Util.alignZero;
  */
 public class RayTracerBasic extends RayTracerBase {
 
-    private static final double DELTA = 0.1;
+
+    private static final double DELTA = 0.1;    //The factor for adjustments for the shading rays (you can reduce its value according to the orders of the shape size)
+
     public RayTracerBasic(Scene scene) {
         super(scene);
     }
 
     /**
-     * representing shadows
+     * Representing shadows
+     *
      * @param gp geo point
-     * @param l vector
-     * @param n vector
+     * @param l  vector
+     * @param n  vector
+     * @param lightSource in use
      * @return false if there are intersection
      */
-    public boolean unshaded(GeoPoint gp, Vector l, Vector n){
+    public boolean unshaded(GeoPoint gp, Vector l, Vector n,LightSource lightSource) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Vector epsVector = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
         Point point = gp.point.add(epsVector);
         Ray lightRay = new Ray(point, lightDirection);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
-        return intersections == null;
-
+        if (intersections == null) return true;
+        double lightDist=lightSource.getDistance(point);    //Instead of calculating every round.
+        for (GeoPoint pnt:intersections)
+        {
+            if (point.distance(pnt.point)<lightDist)
+                return false;
+        }
+        return true;
     }
+
     /**
      * tracing ray
      *
@@ -59,7 +68,7 @@ public class RayTracerBasic extends RayTracerBase {
      * calculating color
      *
      * @param closestPoint to VP
-     * @param ray  traced to calculate
+     * @param ray          traced to calculate
      * @return intensity color
      */
     private Color calcColor(GeoPoint closestPoint, Ray ray) {
@@ -68,7 +77,7 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * @param intersection intersection point
-     * @param ray intersecting ray
+     * @param ray          intersecting ray
      * @return colour of local effects
      */
     private Color calcLocalEffects(GeoPoint intersection, Ray ray) {
@@ -95,7 +104,7 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     private Color calcSpecular(Double3 ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
-        var r=l.add(n.scale(l.dotProduct(n)*-2));
+        var r = l.add(n.scale(l.dotProduct(n) * -2));
         double vr = alignZero(v.scale(-1).dotProduct(r));
         if (vr < 0)
             vr = 0;

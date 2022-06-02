@@ -34,8 +34,9 @@ public abstract class Intersectable {
 
         /**
          * Constructor for GeoPoint
+         *
          * @param myGeometry for {@link GeoPoint#geometry}
-         * @param myPoint for {@link GeoPoint#point}
+         * @param myPoint    for {@link GeoPoint#point}
          */
         public GeoPoint(Geometry myGeometry, Point myPoint) {
             geometry = myGeometry;
@@ -64,22 +65,23 @@ public abstract class Intersectable {
         }
 
     }
+
     /**
      * find all geo intersection points {@link Point}
      * that intersect the Shape from a specific Ray {@link Ray}
      *
      * @param ray Ray pointing towards the intersection point
      */
-  public List<GeoPoint> findGeoIntersections(Ray ray)
-  {
-      return findGeoIntersectionsHelper(ray);
-  }
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        return findGeoIntersectionsHelper(ray);
+    }
 
     /**
      * find all geo intersection points {@link Point}
      * that intersect the Shape from a specific Ray {@link Ray}
-     *Non-Virtual Interface (NVI)
+     * Non-Virtual Interface (NVI)
+     *
      * @param ray Ray pointing towards the intersection point
      */
-  protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 }
