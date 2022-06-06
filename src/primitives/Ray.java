@@ -17,6 +17,8 @@ public class Ray {
     final Point _p0;   //point value of ray
     final Vector _dir;  //Vector value of ray
 
+    public static final double DELTA = 0.1;    //The factor for adjustments for the shading rays (you can reduce its value according to the orders of the shape size)
+
     /**
      * Constructing a ray
      *
@@ -28,6 +30,11 @@ public class Ray {
         _dir = dir.normalize();
     }
 
+    public Ray(Point head, Vector direction, Vector normal) {
+        double delta = direction.dotProduct(normal) >= 0 ? DELTA : -DELTA;
+        _p0 = head.add(normal.scale(delta));
+        _dir = direction;
+    }
     /**
      * @return _p0 starting point of ray
      */
