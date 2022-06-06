@@ -54,6 +54,35 @@ public class RayTracerBasic extends RayTracerBase {
         return true;
     }
 
+
+    /**
+     * Representing transparency
+     *
+     * @param gp geo point
+     * @param l  vector
+     * @param n  vector
+     * @param ls in use
+     * @return false if there are intersection
+     */
+    private Double3 transparency(GeoPoint gp, LightSource ls, Vector l, Vector n) {
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Point point = gp.point;
+        Ray lightRay = new Ray(point, lightDirection, n);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, ls.getDistance(point));
+        if (intersections != null) {
+            Double3 ktr = new Double3(1.0);
+            double lightDistance = ls.getDistance(point);
+            for (GeoPoint intersection : intersections) {
+                if (alignZero(gp.point.distance(gp.point) - lightDistance) <= 0) {
+                    ktr = ktr.product(gp.geometry.getMaterial().getKt());
+                    if (ktr.lowerThan(MIN_CALC_COLOR_K)) return new Double3(0.0);
+                }
+            }
+            return ktr;
+        }
+        return new Double3(1.0);
+    }
+
     /**
      * tracing ray
      * Override
