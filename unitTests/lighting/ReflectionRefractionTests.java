@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package lighting;
 
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static java.awt.Color.*;
 
 import renderer.ImageWriter;
-import lighting.*;
+
 import geometries.*;
 import primitives.*;
 import renderer.*;
@@ -17,7 +17,7 @@ import scene.Scene;
 /**
  * Tests for reflection and transparency functionality, test for partial shadows
  * (with transparency)
- * 
+ *
  * @author dzilb
  */
 public class ReflectionRefractionTests {
@@ -106,5 +106,64 @@ public class ReflectionRefractionTests {
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage() //
 				.writeToImage();
+	}
+
+
+	@Test
+	public void hannah() {
+		Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+				.setVPSize(150, 150).setVPDistance(1000);
+		scene.geometries.add( //
+				new Sphere(new Point(0, 0, -50), 50d).setEmission(new Color(200, 162, 200)) //
+						.setMaterial(new Material().setKd(0.15).setKs(0.3).setShininess(10).setKt(0)),
+				new Triangle(new Point(1, -50, 34), new Point(1, 1, 34), new Point(100, 50, 56)).setEmission(new Color(PINK)) //
+						.setMaterial(new Material().setKd(0.1).setShininess(50).setKs(56)),
+				new Polygon(new Point(-50, -70, 50), new Point(-50, -50, 50), new Point(0, -50, 50), new Point(0, -70, 50)).setEmission(new Color(magenta)) //
+						.setMaterial(new Material().setKd(0.5).setKs(0.78).setShininess(150)));
+		scene.lights.add(
+				new SpotLight(new Color(1000, 600, 0), new Point(-100, -100, 500), new Vector(-1, -1, -2)) //
+						.setKl(0.0004).setKq(0.0000006));
+		scene.lights.add(new SpotLight(new Color(white), new Point(-25, -60, 500), new Vector(-1, -1, -2)).setKl(0.56).setKq(0.78));
+		scene.setBackground(new Color(0, 13, 77));
+		camera.setImageWriter(new ImageWriter("hannahPic", 500, 500)) //
+				.setRayTracer(new RayTracerBasic(scene)) //
+				.renderImage() //
+				.writeToImage();
+	}
+
+	@Test
+	public void hila() {
+		Camera camera = new Camera(new Point(0, 0, 10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+				.setVPSize(2500, 2500).setVPDistance(10000); //
+
+		scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
+
+		scene.geometries.add( //
+				new Sphere(new Point(-950, -900, -1000), 400d).setEmission(new Color(0, 0, 100)) //
+						.setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20).setKt(0.5)),
+				new Sphere(new Point(-100, -900, -1000), 200d).setEmission(new Color(100, 20, 20)) //
+						.setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
+				new Polygon(new Point(-800, 100, 0), new Point(-800, -200, 0), new Point(-400, -200, 0), new Point(-400, 100, 0))//
+						.setEmission(new Color(242, 197, 19)).setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
+				new Triangle(new Point(-850, 100, 3), new Point(-600, 300, 3), new Point(-350, 100, 3))//
+						.setEmission(new Color(242, 71, 19)).setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
+				new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500), new Point(670, 670, 3000)) //
+						.setEmission(new Color(20, 20, 20)) //
+						.setMaterial(new Material().setKr(1)),
+				new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500),
+						new Point(-1500, -1500, -2000)) //
+						.setEmission(new Color(20, 20, 20)) //
+						.setMaterial(new Material().setKr(0.5)));
+
+		scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point(-750, -750, -150), new Vector(-1, -1, -4)) //
+				.setKl(0.00001).setKq(0.000005));
+
+		ImageWriter imageWriter = new ImageWriter("Hila's picture", 500, 500);
+		camera.setImageWriter(imageWriter) //
+				.setRayTracer(new RayTracerBasic(scene)) //
+				.renderImage() //
+				.writeToImage();
+
+
 	}
 }
