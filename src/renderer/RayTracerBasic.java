@@ -64,23 +64,24 @@ public class RayTracerBasic extends RayTracerBase {
      * @param ls in use
      * @return false if there are intersection
      */
-    private Double3 transparency(GeoPoint gp, LightSource ls, Vector l, Vector n) {
+    protected Double3 transparency (LightSource ls, Vector l, Vector n, GeoPoint gp,double nv){
         Vector lightDirection = l.scale(-1); // from point to light source
-        Point point = gp.point;
-        Ray lightRay = new Ray(point, lightDirection, n);
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, ls.getDistance(point));
-        if (intersections != null) {
-            Double3 ktr = new Double3(1.0);
-            double lightDistance = ls.getDistance(point);
-            for (GeoPoint intersection : intersections) {
-                if (alignZero(gp.point.distance(gp.point) - lightDistance) <= 0) {
-                    ktr = ktr.product(gp.geometry.getMaterial().getKt());
-                    if (ktr.lowerThan(MIN_CALC_COLOR_K)) return new Double3(0.0);
-                }
-            }
+        Ray lightRay = new Ray(gp.point, lightDirection,n);
+        double lightDistance = ls.getDistance(gp.point);
+        var intersections = scene.geometries.findGeoIntersections(lightRay);
+        Double3 ktr = new Double3(1.0);
+        if (intersections == null)
             return ktr;
+        for (GeoPoint geopoint : intersections) {
+            if(alignZero(geopoint.point.distance(gp.point)-lightDistance)<=0){
+                var kt=geopoint.geometry.getMaterial().getKt();
+                ktr=kt.product(ktr);
+                if (ktr.lowerThan(MIN_CALC_COLOR_K))
+                    return new Double3(0.0);
+            }
+
         }
-        return new Double3(1.0);
+        return ktr;
     }
 
     /**
@@ -146,8 +147,9 @@ public class RayTracerBasic extends RayTracerBase {
             Vector l = lightSource.getL(intersection.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // checks if nl == nv
-                if (unshaded(intersection, l, n, lightSource)) {
-                    Color lightIntensity = lightSource.getIntensity(intersection.point);
+                Double3 ktr = transparency(lightSource, l, n, intersection, nv);
+                if (!k.product(ktr).lowerThan(MIN_CALC_COLOR_K)) {
+                    Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr);
                     color = color.add(calcDiffusive(kd, l, n, lightIntensity),
                             calcSpecular(ks, l, n, v, nShininess, lightIntensity));
                 }
@@ -204,7 +206,16 @@ public class RayTracerBasic extends RayTracerBase {
         }
         return new Ray(point, r, n);
     }
-
+    /**
+     * Specular of lighting
+     * @param ks specular ratio
+     * @param l light's direction vector
+     * @param n normal vector
+     * @param v ray's direction vector
+     * @param nShininess shininess of the object
+     * @param lightIntensity intensity of the light
+     * @return color of specular effect
+     */
     private Color calcSpecular(Double3 ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
         var r = l.add(n.scale(l.dotProduct(n) * -2));
         double vr = alignZero(v.scale(-1).dotProduct(r));
@@ -213,7 +224,14 @@ public class RayTracerBasic extends RayTracerBase {
         vr = Math.pow(vr, nShininess);
         return lightIntensity.scale(ks.scale(vr));
     }
-
+    /**
+     * calculating diffusive of the color with the light
+     * @param kd diffusive ratio
+     * @param l light's direction vector
+     * @param n normal vector
+     * @param lightIntensity intensity of the light
+     * @return color of the diffusive effect
+     */
     private Color calcDiffusive(Double3 kd, Vector l, Vector n, Color lightIntensity) {
         double ln = alignZero(l.dotProduct(n));
         if (ln < 0)
