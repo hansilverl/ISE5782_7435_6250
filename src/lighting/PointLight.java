@@ -21,7 +21,7 @@ public class PointLight extends Light implements LightSource {
      * @param color      determines the color of the intensity
      * @param myPosition determines the position of the point
      */
-    protected PointLight(Color color, Point myPosition) {
+    public PointLight(Color color, Point myPosition) {
         super(color);
         position = myPosition;
     }
