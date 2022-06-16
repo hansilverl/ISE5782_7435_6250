@@ -21,6 +21,7 @@ public class Scene {
     public Geometries geometries;
     public List<LightSource> lights = new LinkedList<>();
 
+
     /**
      * constructing a scene
      * @param nm name of scene

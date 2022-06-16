@@ -13,7 +13,7 @@ import java.util.List;
  * Composite class to gather other {@link Geometry} based objects
  */
 public class Geometries extends Intersectable {
-    private List<Intersectable> _intersectables;
+    protected List<Intersectable> _intersectables;
 
     /**
      * constructor of Geometry
