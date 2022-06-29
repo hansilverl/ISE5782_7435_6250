@@ -20,7 +20,7 @@ public class Cuboid extends Geometries{
         Point p2 = new Point(p1.getX(),p1.getY()-height,p1.getZ());
         Point p3 = new Point(p1.getX()+width,p2.getY(), p1.getZ());
         Point p4 = new Point(p1.getX()+width,p1.getY(),p1.getZ());
-        this.add(new Polygon(p1,p2,p3,p4).setEmission(emission));
+        this.add(new Polygon(p1,p2,p3,p4).setEmission(emission).setMaterial(new Material().setKr(0.05)));
         Point p5 = new Point(p3.getX(), p3.getY(), p3.getZ()-depth);
         Point p6 = new Point(p4.getX(),p4.getY(), p4.getZ()-depth);
         this.add(new Polygon(p4,p3,p5,p6).setEmission(emission));

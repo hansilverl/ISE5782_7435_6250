@@ -123,6 +123,7 @@ public class LightsTests {
     public void trianglesSpot() {
         scene2.geometries.add(triangle1, triangle2);
         scene2.lights.add(new SpotLight(trCL, trPL, trDL).setKl(0.001).setKq(0.0001));
+        scene2.lights.add(new SpotLight(new Color(800,800,800), new Point(30,10,-100), new Vector(-2,-2,-2)).setKl(0.001).setKq(0.0001));
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesSpot", 500, 500);
         camera2.setImageWriter(imageWriter) //

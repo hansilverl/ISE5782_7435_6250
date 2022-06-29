@@ -83,7 +83,7 @@ public class FirstImageTest {
         scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.01)));
         scene.geometries.add(
                 //Main rectangle front
-                new Cuboid(new Point(-700, 600, 0),1400,1600, 1000, new Color(WHITE)),
+                new Cuboid(new Point(-700, 600, 0),1400,1600, 1000, new Color(249,240,198)),
                 //Gray (small door)
                 new Cuboid(new Point(-235, -300,10),470,700,50,new Color(123,123,123)),
                 /*new Polygon(new Point(-235, -100, 2), new Point(-235, -800, 2), new Point(235, -800, 2), new Point(235, -100, 2))//
