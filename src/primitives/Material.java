@@ -1,6 +1,8 @@
 package primitives;
 
 
+import static primitives.Util.isZero;
+
 /**
  * Material class to represent different materials
  *
@@ -14,6 +16,9 @@ public class Material {
     Double3 kT = new Double3(0.0); //Transparency coefficient
 
     Double3 kR = new Double3(0.0); //Reflection, Perfect mirror has a 𝒌𝑹 = 𝟏 and matt surface has a 𝒌𝑹 = 𝟎
+
+    public double glossiness = 0;   //Amount of glossiness
+
 
     /**
      * setter function that get double variable
@@ -148,4 +153,6 @@ public class Material {
     public Double3 getKr() {
         return kR;
     }
+
+
 }
