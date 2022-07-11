@@ -1,6 +1,7 @@
 package MP1;
 
 import geometries.Cuboid;
+import geometries.Plane;
 import geometries.Polygon;
 import geometries.Sphere;
 import lighting.AmbientLight;
@@ -87,25 +88,33 @@ public class FirstImageTest {
 
         scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.01)));
         scene.geometries.add(
-                //Main rectangle front
-                new Cuboid(new Point(-760, 600, 0),1520,1600, 300, new Color(237, 242, 252)),
+                /*new Polygon(new Point(1,2,3),new Point(2,3,4),new Point(3,4,5))//
+                        .setEmission(new Color(RED)).setMaterial(new Material().setKd(1)),*/
+                //floor
+                new Plane(new Point(-760,-1066,22),new Point(-671,-1066,-1322),new Point(760,-1066,-300))//
+                        .setEmission(new Color(86, 86, 86)).setMaterial(new Material().setKr(0.3)),
+
+                //Main rectangle - front - behind bottom - behind top - front frame - behind frame
+                new Cuboid(new Point(-760, 600, 0),1520,1600, 300, new Color(237, 242, 252),0,0.03),
                 new Cuboid(new Point(-660, 0, -300),1320,1000, 1000, new Color(237, 242, 252)),
                 new Cuboid(new Point(-600, 600, -300),1200,1000, 900, new Color(237, 242, 252)),
-                new Cuboid(new Point(-771, -970, 22),1542,96, 344, new Color(220, 226, 238)),
-                new Cuboid(new Point(-671, -970, -278),1342,96, 1044, new Color(220, 226, 238)),
-                //Gray (small door)
+                new Cuboid(new Point(-771, -970, 22),1542,96, 344, new Color(220, 226, 238),0,0.07),
+                new Cuboid(new Point(-671, -970, -278),1342,96, 1044, new Color(220, 226, 238),0,0.07),
+
+                //small door
                 new Cuboid(new Point(-235, -290,1),470,710,5,new Color(123,123,123)),
-                //door - up
+                //frame door
+                //-up
                 new Cuboid(new Point(-235, -292,5),464,80,5,new Color(163,163,163)),
                 new Cuboid(new Point(-235, -291,10),466,60,10,new Color(176,176,176)),
                 new Cuboid(new Point(-235, -290,15),468,40,15,new Color(189,189,189)),
                 new Cuboid(new Point(-235, -289,20),470,20,20,new Color(202,202,202)),
-                //door - left
+                //-left
                 new Cuboid(new Point(-235, -292,5),80,710,5,new Color(163,163,163)),
                 new Cuboid(new Point(-235, -291,10),60,710,10,new Color(176,176,176)),
                 new Cuboid(new Point(-235, -290,15),40,710,15,new Color(189,189,189)),
                 new Cuboid(new Point(-235, -289,20),20,710,20,new Color(202,202,202)),
-                //door - right
+                //right
                 new Cuboid(new Point(235, -292,5),-80,710,5,new Color(163,163,163)),
                 new Cuboid(new Point(235, -291,10),-60,710,10,new Color(176,176,176)),
                 new Cuboid(new Point(235, -290,15),-40,710,15,new Color(189,189,189)),
@@ -118,47 +127,47 @@ public class FirstImageTest {
                 new Cuboid(new Point(-272, -100,40),544,20,40,new Color(184, 118, 90)),
                 new Cuboid(new Point(-280, -60,50),560,20,50,new Color(184, 118, 90)),
 
-                //Bottom top (cover)
+                //Bottom top (cover) - front - behind
                 new Cuboid(new Point(-800,725,25), 1600, 125,380, new Color(WHITE)),
                 new Cuboid(new Point(-635,725,-275), 1270, 125,980, new Color(WHITE)),
-                //Middle top (cover)
+                //Middle top (cover) - front - behind
                 new Cuboid(new Point(-760, 830, 0), 1520, 105,300, new Color(253,213,74)),
                 new Cuboid(new Point(-600, 830, -300), 1200, 105,900, new Color(253,213,74)),
-                //top top (cover)
+                //top top (cover) - front - behind
                 new Cuboid(new Point(-800,955,25),1600, 125, 380, new Color(WHITE)),
                 new Cuboid(new Point(-635,955,-275),1270, 125, 980, new Color(WHITE)),
 
                 //Column (left left)
-                new Cuboid(new Point(-700,470, 15), 130, 1450, 20, new Color(252, 226, 217)),
+                new Cuboid(new Point(-700,470, 15), 130, 1450, 20, new Color(252, 226, 217),0,0.06),
                 //Column (left right)
-                new Cuboid(new Point(-460, 470, 15), 130, 1450, 20,new Color(252, 226, 217)),
+                new Cuboid(new Point(-460, 470, 15), 130, 1450, 20,new Color(252, 226, 217),0,0.06),
                 //Column (right right)
-                new Cuboid(new Point(570, 470, 15), 130, 1450, 20, new Color(252, 226, 217)),
+                new Cuboid(new Point(570, 470, 15), 130, 1450, 20, new Color(252, 226, 217),0,0.06),
                 //Column (right left)
-                new Cuboid(new Point(330, 470, 15), 130, 1450, 20, new Color(252, 226, 217)),
+                new Cuboid(new Point(330, 470, 15), 130, 1450, 20, new Color(252, 226, 217),0,0.06),
 
-                //Decoration column (left left)
+                //Decoration column (left left) - front - left - right
                 new Polygon(new Point(-715, 600, 40), new Point(-700, 470, 15), new Point(-570, 470, 15), new Point(-555, 600, 40))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(-715, 600, -40), new Point(-700, 470, -15), new Point(-700, 470, 15), new Point(-715, 600, 40))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(-555, 600, 40), new Point(-570, 470, 15), new Point(-570, 470, -15), new Point(-555, 600, -40))//
                         .setEmission(new Color(253,213,74)),
-                //Decoration column (left right)
+                //Decoration column (left right) - front - left - right
                 new Polygon(new Point(-475, 600, 40), new Point(-460, 470, 15), new Point(-330, 470, 15), new Point(-315, 600, 40))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(-475, 600, -40), new Point(-460, 470, -15), new Point(-460, 470, 15), new Point(-475, 600, 40))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(-315, 600, 40), new Point(-330, 470, 15), new Point(-330, 470, -15), new Point(-315, 600, -40))//
                         .setEmission(new Color(253,213,74)),
-                //Decoration column (right right)
+                //Decoration column (right right) - front - left - right
                 new Polygon(new Point(555, 600, 40), new Point(570, 470, 15), new Point(700, 470, 15), new Point(715, 600, 40))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(555, 600, -40), new Point(570, 470, -15), new Point(570, 470, 15), new Point(555, 600, 40))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(715, 600, 40), new Point(700, 470, 15), new Point(700, 470, -15), new Point(715, 600, -40))//
                         .setEmission(new Color(253,213,74)),
-                //Decoration Column (right left)
+                //Decoration Column (right left) - front - left - right
                 new Polygon(new Point(315, 600, 40), new Point(330, 470, 15), new Point(460, 470, 15), new Point(475, 600, 40))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(315, 600, -40), new Point(330, 470, -15), new Point(330, 470, 15), new Point(315, 600, 40))//
@@ -183,8 +192,8 @@ public class FirstImageTest {
                 new Cuboid(new Point(-353, -1045,0),706,8,-170,new Color(177, 212, 96)),
                 new Cuboid(new Point(-363, -1053,0),726,8,-180,new Color(197, 223, 136)),
 
-                //Kale Orev
-                //front
+                //Kale Orev - tringles
+                //-front
                 new Polygon(new Point(-799,955,25), new Point(-769,1035,25),new Point(-739,955,25))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(-733,955,25), new Point(-703,1035,25),new Point(-673,955,25))//
@@ -233,7 +242,7 @@ public class FirstImageTest {
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(719,955,25), new Point(749,1035,25),new Point(779,955,25))//
                         .setEmission(new Color(253,213,74)),
-                //left first
+                //-left front
                 new Polygon(new Point(-800,955,-37), new Point(-800,1035,-7),new Point(-800,955,23))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(-800,955,-100), new Point(-800,1035,-70),new Point(-800,955,-40))//
@@ -246,7 +255,7 @@ public class FirstImageTest {
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(-800,955,-352), new Point(-800,1035,-322),new Point(-800,955,-292))//
                         .setEmission(new Color(253,213,74)),
-                //right first
+                //-right front
                 new Polygon(new Point(800,955,-37), new Point(800,1035,-7),new Point(800,955,23))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(800,955,-100), new Point(800,1035,-70),new Point(800,955,-40))//
@@ -259,21 +268,21 @@ public class FirstImageTest {
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(800,955,-352), new Point(800,1035,-322),new Point(800,955,-292))//
                         .setEmission(new Color(253,213,74)),
-                //behind first left
+                //-behind left front
                 new Polygon(new Point(-800,955,-355), new Point(-770,1035,-355),new Point(-740,955,-355))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(-740,955,-355), new Point(-710,1035,-355),new Point(-680,955,-355))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(-680,955,-355), new Point(-650,1035,-355),new Point(-635,955,-355))//
                         .setEmission(new Color(253,213,74)),
-                //behind first right
+                //-behind right front
                 new Polygon(new Point(800,955,-355), new Point(770,1035,-355),new Point(740,955,-355))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(740,955,-355), new Point(710,1035,-355),new Point(680,955,-355))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(680,955,-355), new Point(650,1035,-355),new Point(635,955,-355))//
                         .setEmission(new Color(253,213,74)),
-                //left second
+                //-left back
                 new Polygon(new Point(-635,955,-415), new Point(-635,1035,-385),new Point(-635,955,-355))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(-635,955,-475), new Point(-635,1035,-445),new Point(-635,955,-415))//
@@ -304,7 +313,7 @@ public class FirstImageTest {
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(-635,955,-1255), new Point(-635,1035,-1225),new Point(-635,955,-1195))//
                         .setEmission(new Color(253,213,74)),
-                //right second
+                //-right back
                 new Polygon(new Point(635,955,-415), new Point(635,1035,-385),new Point(635,955,-355))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(635,955,-475), new Point(635,1035,-445),new Point(635,955,-415))//
@@ -335,7 +344,7 @@ public class FirstImageTest {
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(635,955,-1255), new Point(635,1035,-1225),new Point(635,955,-1195))//
                         .setEmission(new Color(253,213,74)),
-                //behind
+                //-behind back
                 new Polygon(new Point(-575,955,-1255), new Point(-605,1035,-1255),new Point(-635,955,-1255))//
                         .setEmission(new Color(253,213,74)),
                 new Polygon(new Point(-514,955,-1255), new Point(-544,1035,-1255),new Point(-574,955,-1255))//
