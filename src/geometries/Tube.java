@@ -71,4 +71,9 @@ public class Tube extends Geometry {
         return null;
     }
 
+    @Override
+    public void createBoundingBox() {
+        box=null;
+    }
+
 }

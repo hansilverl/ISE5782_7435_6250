@@ -25,7 +25,11 @@ public class Polygon extends Geometry {
 
     private int size;
 
-    protected Polygon(){};
+    protected Polygon() {
+    }
+
+    ;
+
     /**
      * Polygon constructor based on vertices list. The list must be ordered by edge
      * path. The polygon must be convex.
@@ -86,6 +90,8 @@ public class Polygon extends Geometry {
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
         }
         size = vertices.length;
+        if (bvhIsOn)
+            createBoundingBox();
     }
 
     /**
@@ -123,13 +129,13 @@ public class Polygon extends Geometry {
      * finding intersection between rays
      * implementing {@link  Intersectable#findGeoIntersectionsHelper(Ray, double)} )} }
      *
-     * @param ray        to check intersections
+     * @param ray         to check intersections
      * @param maxDistance from light source to object
      * @return
      */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
-        List<GeoPoint> intersections = plane.findGeoIntersectionsHelper(ray,maxDistance);
+        List<GeoPoint> intersections = plane.findGeoIntersectionsHelper(ray, maxDistance);
 
         if (intersections == null)
             return null;
@@ -162,6 +168,30 @@ public class Polygon extends Geometry {
         LinkedList<GeoPoint> result = new LinkedList<>();
         result.add(new GeoPoint(this, intersections.get(0).point));
         return result;
+    }
+
+    /**
+     * Bound objects
+     */
+    @Override
+    public void createBoundingBox() {
+        if (vertices == null)
+            return;
+        double minX = Double.POSITIVE_INFINITY;
+        double minY = Double.POSITIVE_INFINITY;
+        double minZ = Double.POSITIVE_INFINITY;
+        double maxX = Double.NEGATIVE_INFINITY;
+        double maxY = Double.NEGATIVE_INFINITY;
+        double maxZ = Double.NEGATIVE_INFINITY;
+        for (Point ver : vertices) {
+            minX = Math.min(minX, ver.getX());
+            minY = Math.min(minY, ver.getY());
+            minZ = Math.min(minZ, ver.getZ());
+            maxX = Math.max(maxX, ver.getX());
+            maxY = Math.max(maxY, ver.getY());
+            maxZ = Math.max(maxZ, ver.getZ());
+        }
+        box = new BoundingBox(new Point(minX, minY, minZ), new Point(maxX, maxY, maxZ));
     }
 
     @Override

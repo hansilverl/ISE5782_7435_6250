@@ -1,8 +1,8 @@
 package geometries;
 
-import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +12,11 @@ import java.util.Objects;
  * that interface with a specific Ray {@link primitives.Ray}
  */
 public abstract class Intersectable {
+
+
+    protected boolean bvhIsOn = true;  //a field to turn on and off the bvh
+
+    public BoundingBox box; //Boundary box
 
     /**
      * find all intersection points {@link Point}
@@ -23,6 +28,17 @@ public abstract class Intersectable {
         var geoList = findGeoIntersections(ray);
         return geoList == null ? null
                 : geoList.stream().map(gp -> gp.point).toList();
+    }
+
+    /**
+     * @param b boolean value for bvh
+     * @return this (using builder pattern)
+     */
+    public Intersectable setBvhIsOn(boolean b) {
+        if (!bvhIsOn && b)//no box has been created
+            createBoundingBox();
+        bvhIsOn=b;
+        return this;
     }
 
 
@@ -74,6 +90,8 @@ public abstract class Intersectable {
      * @param ray Ray pointing towards the intersection point
      */
     public final List<GeoPoint> findGeoIntersections(Ray ray) {
+        if (bvhIsOn && ! isIntersectingBoundingBox(ray))    //We'll only calculate intersections if it intersects bounding box
+            return null;
         return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
     }
 
@@ -97,4 +115,70 @@ public abstract class Intersectable {
      */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
 
+    /**
+     * class representing boundary box
+     */
+    public class BoundingBox {
+        public Point minimums;  //Borders of box
+        public Point maximums;  //Box borders
+
+        public BoundingBox(Point mins, Point maxs) {
+            minimums = mins;
+            maximums = maxs;
+        }
+
+    }
+    /**
+     * Creates bounding box for objects
+     */
+    public abstract void createBoundingBox();
+
+    /**
+     * Testing if ray intersects
+     *
+     * @param ray ray to check
+     * @return Whether ray intersects box
+     * Code taken from scratchapixel.com
+     * https://www.scratchapixel.com/lessons/3d-basic-rendering/introductionacceleration-structure/bounding-volume-hierarchy-BVH-part1
+     */
+    public boolean isIntersectingBoundingBox(Ray ray) {
+        if (!bvhIsOn || box == null)    //Intersect as usual
+            return true;
+        Vector dir = ray.getDir();
+        Point p0 = ray.getP0();
+        double tMin = (box.minimums.getX() - p0.getX()) / dir.getX();
+        double tMax = (box.maximums.getX() - p0.getX()) / dir.getX();
+        if (tMin > tMax) {
+            double temp = tMin;
+            tMin = tMax;
+            tMax = temp;
+        }
+        double tyMin = (box.minimums.getY() - p0.getY()) / dir.getY();
+        double tyMax = (box.maximums.getY() - p0.getY()) / dir.getY();
+        if (tyMin > tyMax) {
+            double temp = tyMin;
+            tyMin = tyMax;
+            tyMax = temp;
+        }
+        if ((tMin > tyMax) || (tyMin > tMax))
+            return false;
+        if (tyMin > tMin)
+            tMin = tyMin;
+        if (tyMax < tMax)
+            tMax = tyMax;
+        double tzMin = (box.minimums.getZ() - p0.getZ()) / dir.getZ();
+        double tzMax = (box.maximums.getZ() - p0.getZ()) / dir.getZ();
+        if (tzMin > tzMax) {
+            double temp = tzMin;
+            tzMin = tzMax;
+            tzMax = temp;
+        }
+        if ((tMin > tzMax) || (tzMin > tMax))
+            return false;
+        if (tzMin > tMin)
+            tMin = tzMin;
+        if (tzMax < tMax)
+            tMax = tzMax;
+        return true;
+    }
 }
