@@ -35,6 +35,8 @@ public class Plane extends Geometry {
 
         _normal = norm.normalize();
         _q0 = p1; //Arbitrary pick to represent plane point
+        if (bvhIsOn)
+            createBoundingBox();
     }
 
     /**
@@ -46,6 +48,8 @@ public class Plane extends Geometry {
     public Plane(Point point, Vector vec) {
         _normal = vec.normalize();
         _q0 = point;
+        if (bvhIsOn)
+            createBoundingBox();
     }
 
 
@@ -116,11 +120,19 @@ public class Plane extends Geometry {
             return null;
         }
 
-        if(alignZero(m - maxDistance) > 0){
+        if (alignZero(m - maxDistance) > 0) {
             return null;
         }
         GeoPoint geoPoint = new GeoPoint(this, ray.getPoint(m));
 
         return List.of(geoPoint);
+    }
+
+    /**
+     * Bound objecs
+     */
+    @Override
+    public void createBoundingBox() {
+        box=null;
     }
 }

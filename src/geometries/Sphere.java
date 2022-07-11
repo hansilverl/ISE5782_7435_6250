@@ -27,6 +27,8 @@ public class Sphere extends Geometry {
     public Sphere(Point center, double radius) {
         _center = center;
         _radius = radius;
+        if (bvhIsOn)
+            createBoundingBox();
     }
 
     /**
@@ -70,7 +72,7 @@ public class Sphere extends Geometry {
      * @return list og geo intersections
      */
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
        /* u = O - p0
         tm = v * u
         d = sqrt(u^2 - tm^2)   if d >= r there are no intersections
@@ -81,9 +83,9 @@ public class Sphere extends Geometry {
         Vector v = ray.getDir();
 
 
-        if (P0.equals(_center) ) {
-            Point pnt=_center.add(v.scale(_radius));
-            if (pnt.distance(P0)<=maxDistance) {
+        if (P0.equals(_center)) {
+            Point pnt = _center.add(v.scale(_radius));
+            if (pnt.distance(P0) <= maxDistance) {
                 GeoPoint ret = new GeoPoint(this, pnt);
                 return List.of(ret);
             }
@@ -104,41 +106,55 @@ public class Sphere extends Geometry {
         double t2 = alignZero(tm + th);
 
         if (t1 > 0 && t2 > 0) {
-            Point pn1=ray.getPoint(t1);
+            Point pn1 = ray.getPoint(t1);
             double distance1 = pn1.distance(P0);
-            Point pn2=ray.getPoint(t2);
+            Point pn2 = ray.getPoint(t2);
             double distance2 = pn2.distance(P0);
-            if(distance1<=maxDistance && distance2<=maxDistance){
-                GeoPoint P1 = new GeoPoint(this,pn1);
-                GeoPoint P2 = new GeoPoint(this,pn2);
+            if (distance1 <= maxDistance && distance2 <= maxDistance) {
+                GeoPoint P1 = new GeoPoint(this, pn1);
+                GeoPoint P2 = new GeoPoint(this, pn2);
                 return List.of(P1, P2);
             }
-            if(distance1<=maxDistance){
-                GeoPoint P1 = new GeoPoint(this,pn1);
+            if (distance1 <= maxDistance) {
+                GeoPoint P1 = new GeoPoint(this, pn1);
                 return List.of(P1);
             }
-            if(distance2<=maxDistance){
-                GeoPoint P2 = new GeoPoint(this,pn2);
+            if (distance2 <= maxDistance) {
+                GeoPoint P2 = new GeoPoint(this, pn2);
                 return List.of(P2);
             }
         }
         if (t1 > 0) {
-            Point pn1=ray.getPoint(t1);
+            Point pn1 = ray.getPoint(t1);
             double distance1 = pn1.distance(P0);
-            if(distance1<=maxDistance){
-                GeoPoint P1 = new GeoPoint(this,pn1);
+            if (distance1 <= maxDistance) {
+                GeoPoint P1 = new GeoPoint(this, pn1);
                 return List.of(P1);
             }
         }
         if (t2 > 0) {
-            Point pn2=ray.getPoint(t2);
+            Point pn2 = ray.getPoint(t2);
             double distance2 = pn2.distance(P0);
-            if(distance2<=maxDistance){
-                GeoPoint P2 = new GeoPoint(this,pn2);
+            if (distance2 <= maxDistance) {
+                GeoPoint P2 = new GeoPoint(this, pn2);
                 return List.of(P2);
             }
         }
         return null;
+    }
+
+    /**
+     * Bounding objects
+     */
+    @Override
+    public void createBoundingBox() {
+        double minX = _center.getX() - _radius;
+        double minY = _center.getY() - _radius;
+        double minZ = _center.getZ() - _radius;
+        double maxX = _center.getX() + _radius;
+        double maxY = _center.getY() + _radius;
+        double maxZ = _center.getZ() + _radius;
+        box = new BoundingBox(new Point(minX, minY, minZ), new Point(maxX, maxY, maxZ));
     }
 }
 

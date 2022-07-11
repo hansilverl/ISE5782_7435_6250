@@ -29,7 +29,7 @@ public class Camera {
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
 
-    private int nSS = 64;   //number of rays in beam for supersampling
+    private int nSS = 4;   //number of rays in beam for supersampling
 
     private int maxLevelAdaptiveSS = 3;    //maximum level of recursion for adaptive supersampling
 
@@ -160,8 +160,8 @@ public class Camera {
 
     /**
      * Calculating actual colour of each pixel
-     * @param nX col
-     * @param nY    row
+     * @param nX row
+     * @param nY   col
      * @param j col index
      * @param i rox index
      * @param maxLevel of recursion
@@ -169,8 +169,7 @@ public class Camera {
      * @return calculated color of pixels
      */
     private Color calcAdaptiveSuperSampling(int nX, int nY, int j, int i, int maxLevel, Color centerColor) {
-        if (maxLevel == 0) {
-            //return _rayTracerBase.traceRay(center);
+        if (maxLevel <= 0) {
             return centerColor;
         }
         Color color = centerColor;
@@ -183,7 +182,7 @@ public class Camera {
             Color currentColor = rayTracer.traceRay(beam[ray]);
             if (!currentColor.equals(centerColor))
                 currentColor = calcAdaptiveSuperSampling(2 * nX, 2 * nY,
-                        2 * j + ray / 2, 2 * i + ray % 2, maxLevel - 1, currentColor);
+                        2 * j + ray / 2, 2 * i + ray % 2, (maxLevel - 1), currentColor);
             color = color.add(currentColor);
         }
         return color.reduce(5);
@@ -325,7 +324,6 @@ public class Camera {
     public Camera renderImage() {
         checkException();
         //rendering the image
-        int delme = 0;
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
         for (int i = 0; i < nX; i++) {
@@ -343,7 +341,7 @@ public class Camera {
      * @param nx row number
      * @param ny column number
      * @param i  current row
-     * @param j  current number
+     * @param j  current col
      */
     private Color castRay(int nx, int ny, int j, int i) {
         Ray ray = constructRay(nx, ny, j, i);
@@ -392,7 +390,7 @@ public class Camera {
      * @return this
      */
     public Camera renderImageMultiThreading() {
-        Pixel.initialize(imageWriter.getNy(), imageWriter.getNx(), 1);
+        Pixel.initialize(imageWriter.getNx(), imageWriter.getNy(), 1);
         while (threadsCount-- > 0) {
             new Thread(() -> {
                 for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
@@ -406,10 +404,10 @@ public class Camera {
     /**
      * renders image using multithreading and adaptive supersampling
      *
-     * @return this
+     * @return this using builder pattern
      */
     public Camera renderImageMultiThreading_AdaptSS() {
-        Pixel.initialize(imageWriter.getNy(), imageWriter.getNx(), 60);
+        Pixel.initialize(imageWriter.getNx(),imageWriter.getNy(), 60);
         while (threadsCount-- > 0) {
             new Thread(() -> {
                 for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
