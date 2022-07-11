@@ -7,6 +7,7 @@ import geometries.Sphere;
 import lighting.AmbientLight;
 import lighting.DirectionalLight;
 import lighting.PointLight;
+import lighting.SpotLight;
 import org.junit.jupiter.api.Test;
 import primitives.*;
 import renderer.Camera;
@@ -89,18 +90,25 @@ public class FirstImageTest {
 
 
 
-        scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.01)));
+        scene.setAmbientLight(new AmbientLight(new Color(BLACK), 100));
+        Point p1 = new Point(-775,1060,10);
+        Point p2 = new Point(-795,1060,10);
+        scene.lights.add(new SpotLight(new Color(950, 150, 150), p1, p2.subtract(p1)).setkC(1000).setKl(0.0001).setKq(0.00005));
+        scene.lights.add( //
+                new SpotLight(new Color(YELLOW), new Point(1000, 1000, 1000), new Vector(1, -1, -4)) //
+                        .setKl(4E-4).setKq(2E-5).setkC(1000));
+
         scene.geometries.add(
 
                 //floor
                 new Plane(new Point(-760,-1066,22),new Point(-671,-1066,-1322),new Point(760,-1066,-300))//
-                        .setEmission(new Color(86, 86, 86)).setMaterial(new Material().setKr(0.3)),
+                        .setEmission(new Color(86, 86, 86)).setMaterial(new Material().setKr(0.2)),
 
                 //Main rectangle - front - behind bottom - behind top - front frame - behind frame
-                new Cuboid(new Point(-760, 600, 0),1520,1600, 300, new Color(237, 242, 252),0,0.03),
+                new Cuboid(new Point(-760, 600, 0),1520,1600, 300, new Color(237, 242, 252),0,0.03,10),
                 new Cuboid(new Point(-660, 0, -300),1320,1000, 1500, new Color(237, 242, 252)),
                 new Cuboid(new Point(-600, 600, -300),1200,1000, 1400, new Color(237, 242, 252)),
-                new Cuboid(new Point(-771, -970, 22),1542,96, 344, new Color(220, 226, 238),0,0.07),
+                new Cuboid(new Point(-771, -970, 22),1542,96, 344, new Color(220, 226, 238),0,0.07,100),
                 new Cuboid(new Point(-671, -970, -278),1342,96, 1544, new Color(220, 226, 238),0,0.07),
 
                 //small door
@@ -178,11 +186,11 @@ public class FirstImageTest {
                         .setEmission(new Color(253,213,74)),
 
                 //left-down
-                new Cuboid(new Point(-668, 0, -1800),16,1000, -100, new Color(228, 234, 247)),
-                new Cuboid(new Point(-668, 0, -1450),16,1000, -100, new Color(228, 234, 247)),
-                new Cuboid(new Point(-668, 0, -1100),16,1000, -100, new Color(228, 234, 247)),
-                new Cuboid(new Point(-668, 0, -750),16,1000, -100, new Color(228, 234, 247)),
-                new Cuboid(new Point(-668, 0, -400),16,1000, -100, new Color(228, 234, 247)),
+                new Cuboid(new Point(-668, 0, -1800),16,1100, -100, new Color(228, 234, 247)),
+                new Cuboid(new Point(-668, 0, -1450),16,1100, -100, new Color(228, 234, 247)),
+                new Cuboid(new Point(-668, 0, -1100),16,1100, -100, new Color(228, 234, 247)),
+                new Cuboid(new Point(-668, 0, -750),16,1100, -100, new Color(228, 234, 247)),
+                new Cuboid(new Point(-668, 0, -400),16,1100, -100, new Color(228, 234, 247)),
                 //Decoration left-down
                 new Cuboid(new Point(-670, 1, -1800),16,100, -104, new Color(253,213,74)),
                 new Cuboid(new Point(-670, 1, -1450),16,100, -104, new Color(253,213,74)),
@@ -190,11 +198,11 @@ public class FirstImageTest {
                 new Cuboid(new Point(-670, 1, -750),16,100, -104, new Color(253,213,74)),
                 new Cuboid(new Point(-670, 1, -400),16,100, -104, new Color(253,213,74)),
                 //right-down
-                new Cuboid(new Point(668, 0, -1800),-16,1000, -100, new Color(228, 234, 247)),
-                new Cuboid(new Point(668, 0, -1450),-16,1000, -100, new Color(228, 234, 247)),
-                new Cuboid(new Point(668, 0, -1100),-16,1000, -100, new Color(228, 234, 247)),
-                new Cuboid(new Point(668, 0, -750),-16,1000, -100, new Color(228, 234, 247)),
-                new Cuboid(new Point(668, 0, -400),-16,1000, -100, new Color(228, 234, 247)),
+                new Cuboid(new Point(668, 0, -1800),-16,1100, -100, new Color(228, 234, 247)),
+                new Cuboid(new Point(668, 0, -1450),-16,1100, -100, new Color(228, 234, 247)),
+                new Cuboid(new Point(668, 0, -1100),-16,1100, -100, new Color(228, 234, 247)),
+                new Cuboid(new Point(668, 0, -750),-16,1100, -100, new Color(228, 234, 247)),
+                new Cuboid(new Point(668, 0, -400),-16,1100, -100, new Color(228, 234, 247)),
                 //Decoration right-down
                 new Cuboid(new Point(670, 1, -1800),16,100, -104, new Color(253,213,74)),
                 new Cuboid(new Point(670, 1, -1450),16,100, -104, new Color(253,213,74)),
@@ -226,22 +234,80 @@ public class FirstImageTest {
                 new Cuboid(new Point(-609, 601, -800),14,100, -104, new Color(253,213,74)),
                 new Cuboid(new Point(-609, 601, -500),14,100, -104, new Color(253,213,74)),
 
+                //windows
+                //left down - 1
+                new Cuboid(new Point(-665, -200, -1600),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(-665, -450, -1600),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(-665, -700, -1600),10,100, -50, new Color(212, 173, 156)),
+                //left down - 2
+                new Cuboid(new Point(-665, -200, -1250),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(-665, -450, -1250),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(-665, -700, -1250),10,100, -50, new Color(212, 173, 156)),
+                //left down - 3
+                new Cuboid(new Point(-665, -200, -900),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(-665, -450, -900),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(-665, -700, -900),10,100, -50, new Color(212, 173, 156)),
+                //left down - 4
+                new Cuboid(new Point(-665, -200, -550),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(-665, -450, -550),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(-665, -700, -550),10,100, -50, new Color(212, 173, 156)),
+                //left up - 1
+                new Cuboid(new Point(-604, 400, -1520),10,100, -40, new Color(212, 173, 156)),
+                new Cuboid(new Point(-604, 200, -1520),10,100, -40, new Color(212, 173, 156)),
+                //left up - 2
+                new Cuboid(new Point(-604, 400, -1220),10,100, -40, new Color(212, 173, 156)),
+                new Cuboid(new Point(-604, 200, -1220),10,100, -40, new Color(212, 173, 156)),
+                //left up - 3
+                new Cuboid(new Point(-604, 400, -920),10,100, -40, new Color(212, 173, 156)),
+                new Cuboid(new Point(-604, 200, -920),10,100, -40, new Color(212, 173, 156)),
+                //left up - 4
+                new Cuboid(new Point(-604, 400, -620),10,100, -40, new Color(212, 173, 156)),
+                new Cuboid(new Point(-604, 200, -620),10,100, -40, new Color(212, 173, 156)),
+                //right down - 1
+                new Cuboid(new Point(665, -200, -1600),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(665, -450, -1600),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(665, -700, -1600),10,100, -50, new Color(212, 173, 156)),
+                //right down - 2
+                new Cuboid(new Point(665, -200, -1250),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(665, -450, -1250),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(665, -700, -1250),10,100, -50, new Color(212, 173, 156)),
+                //right down - 3
+                new Cuboid(new Point(665, -200, -900),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(665, -450, -900),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(665, -700, -900),10,100, -50, new Color(212, 173, 156)),
+                //right down - 4
+                new Cuboid(new Point(665, -200, -550),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(665, -450, -550),10,100, -50, new Color(212, 173, 156)),
+                new Cuboid(new Point(665, -700, -550),10,100, -50, new Color(212, 173, 156)),
+                //right up - 1
+                new Cuboid(new Point(604, 400, -1520),10,100, -40, new Color(212, 173, 156)),
+                new Cuboid(new Point(604, 200, -1520),10,100, -40, new Color(212, 173, 156)),
+                //right up - 2
+                new Cuboid(new Point(604, 400, -1220),10,100, -40, new Color(212, 173, 156)),
+                new Cuboid(new Point(604, 200, -1220),10,100, -40, new Color(212, 173, 156)),
+                //right up - 3
+                new Cuboid(new Point(604, 400, -920),10,100, -40, new Color(212, 173, 156)),
+                new Cuboid(new Point(604, 200, -920),10,100, -40, new Color(212, 173, 156)),
+                //right up - 4
+                new Cuboid(new Point(604, 400, -620),10,100, -40, new Color(212, 173, 156)),
+                new Cuboid(new Point(604, 200, -620),10,100, -40, new Color(212, 173, 156)),
+
                 //stairs
-                new Cuboid(new Point(-235, -965,0),470,8,-40,new Color(117, 61, 61)),
-                new Cuboid(new Point(-248, -973,0),496,8,-50,new Color(145, 100, 100)),
-                new Cuboid(new Point(-258, -981,0),516,8,-60,new Color(172, 139, 139)),
+                new Cuboid(new Point(-235, -965,0),470,8,-40,new Color(149, 149, 149)),
+                new Cuboid(new Point(-248, -973,0),496,8,-50,new Color(176, 176, 176)),
+                new Cuboid(new Point(-258, -981,0),516,8,-60,new Color(202, 202, 202)),
 
-                new Cuboid(new Point(-273, -989,0),546,8,-80,new Color(197, 138, 67)),
-                new Cuboid(new Point(-283, -997,0),566,8,-90,new Color(209, 161, 105)),
-                new Cuboid(new Point(-293, -1005,0),586,8,-100,new Color(220, 185, 142)),
+                new Cuboid(new Point(-273, -989,0),546,8,-80,new Color(149, 149, 149)),
+                new Cuboid(new Point(-283, -997,0),566,8,-90,new Color(176, 176, 176)),
+                new Cuboid(new Point(-293, -1005,0),586,8,-100,new Color(202, 202, 202)),
 
-                new Cuboid(new Point(-308, -1013,0),616,8,-120,new Color(214, 194, 56)),
-                new Cuboid(new Point(-318, -1021,0),636,8,-130,new Color(222, 206, 96)),
-                new Cuboid(new Point(-328, -1029,0),656,8,-140,new Color(230, 218, 136)),
+                new Cuboid(new Point(-308, -1013,0),616,8,-120,new Color(149, 149, 149)),
+                new Cuboid(new Point(-318, -1021,0),636,8,-130,new Color(176, 176, 176)),
+                new Cuboid(new Point(-328, -1029,0),656,8,-140,new Color(202, 202, 202)),
 
-                new Cuboid(new Point(-343, -1037,0),686,8,-160,new Color(158, 201, 56)),
-                new Cuboid(new Point(-353, -1045,0),706,8,-170,new Color(177, 212, 96)),
-                new Cuboid(new Point(-363, -1053,0),726,8,-180,new Color(197, 223, 136)),
+                new Cuboid(new Point(-343, -1037,0),686,8,-160,new Color(149, 149, 149)),
+                new Cuboid(new Point(-353, -1045,0),706,8,-170,new Color(176, 176, 176)),
+                new Cuboid(new Point(-363, -1053,0),726,8,-180,new Color(202, 202, 202)),
 
                 //Kale Orev - tringles
                 //-front
@@ -479,7 +545,7 @@ public class FirstImageTest {
         scene.background = new Color(169, 207, 217);
 
         camera1.setRayTracer(new RayTracerBasic(scene)).setImageWriter(new ImageWriter("temple3d", 2010, 2010))
-                .renderImage()
+                .renderImageMultiThreading()
                 .writeToImage();
     }
 }
