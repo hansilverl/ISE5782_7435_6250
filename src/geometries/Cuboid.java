@@ -62,7 +62,6 @@ public class Cuboid extends Geometries {
     public Cuboid(Point p1, double width, double height, double depth, Color emission, double kd, double kr) {
         this(p1, width, height, depth, emission, kd, kr, 0);
     }
-
     /**
      * constructor
      *
