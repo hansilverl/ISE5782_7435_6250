@@ -1,10 +1,8 @@
 /**
  *
  */
-package MP1;
+package MP;
 
-import lighting.AmbientLight;
-import lighting.DirectionalLight;
 import lighting.PointLight;
 import lighting.SpotLight;
 import org.junit.jupiter.api.Test;

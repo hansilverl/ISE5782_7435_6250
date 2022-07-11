@@ -13,7 +13,7 @@ import static primitives.Util.isZero;
 
 /**
  * @author Hila Buznach & Hannah Silverberg
- * Representing Triangle (defined by 3 points ).
+ * Representing Triangle (defined by 3 points).
  */
 public class Triangle extends Polygon  {
     /**
