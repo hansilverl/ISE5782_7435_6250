@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author Hila Buznach & Hannah Silverberg
- * Class to represent a tube🧪
+ * Class to represent a tube
  */
 public class Tube extends Geometry {
     private final Ray _axisRay;     //Ray axis

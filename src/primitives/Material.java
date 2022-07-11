@@ -15,7 +15,7 @@ public class Material {
 
     Double3 kT = new Double3(0.0); //Transparency coefficient
 
-    Double3 kR = new Double3(0.0); //Reflection, Perfect mirror has a 𝒌𝑹 = 𝟏 and matt surface has a 𝒌𝑹 = 𝟎
+    Double3 kR = new Double3(0.0); //Reflection, Perfect mirror has a kr = 1 and matt surface has a kr = 0
 
     public double glossiness = 0;   //Amount of glossiness
 
