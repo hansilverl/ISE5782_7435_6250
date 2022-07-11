@@ -131,6 +131,33 @@ public class Color {
     }
 
     /**
+     * the function check if two numbers are in the same area
+     * @param d1 number
+     * @param d2 number
+     * @return true if the numbers are in the same area
+     */
+    public Boolean isInTheArea(double d1, double d2){
+        if(d1>255)
+            d1=255;
+        if(d2>255)
+            d2=255;
+        if(d1!=d2 && (d1>(d2+5.0) && d1<(d2-5.0)))
+            return false;
+        return true;
+    }
+
+    /**
+     * check if two colors are equals
+     * @param color one of the colors
+     * @return true if the colors are equals or in the same area
+     */
+    public Boolean equals(Color color){
+        if(isInTheArea(color.rgb.d1, rgb.d1) && isInTheArea(color.rgb.d2, rgb.d2) && isInTheArea(color.rgb.d3, rgb.d3))
+            return true;
+        return false;
+    }
+
+    /**
      * Scale the color by (1 / reduction factor)
      *
      * @param k reduction factor

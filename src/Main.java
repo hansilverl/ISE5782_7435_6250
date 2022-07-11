@@ -2,16 +2,6 @@ import primitives.*;
 import static java.lang.System.out;
 import static primitives.Util.*;
 
-/*TODO:
- *  1. Tests that return in any of their function null (and getter function) i didn't write a test at all.
- *  3. In plane i didn't understand the functions getNormal so i didn't do test for them.
- *  4. Add comments
- *  5. Add javadoc to ray and maybe more 🤔 (Hila's smiley looks ugly😔😔)🧁🧁🧁🧁
- *  Use:
- *  6. implementing {@link Geometry#getNormal(Point)}
- *  7. implementing {@link Geometry#findIntersections(Ray)}
- *  */
-
 /**
  * Test program for the 1st stage
  *
