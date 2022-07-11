@@ -1,4 +1,4 @@
-package MP1;
+package MP;
 
 import geometries.Cuboid;
 import geometries.Plane;

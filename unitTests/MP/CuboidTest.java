@@ -1,7 +1,6 @@
-package MP1;
+package MP;
 
 import geometries.Cuboid;
-import lighting.DirectionalLight;
 import lighting.SpotLight;
 import org.junit.jupiter.api.Test;
 import primitives.Color;
@@ -10,13 +9,9 @@ import primitives.Vector;
 import renderer.Camera;
 import renderer.ImageWriter;
 import scene.Scene;
-import renderer.Camera;
-import renderer.ImageWriter;
 import renderer.RayTracerBasic;
-import scene.Scene;
-import static java.awt.Color.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static java.awt.Color.*;
 
 class CuboidTest {
     private Scene scene = new Scene("Test scene");
