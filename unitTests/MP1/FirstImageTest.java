@@ -78,13 +78,11 @@ public class FirstImageTest {
     public void temple3d() {
 
         /*Camera camera1 = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
-                .setVPSize(2500, 2500).setVPDistance(1000);*/
+                .setVPSize(2500, 2500).setVPDistance(1000); //front lens*/
         Camera camera1 = new Camera(new Point(-1400, 20, 800), new Vector(0.5, 0, -1), new Vector(0, 1, 0))
-                .setVPSize(2500, 2500).setVPDistance(1000);
-        /*Camera camera1 = new Camera(new Point(-1400, 20, -100), new Vector(5, 0, -1), new Vector(0, 1, 0))
-                .setVPSize(2500, 2500).setVPDistance(1000);
-        Camera camera1 = new Camera(new Point(0, 0, -2500), new Vector(0, 0, 1), new Vector(0, 1, 0))
-                .setVPSize(2500, 2500).setVPDistance(1000);*/
+                .setVPSize(2500, 2500).setVPDistance(1000); //side lens
+        /*Camera camera1 = new Camera(new Point(0, 0, -2500), new Vector(0, 0, 1), new Vector(0, 1, 0))
+                .setVPSize(2500, 2500).setVPDistance(1000); //back lens*/
 
 
         scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.01)));
