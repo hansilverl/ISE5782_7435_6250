@@ -148,6 +148,7 @@ public class Camera {
     }
 
     /**
+     * Casts a ray of beams using adaptive super sampling
      * @param j col
      * @param i row
      * @return average colour of pixel
