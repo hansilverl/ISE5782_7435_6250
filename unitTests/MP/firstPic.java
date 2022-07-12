@@ -17,7 +17,7 @@ import renderer.*;
 import scene.Scene;
 
 public class firstPic {
-    private Scene scene = new Scene("Test scene");
+    private final Scene scene = new Scene("Test scene");
 
 
     @Test

@@ -5,6 +5,7 @@ import primitives.*;
 
 /**
  * Representing a cuboid as a body of multiple rectangular polygons.
+ * We extend Geometries rather than Geometry in order to represent a list of objects
  * @author Hila & Hannah-Leah
  */
 public class Cuboid extends Geometries {

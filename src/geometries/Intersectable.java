@@ -118,7 +118,7 @@ public abstract class Intersectable {
     /**
      * class representing boundary box
      */
-    public class BoundingBox {
+    public static class BoundingBox {
         public Point minimums;  //Borders of box
         public Point maximums;  //Box borders
 
@@ -155,7 +155,7 @@ public abstract class Intersectable {
         }
         double tyMin = (box.minimums.getY() - p0.getY()) / dir.getY();
         double tyMax = (box.maximums.getY() - p0.getY()) / dir.getY();
-        if (tyMin > tyMax) {
+        if (tyMin > tyMax) {    //Swapping if the bottom is larget than the top
             double temp = tyMin;
             tyMin = tyMax;
             tyMax = temp;

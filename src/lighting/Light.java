@@ -7,7 +7,7 @@ import primitives.Color;
  * @author Hila Buznach & Hannah Silverberg
  */
 public abstract class Light {
-    private Color intensity; //intensity of the color
+    private final Color intensity; //intensity of the color
 
     /**
      * constructor

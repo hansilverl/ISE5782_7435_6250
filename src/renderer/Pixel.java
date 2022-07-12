@@ -23,8 +23,8 @@ class Pixel {
     private static boolean print = false;
     private static long printInterval = 100l;
     private static final String PRINT_FORMAT = "%5.1f%%\r";
-    private static Object mutexNext = new Object();
-    private static Object mutexPixels = new Object();
+    private static final Object mutexNext = new Object();
+    private static final Object mutexPixels = new Object();
 
     int row;
     int col;

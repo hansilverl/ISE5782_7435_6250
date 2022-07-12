@@ -11,7 +11,7 @@ import static primitives.Util.alignZero;
  * @author Hannah Silverberg & Hila Buznach
  */
 public class SpotLight extends PointLight{
-    private Vector direction; // The direction of the light
+    private final Vector direction; // The direction of the light
 
     /**
      * constructor

@@ -18,13 +18,18 @@ import static primitives.Util.alignZero;
  */
 public class RayTracerBasic extends RayTracerBase {
 
-    private static final int MAX_CALC_COLOR_LEVEL = 10; //
+    private static final int MAX_CALC_COLOR_LEVEL = 10; //of Recursion
 
-    private static final double MIN_CALC_COLOR_K = 0.001;
+    private static final double MIN_CALC_COLOR_K = 0.001; //Min calculated coefficient
 
     private static final Double3 INITIAL_K = new Double3(1.0);
 
 
+    /**
+     * Constructor
+     *
+     * @param scene to trace the ray of.
+     */
     public RayTracerBasic(Scene scene) {
         super(scene);
     }
@@ -43,11 +48,11 @@ public class RayTracerBasic extends RayTracerBase {
         Point point = gp.point;
         Ray lightRay = new Ray(point, lightDirection, n);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, lightSource.getDistance(point));
-        if (intersections != null) {
+        if (intersections != null) {    //If there's a need for shade.
             double lightDistance = lightSource.getDistance(point);
             for (GeoPoint intersection : intersections) {
                 if (alignZero(intersection.point.distance(point) - lightDistance) <= 0 && intersection.geometry.getMaterial().getKt().equals(new Double3(0))) {
-                    return false;
+                    return false;   //Point is shaded.
                 }
             }
         }
@@ -64,18 +69,18 @@ public class RayTracerBasic extends RayTracerBase {
      * @param ls in use
      * @return false if there are intersection
      */
-    protected Double3 transparency (LightSource ls, Vector l, Vector n, GeoPoint gp,double nv){
+    protected Double3 transparency(LightSource ls, Vector l, Vector n, GeoPoint gp, double nv) {
         Vector lightDirection = l.scale(-1); // from point to light source
-        Ray lightRay = new Ray(gp.point, lightDirection,n);
+        Ray lightRay = new Ray(gp.point, lightDirection, n);
         double lightDistance = ls.getDistance(gp.point);
         var intersections = scene.geometries.findGeoIntersections(lightRay);
         Double3 ktr = new Double3(1.0);
-        if (intersections == null)
+        if (intersections == null)  //If there are no intersection, no refraction or reflection is needed.
             return ktr;
         for (GeoPoint geopoint : intersections) {
-            if(alignZero(geopoint.point.distance(gp.point)-lightDistance)<=0){
-                var kt=geopoint.geometry.getMaterial().getKt();
-                ktr=kt.product(ktr);
+            if (alignZero(geopoint.point.distance(gp.point) - lightDistance) <= 0) {  //Calculating transparency for material.
+                var kt = geopoint.geometry.getMaterial().getKt();
+                ktr = kt.product(ktr);
                 if (ktr.lowerThan(MIN_CALC_COLOR_K))
                     return new Double3(0.0);
             }
@@ -113,6 +118,8 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
+     * Calculating the color of each traced point, updated to calcualte with global and local effects as well.
+     *
      * @param intersection to check
      * @param ray          intersected
      * @param level        of recursion
@@ -127,6 +134,8 @@ public class RayTracerBasic extends RayTracerBase {
 
 
     /**
+     * Calculating local effects,i.e. material's shininess, specular etc.
+     *
      * @param intersection point
      * @param ray          intersecting
      * @param k            level
@@ -160,6 +169,8 @@ public class RayTracerBasic extends RayTracerBase {
 
 
     /**
+     * Calculating global effects, i.e. refraction reflection
+     *
      * @param intersection point to check
      * @param inRay        direction of ray
      * @param level        of recursion
@@ -171,11 +182,11 @@ public class RayTracerBasic extends RayTracerBase {
         Material material = intersection.geometry.getMaterial();
         Double3 kr = material.getKr();
         Double3 kkr = k.product(kr);
-        Vector n = intersection.geometry.getNormal(intersection.point);
+        Vector n = intersection.geometry.getNormal(intersection.point); //Normal vector to the intersection point
         if (!kkr.lowerThan(MIN_CALC_COLOR_K)) {
             Ray reflectedRay = constructReflectedRay(n, intersection.point, inRay);
             GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
-            if (reflectedPoint != null) {
+            if (reflectedPoint != null) {   //Obviously don't calculate when not needed.
                 color = color.add(calcColor(reflectedPoint, reflectedRay, level - 1, kkr).scale(kr));
             }
         }
@@ -191,14 +202,30 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
     }
 
+    /**
+     * Constructing refracted ray- light "broken off" from the intersection of the ray
+     *
+     * @param n     - normal to point
+     * @param point said point
+     * @param inRay Ray to refract from
+     * @return refracted ray
+     */
     private Ray constructRefractedRay(Vector n, Point point, Ray inRay) {
         return new Ray(point, inRay.getDir(), n);
     }
 
-    //Constructing reflection
+    /**
+     * Constructing reflection - returned ray from intersection
+     *
+     * @param n     normal to point
+     * @param point said point
+     * @param inRay ray to reflect from
+     * @return reflected ray
+     */
+
     private Ray constructReflectedRay(Vector n, Point point, Ray inRay) {
         Vector v = inRay.getDir();
-        Vector r = null;
+        Vector r;
         try {
             r = v.subtract(n.scale(v.dotProduct(n)).scale(2)).normalize();
         } catch (Exception e) {
@@ -206,13 +233,15 @@ public class RayTracerBasic extends RayTracerBase {
         }
         return new Ray(point, r, n);
     }
+
     /**
      * Specular of lighting
-     * @param ks specular ratio
-     * @param l light's direction vector
-     * @param n normal vector
-     * @param v ray's direction vector
-     * @param nShininess shininess of the object
+     *
+     * @param ks             specular ratio
+     * @param l              light's direction vector
+     * @param n              normal vector
+     * @param v              ray's direction vector
+     * @param nShininess     shininess of the object
      * @param lightIntensity intensity of the light
      * @return color of specular effect
      */
@@ -224,11 +253,13 @@ public class RayTracerBasic extends RayTracerBase {
         vr = Math.pow(vr, nShininess);
         return lightIntensity.scale(ks.scale(vr));
     }
+
     /**
      * calculating diffusive of the color with the light
-     * @param kd diffusive ratio
-     * @param l light's direction vector
-     * @param n normal vector
+     *
+     * @param kd             diffusive ratio
+     * @param l              light's direction vector
+     * @param n              normal vector
      * @param lightIntensity intensity of the light
      * @return color of the diffusive effect
      */
@@ -240,6 +271,7 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     /**
+     * finding the closest intersection point
      * @param ray intersecting
      * @return closest point
      */

@@ -47,7 +47,7 @@ public class improvements {
                 .writeToImage();
     }
 
-    private Scene scene = new Scene("Test scene");
+    private final Scene scene = new Scene("Test scene");
 
     /**
      * no runtime improvements

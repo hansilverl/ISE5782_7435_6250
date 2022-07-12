@@ -5,10 +5,7 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.MissingResourceException;
-import java.util.Random;
+import java.util.*;
 
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
@@ -19,19 +16,19 @@ import static primitives.Util.isZero;
  * @author Hila Buznach & Hannah Silverberg
  */
 public class Camera {
-    private Point p0;
+    private final Point p0;
     private Vector vRight;
-    private Vector vUp;
-    private Vector vTo;
+    private final Vector vUp;
+    private final Vector vTo;
     private double height;
     private double width;
     private double distance;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
 
-    private int nSS = 4;   //number of rays in beam for supersampling
+    private final int nSS = 4;   //number of rays in beam for supersampling
 
-    private int maxLevelAdaptiveSS = 3;    //maximum level of recursion for adaptive supersampling
+    private final int maxLevelAdaptiveSS = 3;    //maximum level of recursion for adaptive supersampling
 
     private int threadsCount = 3;
 
@@ -168,6 +165,7 @@ public class Camera {
      * @param maxLevel of recursion
      * @param centerColor   of pixel
      * @return calculated color of pixels
+     * @credit Shira Cohen
      */
     private Color calcAdaptiveSuperSampling(int nX, int nY, int j, int i, int maxLevel, Color centerColor) {
         if (maxLevel <= 0) {
@@ -175,12 +173,12 @@ public class Camera {
         }
         Color color = centerColor;
         // divide pixel into 4 mini-pixels
-        Ray[] beam = new Ray[]{constructRay(2 * nX, 2 * nY, 2 * j, 2 * i),
-                constructRay(2 * nX, 2 * nY, 2 * j, 2 * i + 1),
-                constructRay(2 * nX, 2 * nY, 2 * j + 1, 2 * i),
-                constructRay(2 * nX, 2 * nY, 2 * j + 1, 2 * i + 1)};
+       LinkedList<Ray> beam = (LinkedList<Ray>) Arrays.asList(constructRay(2 * nX, 2 * nY, 2 * j, 2 * i),
+               constructRay(2 * nX, 2 * nY, 2 * j, 2 * i + 1),
+               constructRay(2 * nX, 2 * nY, 2 * j + 1, 2 * i),
+               constructRay(2 * nX, 2 * nY, 2 * j + 1, 2 * i + 1));
         for (int ray = 0; ray < 4; ray++) {
-            Color currentColor = rayTracer.traceRay(beam[ray]);
+            Color currentColor = rayTracer.traceRay(beam.get(ray));
             if (!currentColor.equals(centerColor))
                 currentColor = calcAdaptiveSuperSampling(2 * nX, 2 * nY,
                         2 * j + ray / 2, 2 * i + ray % 2, (maxLevel - 1), currentColor);
@@ -237,6 +235,7 @@ public class Camera {
     }
 
     /**
+     * Constructing Ray
      * @param Nx x value of n
      * @param Ny y value of n
      * @param j  column
@@ -253,11 +252,10 @@ public class Camera {
 
         Point intersectionPoint = pCenter;
         if (!isZero(Xj)) {
-            intersectionPoint = intersectionPoint.add(vRight.scale(Xj));
+            intersectionPoint = intersectionPoint.add(vRight.scale(Xj));    //Scaling down to Zero
         }
         if (!isZero(Yi)) {
             intersectionPoint = intersectionPoint.add(vUp.scale(Yi));
-            ;
         }
         Vector dir = intersectionPoint.subtract(p0);
         if (!isZero(dir.length())) {
@@ -392,7 +390,7 @@ public class Camera {
      */
     public Camera renderImageMultiThreading() {
         Pixel.initialize(imageWriter.getNx(), imageWriter.getNy(), 1);
-        while (threadsCount-- > 0) {
+        while (threadsCount-- > 0) {    //In our case up to 3
             new Thread(() -> {
                 for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
                     imageWriter.writePixel(pixel.col, pixel.row, castRay(pixel.col, pixel.row));

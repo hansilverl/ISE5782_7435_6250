@@ -18,7 +18,7 @@ import static java.awt.Color.*;
 
 
 public class FirstImageTest {
-    private Scene scene = new Scene("Test scene");
+    private final Scene scene = new Scene("Test scene");
 //Yellow Colour:(253,213,74)
     @Test
     public void temple() {

@@ -14,7 +14,7 @@ import renderer.RayTracerBasic;
 import static java.awt.Color.*;
 
 class CuboidTest {
-    private Scene scene = new Scene("Test scene");
+    private final Scene scene = new Scene("Test scene");
     Camera camera1 = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
             .setVPSize(250, 250).setVPDistance(1000);
 
