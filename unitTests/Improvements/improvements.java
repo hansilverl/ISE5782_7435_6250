@@ -1,10 +1,8 @@
 package Improvements;
 
-import geometries.Cylinder;
-import geometries.Plane;
-import geometries.Sphere;
-import geometries.Triangle;
+import geometries.*;
 import lighting.AmbientLight;
+import lighting.PointLight;
 import lighting.SpotLight;
 import org.junit.jupiter.api.Test;
 import primitives.*;
@@ -13,8 +11,7 @@ import renderer.ImageWriter;
 import renderer.RayTracerBasic;
 import scene.Scene;
 
-import static java.awt.Color.BLUE;
-import static java.awt.Color.WHITE;
+import static java.awt.Color.*;
 
 /**
  * Class to showcase improvements made in MP2 & 1
@@ -169,6 +166,99 @@ public class improvements {
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .renderImageAdaptiveSuperSampling() //
                 .writeToImage();
+    }
+
+    /**
+     * Test with no BVH Improvements (similar to no improvements test)
+     */
+    @Test
+    public void noBVH() {
+        Camera camera1 = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
+                .setVPSize(2500, 2500).setVPDistance(1000); //front lens
+        /*Camera camera1 = new Camera(new Point(-1400, 20, 800), new Vector(0.5, 0, -1), new Vector(0, 1, 0))
+                .setVPSize(2500, 2500).setVPDistance(1000); //side lens
+        Camera camera1 = new Camera(new Point(0, 0, -2500), new Vector(0, 0, 1), new Vector(0, 1, 0))
+                .setVPSize(2500, 2500).setVPDistance(1000); //back lens
+        Camera camera1 = new Camera(new Point(-1300, -70, 900), new Vector(0.68, 0, -1), new Vector(0, 1, 0))
+                .setVPSize(2500, 2500).setVPDistance(1000);*/
+
+
+
+        scene.setAmbientLight(new AmbientLight(new Color(BLACK), 100));
+        Point p1 = new Point(-775,1060,10);
+        Point p2 = new Point(-795,1060,10);
+        scene.lights.add(new SpotLight(new Color(950, 150, 150), p1, p2.subtract(p1)).setkC(1000).setKl(0.0001).setKq(0.00005));
+        scene.lights.add( //
+                new SpotLight(new Color(YELLOW), new Point(1000, 1000, 1000), new Vector(1, -1, -4)) //
+                        .setKl(4E-4).setKq(2E-5).setkC(1000));
+
+        scene.geometries.add(
+
+                //floor
+                new Plane(new Point(-760,-1066,22),new Point(-671,-1066,-1322),new Point(760,-1066,-300))//
+                        .setEmission(new Color(86, 86, 86)).setMaterial(new Material().setKr(0.2)),
+
+                //Main rectangle - front - behind bottom - behind top - front frame - behind frame
+                new Cuboid(new Point(-760, 600, 0),1520,1600, 300, new Color(237, 242, 252),0,0.03,10),
+                new Cuboid(new Point(-660, 0, -300),1320,1000, 1500, new Color(237, 242, 252)),
+                new Cuboid(new Point(-600, 600, -300),1200,1000, 1400, new Color(237, 242, 252)),
+                new Cuboid(new Point(-771, -970, 22),1542,96, 344, new Color(220, 226, 238),0,0.07,100),
+                new Cuboid(new Point(-671, -970, -278),1342,96, 1544, new Color(220, 226, 238),0,0.07),
+
+                //small door
+                new Cuboid(new Point(-235, -290,1),470,710,5,new Color(123,123,123)));
+            scene.geometries.setBvhIsOn(false);
+
+        camera1.setRayTracer(new RayTracerBasic(scene)).setImageWriter(new ImageWriter("noBVH", 2010, 2010))
+                .renderImage()
+                .writeToImage();
+    }
+
+    /**
+     * rendering with bvh
+     */
+    @Test
+    public void BVH() {
+        Camera camera1 = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0))
+                .setVPSize(2500, 2500).setVPDistance(1000); //front lens
+        /*Camera camera1 = new Camera(new Point(-1400, 20, 800), new Vector(0.5, 0, -1), new Vector(0, 1, 0))
+                .setVPSize(2500, 2500).setVPDistance(1000); //side lens
+        Camera camera1 = new Camera(new Point(0, 0, -2500), new Vector(0, 0, 1), new Vector(0, 1, 0))
+                .setVPSize(2500, 2500).setVPDistance(1000); //back lens
+        Camera camera1 = new Camera(new Point(-1300, -70, 900), new Vector(0.68, 0, -1), new Vector(0, 1, 0))
+                .setVPSize(2500, 2500).setVPDistance(1000);*/
+
+
+
+        scene.setAmbientLight(new AmbientLight(new Color(BLACK), 100));
+        Point p1 = new Point(-775,1060,10);
+        Point p2 = new Point(-795,1060,10);
+        scene.lights.add(new SpotLight(new Color(950, 150, 150), p1, p2.subtract(p1)).setkC(1000).setKl(0.0001).setKq(0.00005));
+        scene.lights.add( //
+                new SpotLight(new Color(YELLOW), new Point(1000, 1000, 1000), new Vector(1, -1, -4)) //
+                        .setKl(4E-4).setKq(2E-5).setkC(1000));
+
+        scene.geometries.add(
+
+                //floor
+                new Plane(new Point(-760,-1066,22),new Point(-671,-1066,-1322),new Point(760,-1066,-300))//
+                        .setEmission(new Color(86, 86, 86)).setMaterial(new Material().setKr(0.2)),
+
+                //Main rectangle - front - behind bottom - behind top - front frame - behind frame
+                new Cuboid(new Point(-760, 600, 0),1520,1600, 300, new Color(237, 242, 252),0,0.03,10),
+                new Cuboid(new Point(-660, 0, -300),1320,1000, 1500, new Color(237, 242, 252)),
+                new Cuboid(new Point(-600, 600, -300),1200,1000, 1400, new Color(237, 242, 252)),
+                new Cuboid(new Point(-771, -970, 22),1542,96, 344, new Color(220, 226, 238),0,0.07,100),
+                new Cuboid(new Point(-671, -970, -278),1342,96, 1544, new Color(220, 226, 238),0,0.07),
+
+                //small door
+                new Cuboid(new Point(-235, -290,1),470,710,5,new Color(123,123,123)));
+        scene.geometries.setBvhIsOn(true);
+
+        camera1.setRayTracer(new RayTracerBasic(scene)).setImageWriter(new ImageWriter("BVH", 2010, 2010))
+                .renderImage()
+                .writeToImage();
+
     }
 
     /**
